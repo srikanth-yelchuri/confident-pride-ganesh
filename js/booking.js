@@ -179,6 +179,7 @@ document.getElementById('submitBtn').addEventListener('click', async ()=>{
     const res = await fetch(API_URL, {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
+      mode: 'no-cors',  // disables preflight
       body: JSON.stringify({name, phone, block, flat, slot})
     });
     const result = await res.json();
