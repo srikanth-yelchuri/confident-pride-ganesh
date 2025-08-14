@@ -4,7 +4,7 @@ export async function handler(event, context) {
   try {
     const body = JSON.parse(event.body || '{}');
 
-    const res = await fetch('https://script.google.com/macros/s/AKfycbyhit9P3BX_6XRUPvdM4waE12RUUz0uP8-rMgAbw8ThtYnUqGrY_1lz-NRHNIs0NFk/exec', {
+    const res = await fetch('https://script.google.com/macros/s/AKfycbxoBP0THGtnbbSGpEIp-0S4Y7UF1strZxNbo-T7loZXZ2LBVsgRge8Xw8AKOusHSEpr/exec', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
