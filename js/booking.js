@@ -182,7 +182,16 @@ document.getElementById('submitBtn').addEventListener('click', async ()=>{
       mode: 'no-cors',  // disables preflight
       body: JSON.stringify({name, phone, block, flat, slot})
     });
-    const result = await res.json();
+    // check if response is ok
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const text = await res.text(); // get raw response
+    let result = {};
+    try {
+      result = JSON.parse(text); // parse safely
+    } catch(e) {
+      throw new Error(`Invalid JSON response: ${text}`);
+    }
+
     setLoading(false);
     if(result.success){
       showPopup(result.message, true);
