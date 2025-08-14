@@ -3,7 +3,7 @@ const USE_NETLIFY_FUNCTIONS = true; // true => use proxy (Option B), false => fe
 
 // A) If fetching straight from GAS (CORS must be allowed there)
 const GAS_DIRECT = {
-  pooja: "https://script.google.com/macros/s/AKfycbzeGQ6am3Pklzh2QcYHrazwLD2UjkqMbt1DC8VnCWEvBp2ogH2vqVzpMbJhfkYsiVMF/exec",
+  pooja: "https://script.google.com/macros/s/AKfycbx36gXaQ65PbWHiGf51lBg8CHeZNcySvV-kU__S0f2oDMlZA4RryM2OFMgiI2BV9OWb/exec",
   daily: "https://script.google.com/macros/s/AKfycbxdapuDETHHq2nIaOlgN7nVblJg8B69m-w7qpMgLFENOCUZWkHHfiNU--rT-TUwriUBzA/exec?date=2025-09-03"
 };
 
