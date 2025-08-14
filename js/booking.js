@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbyhit9P3BX_6XRUPvdM4waE12RUUz0uP8-rMgAbw8ThtYnUqGrY_1lz-NRHNIs0NFk/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbymxkRK7Eqw_XFghOPRmfHM3MHhEaLh1SLCu6RRoVye1irhZoghLkm7Uc2qzZsRcU7L/exec";
 
 let blockFlatMap = {};
 let availability = {};
