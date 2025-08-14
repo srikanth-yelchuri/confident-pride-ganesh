@@ -3,7 +3,7 @@ const urlParams = new URLSearchParams(window.location.search);
 //const selectedDate = urlParams.get("date") || null;
 const selectedDate = 2025-09-03;
 // Replace with your deployed Google Script Web App URL
-const API_URL = "https://script.google.com/macros/s/AKfycbxkmG4_0tXbgoNyDGzhsPWIf7Q52kRrm_hjYhsEzdkBFh8cVUaD5A6PxO3cbZBRjh0g/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbyGO0OQMjTush-jko0xE7ka4CAYHcayNqoYVe-K_l2z-kbQQ4t6cFqpZhnhNcZBpWEk/exec";
 
 async function loadSchedule() {
   try {
