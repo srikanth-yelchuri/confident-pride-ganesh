@@ -1,74 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ganesh Chaturthi Utsav</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pooja Booking Portal</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
-      background: url('ganesh-bg.jpg') no-repeat center center fixed;
+      background: url('https://i.postimg.cc/cLnkTkCq/Ganesh-banner.jpg') no-repeat center center fixed;
       background-size: cover;
-      color: white;
-      text-align: center;
+      color: #fff;
     }
     header {
-      background: rgba(0,0,0,0.7);
-      padding: 20px;
-      font-size: 24px;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5em;
     }
     nav {
-      background: rgba(0,0,0,0.5);
-      padding: 10px;
+      display: flex;
+      gap: 10px;
     }
     nav button {
-      background: gold;
+      background: #ffcc00;
       border: none;
-      padding: 10px 20px;
-      margin: 5px;
-      font-size: 16px;
-      cursor: pointer;
+      padding: 8px 14px;
       border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: bold;
     }
-    #content {
-      background: rgba(255, 255, 255, 0.85);
-      color: black;
-      margin: 20px;
-      padding: 20px;
-      border-radius: 10px;
-      min-height: 400px;
+    nav button:hover {
+      background: #ffdd33;
+    }
+    iframe {
+      width: 100%;
+      height: calc(100vh - 60px);
+      border: none;
+      background: white;
     }
   </style>
 </head>
 <body>
-  <header>Ganesh Chaturthi Utsav</header>
-  <nav>
-    <button onclick="loadApp('slots')">Slot Booking</button>
-    <button onclick="loadApp('puja')">Puja Registration</button>
-  </nav>
-  <div id="content">Welcome! Please select a menu option.</div>
+  <header>
+    <h1>Ganesh Pooja Portal</h1>
+    <nav>
+      <button onclick="loadPage('https://script.google.com/macros/s/AKfycbyZVd0mKmluCkZcCJxsFVakcjnXybf4bA_Qj9QoYZu5_y0-ZfplZ6g2YLfdbqIJrK0/exec')">Pooja Booking</button>
+      <button onclick="loadPage('https://script.google.com/macros/s/AKfycbwwmuwT09O3DGHoMr0VsGGGmY2eEWH7Ojt375R6YzLw_JMykunCP5FdPkZ3Q7QfkQXTjg/exec?date=2025-09-03')">Daily Activities</button>
+    </nav>
+  </header>
+
+  <iframe id="contentFrame" src=""></iframe>
 
   <script>
-    const apps = {
-      slots: "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLhPW0NZFdjj0FGkqeCeQKgq2dcSspAHwYraNKTpNEL2c1qPmxV-Uky8KxyMxFJkuPCdfErOYtBwDEKKrwAr_1DYRQB0l7SdXmAi1yD8Auap-bEgEdWpzbXYAzGLcwuKjvT6V7oFc2eUfoUIPVs_XsibfwLH5vV5WzYUMzoXxddfO3ob-4cjEXZW8OycbzMSmH1Qc6CMdGJeeabGGDBeZEK_xRWn55Hj__PMESDPJ8YoAV0-PTkvEJ1oOh6pPuYehG8yApmEFueb9cHUEVKPw5tTsT7Zsw&lib=MdRnsJ995lTX7OAic2vfdVHV8gtUCato_", // First web app URL
-      puja: "https://script.googleusercontent.com/macros/echo?user_content_key=YYYY&lib=YYYY"  // Second web app URL
-    };
-
-    function loadApp(type) {
-      const url = apps[type];
-      document.getElementById("content").innerHTML = "Loading...";
-      fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          document.getElementById("content").innerHTML = html;
-        })
-        .catch(err => {
-          document.getElementById("content").innerHTML = "Error loading content.";
-          console.error(err);
-        });
+    function loadPage(url) {
+      document.getElementById("contentFrame").src = url;
     }
+
+    // Load first page by default
+    loadPage("https://script.google.com/macros/s/WEB_APP_1/exec");
   </script>
 </body>
 </html>
