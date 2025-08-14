@@ -1,41 +1,30 @@
-// functions/proxy.js
-import fetch from "node-fetch";
-
-export async function handler(event) {
+// This is a Netlify serverless function
+export async function handler(event, context) {
   const targetUrl = event.queryStringParameters.url;
-
   if (!targetUrl) {
     return {
       statusCode: 400,
-      body: "Missing 'url' parameter",
+      body: 'Missing "url" query parameter'
     };
   }
 
   try {
-    const response = await fetch(targetUrl);
-    const body = await response.text();
+    const res = await fetch(targetUrl);
+    let body = await res.text();
 
-    // Clone all headers except X-Frame-Options and CSP
-    const headers = {};
-    response.headers.forEach((value, key) => {
-      if (!["x-frame-options", "content-security-policy"].includes(key.toLowerCase())) {
-        headers[key] = value;
-      }
-    });
-
+    // Return HTML content without X-Frame-Options
     return {
       statusCode: 200,
       headers: {
-        ...headers,
-        "content-type": response.headers.get("content-type") || "text/html",
-        "cache-control": "no-cache",
+        'Content-Type': 'text/html',
+        // No X-Frame-Options header here
       },
-      body: body,
+      body: body
     };
   } catch (err) {
     return {
       statusCode: 500,
-      body: `Error fetching URL: ${err.message}`,
+      body: 'Error fetching target URL: ' + err.message
     };
   }
 }
