@@ -2,44 +2,84 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Confident Pride Ganesh Utsavam - 2025</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('ganesh-bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      text-align: center;
+    }
+    header {
+      background: rgba(0,0,0,0.6);
+      padding: 20px;
+      font-size: 1.8em;
+      font-weight: bold;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background: rgba(0,0,0,0.8);
+    }
+    nav button {
+      background: none;
+      color: white;
+      border: none;
+      padding: 15px 20px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    nav button:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    #content {
+      background: rgba(0,0,0,0.5);
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 900px;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 <body>
-  <header class="hero">
-    <div class="hero__overlay"></div>
-    <div class="hero__content">
-      <h1>Confident Pride Ganesh Utsavam <span class="year">2025</span></h1>
-      <p class="tagline">🙏 Celebrating devotion, culture, and community</p>
-      <nav class="menu">
-        <button data-page="pooja" class="menu__item is-active">Pooja Slot</button>
-        <button data-page="daily" class="menu__item">Daily Activities</button>
-        <button data-page="games" class="menu__item">Games</button>
-        <button data-page="activities" class="menu__item">Activities</button>
-      </nav>
-    </div>
-  </header>
+  <header>Confident Pride Ganesh Utsavam - 2025</header>
+  <nav>
+    <button onclick="loadShlokas()">Home</button>
+    <button onclick="loadContent(slotBookingURL)">Pooja Slot</button>
+    <button onclick="loadContent(dailyActivitiesURL)">Daily Activities</button>
+    <button onclick="alert('Games section coming soon!')">Games</button>
+    <button onclick="alert('Activities section coming soon!')">Activities</button>
+  </nav>
+  <div id="content">
+    <h2>Ganesh Shlokas</h2>
+    <p>Vakratunda Mahakaya Suryakoti Samaprabha<br>
+    Nirvighnam Kuru Me Deva Sarva-Kaaryeshu Sarvada</p>
+  </div>
 
-  <main class="container">
-    <section id="content" class="card">
-      <h2 class="card__title">Ganesh Ślokas</h2>
-      <div class="sloka">
-        <p>वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ ।<br/>
-        निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा ॥</p>
-        <p class="sloka__en">Vakratunda Mahakaya Suryakoti Samaprabha, Nirvighnam Kuru Me Deva, Sarva-Kaaryeshu Sarvada.</p>
-      </div>
-    </section>
-  </main>
+  <script>
+    const slotBookingURL = "https://script.google.com/macros/s/AKfycbxIej0E3vrhwLlOWzXsGJ87r9_y-hrQvyA3AJe9JgarWTmX1liLoXpqi7hcw5eF6hYY/exec";
+    const dailyActivitiesURL = "https://script.google.com/macros/s/AKfycbwwmuwT09O3DGHoMr0VsGGGmY2eEWH7Ojt375R6YzLw_JMykunCP5FdPkZ3Q7QfkQXTjg/exec?date=2025-09-03";
 
-  <footer class="footer">
-    <span>© 2025 Confident Pride Ganesh Utsavam</span>
-  </footer>
+    function loadShlokas() {
+      document.getElementById("content").innerHTML = `
+        <h2>Ganesh Shlokas</h2>
+        <p>Vakratunda Mahakaya Suryakoti Samaprabha<br>
+        Nirvighnam Kuru Me Deva Sarva-Kaaryeshu Sarvada</p>
+      `;
+    }
 
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-
-  <script src="script.js" defer></script>
+    async function loadContent(url) {
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        document.getElementById("content").innerHTML = data.html;
+      } catch (error) {
+        document.getElementById("content").innerHTML = "<p>Failed to load content.</p>";
+      }
+    }
+  </script>
 </body>
 </html>
