@@ -12,6 +12,12 @@ document.getElementById('btnSchedule').addEventListener('click', async () => {
   const res = await fetch('dailyschedule.html');
   const html = await res.text();
   middle.innerHTML = html;
-  // Initialize schedule JS after loading
-  if (typeof initDailySchedule === 'function') initDailySchedule();
+
+  // Dynamically load the JS file
+  const script = document.createElement('script');
+  script.src = 'dailyschedule.js';
+  script.onload = () => {
+    if (typeof initDailySchedule === 'function') initDailySchedule();
+  };
+  document.body.appendChild(script);
 });
