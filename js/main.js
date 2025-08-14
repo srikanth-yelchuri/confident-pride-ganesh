@@ -15,7 +15,7 @@ document.getElementById('btnSchedule').addEventListener('click', async () => {
 
   // Dynamically load the JS file
   const script = document.createElement('script');
-  script.src = 'dailyschedule.js';
+  script.src = 'js/dailyschedule.js';
   script.onload = () => {
     if (typeof initDailySchedule === 'function') initDailySchedule();
   };
