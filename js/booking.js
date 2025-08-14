@@ -176,7 +176,7 @@ document.getElementById('submitBtn').addEventListener('click', async ()=>{
   setLoading(true);
   const slot = `${dateVal}, ${timeVal}`;
   try {
-    const res = await fetch('/netlify/functions/submitBooking', {
+    const res = await fetch('/.netlify/functions/submitBooking', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       mode: 'no-cors',  // disables preflight
