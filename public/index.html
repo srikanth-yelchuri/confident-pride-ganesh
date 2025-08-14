@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>SPA Loader</title>
+  <style>
+    iframe {
+      width: 100%;
+      height: 90vh;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>My Single Page Loader</h1>
+  <iframe id="frame"></iframe>
+
+  <button onclick="loadApp('https://script.google.com/macros/s/AKfycbyZVd0mKmluCkZcCJxsFVakcjnXybf4bA_Qj9QoYZu5_y0-ZfplZ6g2YLfdbqIJrK0/exec')">Pooja Booking</button>
+  <button onclick="loadApp('https://script.google.com/macros/s/AKfycbwwmuwT09O3DGHoMr0VsGGGmY2eEWH7Ojt375R6YzLw_JMykunCP5FdPkZ3Q7QfkQXTjg/exec?date=2025-09-03')">Daily Activities</button>
+
+  <script>
+    function loadApp(url) {
+      document.getElementById('frame').src = `/proxy?url=${encodeURIComponent(url)}`;
+    }
+  </script>
+</body>
+</html>
