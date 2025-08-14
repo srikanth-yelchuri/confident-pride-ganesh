@@ -1,4 +1,7 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbxoBP0THGtnbbSGpEIp-0S4Y7UF1strZxNbo-T7loZXZ2LBVsgRge8Xw8AKOusHSEpr/exec";
+async function initBooking() {
+  const middle = document.getElementById('middleContent');
+
+  const API_URL = "https://script.google.com/macros/s/AKfycbxoBP0THGtnbbSGpEIp-0S4Y7UF1strZxNbo-T7loZXZ2LBVsgRge8Xw8AKOusHSEpr/exec";
 
 let blockFlatMap = {};
 let availability = {};
@@ -214,3 +217,5 @@ setInterval(loadSlots, 60000);
 // Initialize
 loadBlockFlatMapping();
 loadSlots();
+
+}
