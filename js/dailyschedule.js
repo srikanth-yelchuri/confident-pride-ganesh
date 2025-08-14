@@ -62,6 +62,6 @@ function renderSchedule(data) {
   music.play().catch(e => console.log("Autoplay blocked:", e));
 }
 
-document.addEventListener("DOMContentLoaded", loadSchedule);
+
 
 }
