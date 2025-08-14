@@ -1,6 +1,7 @@
 import fetch from 'node-fetch';
 
-export async function handler(event, context) {
+exports.handler = async function(event, context) {
+ 
   try {
     const body = JSON.parse(event.body || '{}');
 
