@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Pooja Booking</title>
+
+  <!-- Flatpickr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+  <link rel="stylesheet" href="booking.css"> <!-- Optional: If you want CSS in separate file -->
+</head>
+<body>
+  <div class="form-container" aria-live="polite" aria-atomic="true" aria-relevant="additions">
+    <h2>Confident Pride - Ganapathi Pooja 11 Days Slots</h2>
+    <div class="info-text">Please provide all the details</div>
+
+    <form id="bookingForm" autocomplete="off" aria-describedby="formInstructions">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" type="text" autocomplete="name" autocorrect="off" autocapitalize="words" aria-required="true"/>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Mobile</label>
+        <input id="phone" type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="10" aria-required="true" placeholder="10-digit mobile number"/>
+      </div>
+
+      <div class="form-group">
+        <label for="block">Block</label>
+        <select id="block" aria-required="true" aria-describedby="blockHelp">
+          <option value="">-- Select Block --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="flat">Flat</label>
+        <select id="flat" aria-required="true" aria-describedby="flatHelp" disabled>
+          <option value="">-- Select Flat --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="eventDate">Date</label>
+        <input type="text" id="eventDate" aria-required="true" readonly disabled placeholder="Select Date"/>
+      </div>
+
+      <div class="form-group">
+        <label>Time</label>
+        <div class="time-options" aria-required="true" id="timeSlotContainer" role="radiogroup" aria-label="Select time slot">
+          <label><input type="radio" name="slotTime" value="Morning" disabled /> Morning</label>
+          <label><input type="radio" name="slotTime" value="Evening" disabled /> Evening</label>
+        </div>
+      </div>
+
+      <div id="bookingStatus" role="status" aria-live="polite" aria-atomic="true"></div>
+
+      <div class="actions">
+        <button type="button" id="submitBtn" class="btn btn-primary" disabled>Book Slot</button>
+        <button type="button" id="refreshBtn" class="btn btn-secondary">Refresh Slots</button>
+      </div>
+    </form>
+
+    <div id="loadingSpinner" role="alert" aria-live="assertive" aria-label="Loading"></div>
+  </div>
+
+  <div id="popupOverlay" role="dialog" aria-modal="true" aria-labelledby="popupMessage" tabindex="-1">
+    <div id="popup" tabindex="0">
+      <div id="popupMessage"></div>
+      <button id="popupCloseBtn" aria-label="Close popup">Close</button>
+    </div>
+  </div>
+
+  <audio id="bgMusic" autoplay muted loop>
+    <source src="https://docs.google.com/uc?export=download&id=1PSwHcyA7lLX0xOqIfylXYe6ol3j1LEct" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Flatpickr JS -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <!-- Booking JS -->
+  <script src="booking.js"></script>
+</body>
+</html>
