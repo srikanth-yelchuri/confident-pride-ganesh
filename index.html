@@ -1,70 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pooja Booking Portal</title>
+  <title>SPA Loader</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: url('https://i.postimg.cc/cLnkTkCq/Ganesh-banner.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #fff;
-    }
-    header {
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 10px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 1.5em;
-    }
-    nav {
-      display: flex;
-      gap: 10px;
-    }
-    nav button {
-      background: #ffcc00;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1em;
-      font-weight: bold;
-    }
-    nav button:hover {
-      background: #ffdd33;
-    }
     iframe {
       width: 100%;
-      height: calc(100vh - 60px);
+      height: 90vh;
       border: none;
-      background: white;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Ganesh Pooja Portal</h1>
-    <nav>
-      <button onclick="loadPage('https://script.google.com/macros/s/AKfycbyZVd0mKmluCkZcCJxsFVakcjnXybf4bA_Qj9QoYZu5_y0-ZfplZ6g2YLfdbqIJrK0/exec')">Pooja Booking</button>
-      <button onclick="loadPage('https://script.google.com/macros/s/AKfycbwwmuwT09O3DGHoMr0VsGGGmY2eEWH7Ojt375R6YzLw_JMykunCP5FdPkZ3Q7QfkQXTjg/exec?date=2025-09-03')">Daily Activities</button>
-    </nav>
-  </header>
+  <h1>My Single Page Loader</h1>
+  <iframe id="frame"></iframe>
 
-  <iframe id="contentFrame" src=""></iframe>
+  <button onclick="loadApp('https://script.google.com/macros/s/AKfycbyZVd0mKmluCkZcCJxsFVakcjnXybf4bA_Qj9QoYZu5_y0-ZfplZ6g2YLfdbqIJrK0/exec')">Pooja Booking</button>
+  <button onclick="loadApp('https://script.google.com/macros/s/AKfycbwwmuwT09O3DGHoMr0VsGGGmY2eEWH7Ojt375R6YzLw_JMykunCP5FdPkZ3Q7QfkQXTjg/exec?date=2025-09-03')">Daily Activities</button>
 
   <script>
-    function loadPage(url) {
-      document.getElementById("contentFrame").src = url;
+    function loadApp(url) {
+      document.getElementById('frame').src = `/proxy?url=${encodeURIComponent(url)}`;
     }
-
-    // Load first page by default
-    loadPage("https://script.google.com/macros/s/WEB_APP_1/exec");
   </script>
 </body>
 </html>
