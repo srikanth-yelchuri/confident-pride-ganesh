@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbwwmuwT09O3DGHoMr0VsGGGmY2eEWH7Ojt375R6YzLw_JMykunCP5FdPkZ3Q7QfkQXTjg/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbxoBP0THGtnbbSGpEIp-0S4Y7UF1strZxNbo-T7loZXZ2LBVsgRge8Xw8AKOusHSEpr/exec";
 
 async function initDailySchedule(selectedDate = "2025-09-03") {
   const container = document.getElementById('scheduleContent');
