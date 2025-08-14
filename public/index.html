@@ -1,27 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>SPA Loader</title>
+  <title>Pooja Management Portal</title>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 10px;
+      text-align: center;
+    }
+    h1 {
+      color: #444;
+    }
+    .btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .btn:hover {
+      background-color: #45a049;
+    }
     iframe {
       width: 100%;
-      height: 90vh;
+      height: 85vh;
       border: none;
+      margin-top: 15px;
+      background-color: white;
     }
   </style>
 </head>
 <body>
-  <h1>My Single Page Loader</h1>
-  <iframe id="frame"></iframe>
 
-  <button onclick="loadApp('https://script.google.com/macros/s/AKfycbyZVd0mKmluCkZcCJxsFVakcjnXybf4bA_Qj9QoYZu5_y0-ZfplZ6g2YLfdbqIJrK0/exec')">Pooja Booking</button>
-  <button onclick="loadApp('https://script.google.com/macros/s/AKfycbwwmuwT09O3DGHoMr0VsGGGmY2eEWH7Ojt375R6YzLw_JMykunCP5FdPkZ3Q7QfkQXTjg/exec?date=2025-09-03')">Daily Activities</button>
+  <h1>Pooja Management Portal</h1>
+
+  <!-- Buttons to load different pages -->
+  <button class="btn" onclick="loadApp('https://script.google.com/macros/s/AKfycbyZVd0mKmluCkZcCJxsFVakcjnXybf4bA_Qj9QoYZu5_y0-ZfplZ6g2YLfdbqIJrK0/exec')">📅 Pooja Booking</button>
+  <button class="btn" onclick="loadApp('https://script.google.com/macros/s/AKfycbwwmuwT09O3DGHoMr0VsGGGmY2eEWH7Ojt375R6YzLw_JMykunCP5FdPkZ3Q7QfkQXTjg/exec?date=2025-09-03')">📋 Daily Activities</button>
+ 
+  <!-- Iframe to load the selected page -->
+  <iframe id="frame"></iframe>
 
   <script>
     function loadApp(url) {
+      // Use the proxy so X-Frame-Options is stripped
       document.getElementById('frame').src = `/proxy?url=${encodeURIComponent(url)}`;
     }
   </script>
+
 </body>
 </html>
