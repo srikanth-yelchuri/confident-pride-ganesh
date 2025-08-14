@@ -5,15 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Confident Pride - Ganapathi Utsvam 2025</title>
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/booking.css"> 
+  <link rel="stylesheet" href="css/dailyschedule.css">
   <!-- Flatpickr CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-  <link rel="stylesheet" href="css/booking.css"> <!-- Optional: If you want CSS in separate file -->
-
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <script src="js/booking.js" defer></script>
-  <script src="js/dailyschedule.js"></script>
-
-
 </head>
 <body>
   <!-- Top Banner -->
@@ -35,29 +30,10 @@
     <p>&copy; Confident Pride</p>
   </footer>
 
-  <script>
-    async function loadContent(url) {
-      try {
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(`Failed to load ${url}`);
-        const html = await res.text();
-        document.getElementById('middleContent').innerHTML = html;
-
-        // Optionally, execute scripts in the loaded HTML
-        const scripts = document.getElementById('middleContent').querySelectorAll('script');
-        scripts.forEach(oldScript => {
-          const newScript = document.createElement('script');
-          newScript.text = oldScript.textContent;
-          document.getElementById('middleContent').appendChild(newScript);
-        });
-      } catch (err) {
-        console.error(err);
-        document.getElementById('middleContent').innerHTML = "<p class='no-data'>Failed to load content.</p>";
-      }
-    }
-
-    document.getElementById('btnBooking').addEventListener('click', () => loadContent('booking.html'));
-    document.getElementById('btnSchedule').addEventListener('click', () => loadContent('dailyschedule.html'));
-  </script>
+  <!-- Include JS files -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="js/booking.js"></script>
+  <script src="js/dailyschedule.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
