@@ -7,7 +7,7 @@ const API_URL = "https://script.google.com/macros/s/AKfycbwwmuwT09O3DGHoMr0VsGGG
 
 async function loadSchedule() {
   try {
-    const res = await fetch(`${API_URL}?date=${encodeURIComponent(selectedDate)}`);
+    const res = await fetch(`${API_URL}?date=2025-09-03`);
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     
     const data = await res.json();
