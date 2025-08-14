@@ -1,6 +1,6 @@
 // Netlify Node 18+ has global fetch
 exports.handler = async (event, context) => {
-  const GAS_URL = "https://script.google.com/macros/s/AKfycbzeGQ6am3Pklzh2QcYHrazwLD2UjkqMbt1DC8VnCWEvBp2ogH2vqVzpMbJhfkYsiVMF/exec";
+  const GAS_URL = "https://script.google.com/macros/s/AKfycbx36gXaQ65PbWHiGf51lBg8CHeZNcySvV-kU__S0f2oDMlZA4RryM2OFMgiI2BV9OWb/exec";
 
   try {
     const res = await fetch(GAS_URL, { method: "GET" });
