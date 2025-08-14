@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Confident Pride - Ganapathi Utsvam 2025</title>
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="main.css">
 </head>
 <body>
   <!-- Top Banner -->
   <header class="banner top-banner">
     <h1>Confident Pride - Ganapathi Utsvam 2025</h1>
     <div class="buttons">
-      <button onclick="location.href='booking.html'">Pooja Slot</button>
-      <button onclick="location.href='dailyschedule.html'">Daily Schedule</button>
+      <button id="btnBooking">Pooja Slot</button>
+      <button id="btnSchedule">Daily Schedule</button>
     </div>
   </header>
 
-  <!-- Body / background -->
-  <main class="content-body">
+  <!-- Middle Content -->
+  <main id="middleContent" class="content-body">
     <p class="welcome-text">Welcome! Click a button above to view Pooja Slots or Daily Schedule</p>
   </main>
 
@@ -25,5 +25,30 @@
   <footer class="banner bottom-banner">
     <p>&copy; Confident Pride</p>
   </footer>
+
+  <script>
+    async function loadContent(url) {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`Failed to load ${url}`);
+        const html = await res.text();
+        document.getElementById('middleContent').innerHTML = html;
+
+        // Optionally, execute scripts in the loaded HTML
+        const scripts = document.getElementById('middleContent').querySelectorAll('script');
+        scripts.forEach(oldScript => {
+          const newScript = document.createElement('script');
+          newScript.text = oldScript.textContent;
+          document.getElementById('middleContent').appendChild(newScript);
+        });
+      } catch (err) {
+        console.error(err);
+        document.getElementById('middleContent').innerHTML = "<p class='no-data'>Failed to load content.</p>";
+      }
+    }
+
+    document.getElementById('btnBooking').addEventListener('click', () => loadContent('booking.html'));
+    document.getElementById('btnSchedule').addEventListener('click', () => loadContent('dailyschedule.html'));
+  </script>
 </body>
 </html>
