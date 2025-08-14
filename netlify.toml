@@ -1,3 +1,3 @@
 [build]
-  publish = "dist"   # or your build folder
+  publish = "."                 # <-- current folder (where index.html is)
   functions = "netlify/functions"
