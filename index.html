@@ -1,84 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Confident Pride Ganesh Utsavam - 2025</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ganesh Chaturthi Utsav</title>
   <style>
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
       background: url('ganesh-bg.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
       text-align: center;
     }
     header {
-      background: rgba(0,0,0,0.6);
+      background: rgba(0,0,0,0.7);
       padding: 20px;
-      font-size: 1.8em;
-      font-weight: bold;
+      font-size: 24px;
     }
     nav {
-      display: flex;
-      justify-content: center;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.5);
+      padding: 10px;
     }
     nav button {
-      background: none;
-      color: white;
+      background: gold;
       border: none;
-      padding: 15px 20px;
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
       cursor: pointer;
-      font-size: 1em;
-    }
-    nav button:hover {
-      background: rgba(255,255,255,0.2);
+      border-radius: 5px;
     }
     #content {
-      background: rgba(0,0,0,0.5);
-      margin: 20px auto;
+      background: rgba(255, 255, 255, 0.85);
+      color: black;
+      margin: 20px;
       padding: 20px;
-      max-width: 900px;
       border-radius: 10px;
+      min-height: 400px;
     }
   </style>
 </head>
 <body>
-  <header>Confident Pride Ganesh Utsavam - 2025</header>
+  <header>Ganesh Chaturthi Utsav</header>
   <nav>
-    <button onclick="loadShlokas()">Home</button>
-    <button onclick="loadContent(slotBookingURL)">Pooja Slot</button>
-    <button onclick="loadContent(dailyActivitiesURL)">Daily Activities</button>
-    <button onclick="alert('Games section coming soon!')">Games</button>
-    <button onclick="alert('Activities section coming soon!')">Activities</button>
+    <button onclick="loadApp('slots')">Slot Booking</button>
+    <button onclick="loadApp('puja')">Puja Registration</button>
   </nav>
-  <div id="content">
-    <h2>Ganesh Shlokas</h2>
-    <p>Vakratunda Mahakaya Suryakoti Samaprabha<br>
-    Nirvighnam Kuru Me Deva Sarva-Kaaryeshu Sarvada</p>
-  </div>
+  <div id="content">Welcome! Please select a menu option.</div>
 
   <script>
-    const slotBookingURL = "https://script.google.com/macros/s/AKfycbxIej0E3vrhwLlOWzXsGJ87r9_y-hrQvyA3AJe9JgarWTmX1liLoXpqi7hcw5eF6hYY/exec";
-    const dailyActivitiesURL = "https://script.google.com/macros/s/AKfycbwwmuwT09O3DGHoMr0VsGGGmY2eEWH7Ojt375R6YzLw_JMykunCP5FdPkZ3Q7QfkQXTjg/exec?date=2025-09-03";
+    const apps = {
+      slots: "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLhujxQ2Labt-6QxeLF-1fLaaNkso-dOAT972GssykekziEWrKiazvcHVKL3RYnrcZRfYN0iRtWOxJ5ifV7ickgovBSBrxdswwJA4NvjArn7IQizLdKJ7Xz7th4Qvro-R4oB3QNFnLB8GtnSs3HEYcwBh2CXMoNFtIAdw_8S_KzwtbIAXgakSquVMzO3RfNx1j-5TLUckOLMld58z3NB-DotA4xdgpWSMADKbsuK0VeXlOoHoLcG5z4_UFGMqGzScUwwn41YqTVLgq7LRegxEaVSvkhWRw&lib=MdRnsJ995lTX7OAic2vfdVHV8gtUCato_", // First web app URL
+      puja: "https://script.googleusercontent.com/macros/echo?user_content_key=YYYY&lib=YYYY"  // Second web app URL
+    };
 
-    function loadShlokas() {
-      document.getElementById("content").innerHTML = `
-        <h2>Ganesh Shlokas</h2>
-        <p>Vakratunda Mahakaya Suryakoti Samaprabha<br>
-        Nirvighnam Kuru Me Deva Sarva-Kaaryeshu Sarvada</p>
-      `;
-    }
-
-    async function loadContent(url) {
-      try {
-        const res = await fetch(url);
-        const data = await res.json();
-        document.getElementById("content").innerHTML = data.html;
-      } catch (error) {
-        document.getElementById("content").innerHTML = "<p>Failed to load content.</p>";
-      }
+    function loadApp(type) {
+      const url = apps[type];
+      document.getElementById("content").innerHTML = "Loading...";
+      fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById("content").innerHTML = html;
+        })
+        .catch(err => {
+          document.getElementById("content").innerHTML = "Error loading content.";
+          console.error(err);
+        });
     }
   </script>
 </body>
