@@ -1,4 +1,7 @@
-// Get date from URL parameter if exists
+async function initDailySchedule() {
+  const middle = document.getElementById('middleContent');
+
+  // Get date from URL parameter if exists
 const urlParams = new URLSearchParams(window.location.search);
 //const selectedDate = urlParams.get("date") || null;
 const selectedDate = 2025-09-03;
@@ -60,3 +63,5 @@ function renderSchedule(data) {
 }
 
 document.addEventListener("DOMContentLoaded", loadSchedule);
+
+}
