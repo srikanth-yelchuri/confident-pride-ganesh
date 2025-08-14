@@ -1,27 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>SPA Loader</title>
-  <style>
-    iframe {
-      width: 100%;
-      height: 90vh;
-      border: none;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Confident Pride - Ganapathi Pooja</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>My Single Page Loader</h1>
-  <iframe id="frame"></iframe>
-
-  <button onclick="loadApp('https://script.google.com/macros/s/AKfycbyZVd0mKmluCkZcCJxsFVakcjnXybf4bA_Qj9QoYZu5_y0-ZfplZ6g2YLfdbqIJrK0/exec')">Pooja Booking</button>
-  <button onclick="loadApp('https://script.google.com/macros/s/AKfycbwwmuwT09O3DGHoMr0VsGGGmY2eEWH7Ojt375R6YzLw_JMykunCP5FdPkZ3Q7QfkQXTjg/exec?date=2025-09-03')">Daily Activities</button>
-
-  <script>
-    function loadApp(url) {
-      document.getElementById('frame').src = `/proxy?url=${encodeURIComponent(url)}`;
-    }
-  </script>
+  <header>
+    <h1>Confident Pride - Ganapathi Pooja</h1>
+    <div class="nav-buttons">
+      <a href="booking.html" class="btn-primary">Booking</a>
+      <a href="daily.html" class="btn-secondary">Daily Slots</a>
+    </div>
+  </header>
 </body>
 </html>
