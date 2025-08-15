@@ -79,23 +79,47 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  width: 90%; /* ✅ avoid overflow on small screens */
 }
 
 .shloka {
-    font-size: 1.0rem;
-    font-weight: bold;
-    background: linear-gradient(270deg, #ff6b6b, #fddb92, #4facfe, #43e97b);
-    background-size: 800% 800%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradientShift 8s ease infinite;
-    line-height: 2.2rem;
-  }
+  font-size: 1rem;
+  font-weight: bold;
+  background: linear-gradient(
+    270deg,
+    #ff6b6b,
+    #fddb92,
+    #4facfe,
+    #43e97b
+  );
+  background-size: 800% 800%;
+  
+  /* ✅ Mobile/WebKit support */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 
-  @keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
+  /* ✅ GPU acceleration for smoother animation on mobile */
+  will-change: background-position;
+  
+  /* ✅ Vendor-prefixed animation for older mobile browsers */
+  -webkit-animation: gradientShift 8s ease infinite;
+  animation: gradientShift 8s ease infinite;
 
+  line-height: 2.2rem;
+  text-align: center;
+  word-break: break-word; /* ✅ prevent text from going off-screen */
+}
+
+@-webkit-keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
