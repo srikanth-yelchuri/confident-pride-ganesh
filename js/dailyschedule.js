@@ -1,3 +1,4 @@
+async function initDailySchedule() {
 const container = document.getElementById('scheduleContent');
   const dropdown = document.getElementById("dateDropdown");
   const API_URL = "https://script.google.com/macros/s/AKfycbzNbGl3mg935n_B1blkweQ4LD7WmdwNAi2f4_5upoFNGy6neflxbjvEjRbg32kwe5_A/exec";
@@ -28,20 +29,18 @@ const container = document.getElementById('scheduleContent');
       container.innerHTML = `<p class="no-data">Please select a date to view schedule</p>`;
       return;
     }
-
     container.innerHTML = `<p>Loading schedule...</p>`;
-
-
-  try {
-    const res = await fetch(`${API_URL}?action=getScheduleData&date=${encodeURIComponent(selectedDate)}`);
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-
-    const data = await res.json();
-    renderSchedule(data);
-  } catch (err) {
-    console.error(err);
-    container.innerHTML = "<p class='no-data'>Failed to load schedule.</p>";
-  }
+    try {
+      const res = await fetch(`${API_URL}?action=getScheduleData&date=${encodeURIComponent(selectedDate)}`);
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+  
+      const data = await res.json();
+      renderSchedule(data);
+    } catch (err) {
+      console.error(err);
+      container.innerHTML = "<p class='no-data'>Failed to load schedule.</p>";
+    }
+  });
 }
 
 
