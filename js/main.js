@@ -22,7 +22,7 @@ const defaultContent = `
       </div>
     </div>
 </div>
-;
+`;
 
 // Load default content on page load
 middle.innerHTML = defaultContent;
