@@ -3,24 +3,25 @@ const middle = document.getElementById('middleContent');
 // Default Ganapati Slokas content
 const defaultContent = `
   <div id="scheduleContent">
+    <div class="shloka-container">
     <div class="shloka">
-      <p><strong>Shuklaambara Dharam Vishnum</strong><br>
+      <p><b>Shuklaambara Dharam Vishnum</b><br>
       Shashi Varnam Chatur Bhujam<br>
       Prasanna Vadanam Dhyaayet<br>
-      Sarva Vighna Upashaantahye</p>
+      Sarva Vighna Upashaantaye</p>
   
-      <p><strong>Vakratunda Mahakaaya</strong><br>
+      <p><b>Vakratunda Mahakaaya</b><br>
       Suryakoti Samaprabha<br>
       Nirvighnam Kuru Mey Deva<br>
       Sarva Kaaryeshu Sarvada</p>
   
-      <p><strong>Agajaanana Padmaarkam</strong><br>
+      <p><b>Agajaanana Padmaarkam</b><br>
       Gajaananam Aharnisham<br>
-      Anekadantham Bhaktaanaam<br>
+      Anekadantam Bhaktaanaam<br>
       Ekadantam Upaasmahey</p>
     </div>
-  </div>
-`;
+</div>
+;
 
 // Load default content on page load
 middle.innerHTML = defaultContent;
