@@ -4,21 +4,22 @@ const middle = document.getElementById('middleContent');
 const defaultContent = `
   <div id="scheduleContent">
     <div class="shloka-container">
-    <div class="shloka">
-      <p><b>Shuklaambara Dharam Vishnum</b><br>
-      Shashi Varnam Chatur Bhujam<br>
-      Prasanna Vadanam Dhyaayet<br>
-      Sarva Vighna Upashaantaye</p>
-  
-      <p><b>Vakratunda Mahakaaya</b><br>
-      Suryakoti Samaprabha<br>
-      Nirvighnam Kuru Mey Deva<br>
-      Sarva Kaaryeshu Sarvada</p>
-  
-      <p><b>Agajaanana Padmaarkam</b><br>
-      Gajaananam Aharnisham<br>
-      Anekadantam Bhaktaanaam<br>
-      Ekadantam Upaasmahey</p>
+      <div class="shloka">
+        <p><b>Shuklaambara Dharam Vishnum</b><br>
+        Shashi Varnam Chatur Bhujam<br>
+        Prasanna Vadanam Dhyaayet<br>
+        Sarva Vighna Upashaantaye</p>
+    
+        <p><b>Vakratunda Mahakaaya</b><br>
+        Suryakoti Samaprabha<br>
+        Nirvighnam Kuru Mey Deva<br>
+        Sarva Kaaryeshu Sarvada</p>
+    
+        <p><b>Agajaanana Padmaarkam</b><br>
+        Gajaananam Aharnisham<br>
+        Anekadantam Bhaktaanaam<br>
+        Ekadantam Upaasmahey</p>
+      </div>
     </div>
 </div>
 ;
