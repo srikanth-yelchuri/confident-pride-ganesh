@@ -150,6 +150,7 @@ function showPopup(msg, success=true){
   const popup=document.getElementById('popup');
   document.getElementById('popupMessage').textContent=msg;
   popup.className = success?'success':'error';
+  popup.dataset.resultType = success ? 'success' : 'error'; // store type in dataset
   overlay.style.display='flex';
   popup.focus();
 }
@@ -160,7 +161,9 @@ document.getElementById('popupCloseBtn').addEventListener('click', ()=>{
   document.getElementById('bookingStatus').className='';
   document.getElementById('submitBtn').disabled=true;
   userInteracted=false;
-  window.location.href = 'index.html'; // Navigate to home page
+  if (resultType === 'success') {
+    window.location.href = 'index.html'; // Navigate to home page only if success
+  } 
 });
 
 // Loading spinner
