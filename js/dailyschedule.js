@@ -48,7 +48,7 @@ function renderSchedule(data) {
   const container = document.getElementById('scheduleContent');
   if (!data) return container.innerHTML = "<p class='no-data'>No schedule available.</p>";
   
-  let html;
+  let html="";
 
 
   function renderSection(title, poojaTime, poojaMembers, prasadam, games) {
