@@ -3,25 +3,29 @@ const container = document.getElementById('scheduleContent');
   const dropdown = document.getElementById("dateDropdown");
   const API_URL = "https://script.google.com/macros/s/AKfycbz8Axh6g7lytEVTLdmQMAgb2gGtZ6zdZqvzU7VWr_ALBtEa8PFo5v962tbJsJrLoKYZ/exec";
 
-  // Load dates into dropdown
-  try {
-    const res = await fetch(`${API_URL}?action=getDates`);
-    const dates = await res.json();
-
-    dropdown.innerHTML = '<option value="">-- Select Date --</option>';
-    dates.forEach(date => {
-      const option = document.createElement("option");
-      option.value = date;
-      option.textContent = date;
-      dropdown.appendChild(option);
-    });
-
-    container.innerHTML = `<p class="no-data">Please select a date to view schedule</p>`;
-  } catch (err) {
-    console.error("Error fetching dates:", err);
-    container.innerHTML = `<p class="no-data">Failed to load dates.</p>`;
+  // --- Check localStorage for cached dates ---
+  let cachedDates = localStorage.getItem("ganesh_dates");
+  if (cachedDates) {
+    cachedDates = JSON.parse(cachedDates);
+    populateDropdown(cachedDates);
+    console.log("✅ Loaded dates from localStorage");
+  } else {
+    // Fetch from API and store
+    try {
+      const res = await fetch(`${API_URL}?action=getDates`);
+      const dates = await res.json();
+      localStorage.setItem("ganesh_dates", JSON.stringify(dates));
+      populateDropdown(dates);
+      console.log("📡 Loaded dates from API & cached");
+    } catch (err) {
+      console.error("Error fetching dates:", err);
+      container.innerHTML = `<p class="no-data">Failed to load dates.</p>`;
+    }
   }
 
+  container.innerHTML = `<p class="no-data">Please select a date to view schedule</p>`;
+  
+  
   // On change event for dropdown
   dropdown.addEventListener("change", async function () {
     const selectedDate = this.value;
@@ -29,7 +33,8 @@ const container = document.getElementById('scheduleContent');
       container.innerHTML = `<p class="no-data">Please select a date to view schedule</p>`;
       return;
     }
-    container.innerHTML = `<div class="loadingSpinner"></div>`;
+   // Show blocking overlay
+    document.getElementById("loadingOverlay").style.display = "flex";
     try {
       const res = await fetch(`${API_URL}?action=getScheduleData&date=${encodeURIComponent(selectedDate)}`);
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
@@ -39,8 +44,21 @@ const container = document.getElementById('scheduleContent');
     } catch (err) {
       console.error(err);
       container.innerHTML = "<p class='no-data'>Failed to load schedule.</p>";
+    } finally {
+    // Hide blocking overlay
+    document.getElementById("loadingOverlay").style.display = "none";
     }
   });
+
+  function populateDropdown(dates) {
+    dropdown.innerHTML = '<option value="">-- Select Date --</option>';
+    dates.forEach(date => {
+      const option = document.createElement("option");
+      option.value = date;
+      option.textContent = date;
+      dropdown.appendChild(option);
+    });
+  }
 }
 
 
