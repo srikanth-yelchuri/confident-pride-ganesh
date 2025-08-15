@@ -1,7 +1,7 @@
 async function initDailySchedule() {
 const container = document.getElementById('scheduleContent');
   const dropdown = document.getElementById("dateDropdown");
-  const API_URL = "https://script.google.com/macros/s/AKfycbzNbGl3mg935n_B1blkweQ4LD7WmdwNAi2f4_5upoFNGy6neflxbjvEjRbg32kwe5_A/exec";
+  const API_URL = "https://script.google.com/macros/s/AKfycbz8Axh6g7lytEVTLdmQMAgb2gGtZ6zdZqvzU7VWr_ALBtEa8PFo5v962tbJsJrLoKYZ/exec";
 
   // Load dates into dropdown
   try {
@@ -54,7 +54,7 @@ function renderSchedule(data) {
   function renderSection(title, poojaTime, poojaMembers, prasadam, games) {
     let sectionHtml = `<div class="section"><h3>${title}</h3>`;
     sectionHtml += `<p>Pooja Time: ${poojaTime || "NA"}</p>`;
-    sectionHtml += renderTable("Pooja Members", poojaMembers, ["Name","Block","Flat","Phone"]);
+    sectionHtml += renderTable("Pooja Members", poojaMembers, ["Name","Phone","Block","Flat"]);
     sectionHtml += renderTable("Prasadam", prasadam, ["Name","Sponsor"]);
     sectionHtml += renderTable("Games/Events", games, ["Name","Time"]);
     sectionHtml += `</div>`;
