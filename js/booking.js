@@ -212,7 +212,7 @@ document.getElementById('submitBtn').addEventListener('click', async ()=>{
 });
 
 document.getElementById('refreshBtn').addEventListener('click', loadSlots);
-setInterval(loadSlots, 60000);
+//setInterval(loadSlots, 60000);
 
 // Initialize
 await loadBlockFlatMapping();
