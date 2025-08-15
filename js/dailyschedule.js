@@ -1,33 +1,31 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbxoBP0THGtnbbSGpEIp-0S4Y7UF1strZxNbo-T7loZXZ2LBVsgRge8Xw8AKOusHSEpr/exec";
-
-async function initDailySchedule(selectedDate = "2025-09-03") {
-  const container = document.getElementById('scheduleContent');
-  container.innerHTML = "<p class='no-data'>Loading schedule...</p>";
+async function initDailySchedule() {
+  const scheduleContainer = document.getElementById('scheduleContent');
+  const API_URL = "https://script.google.com/macros/s/AKfycbxoBP0THGtnbbSGpEIp-0S4Y7UF1strZxNbo-T7loZXZ2LBVsgRge8Xw8AKOusHSEpr/exec";
 
   try {
+    const urlParams = new URLSearchParams(window.location.search);
+    //const selectedDate = urlParams.get("date") || "2025-09-03";
+    const selectedDate = "2025-09-03";
+
     const res = await fetch(`${API_URL}?action=getScheduleData&date=${selectedDate}`);
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
     const data = await res.json();
     renderSchedule(data);
   } catch (err) {
-    console.error("Failed to load schedule:", err);
-    container.innerHTML = "<p class='no-data'>Failed to load schedule.</p>";
+    console.error(err);
+    scheduleContainer.innerHTML = "<p class='no-data'>Failed to load schedule.</p>";
   }
 }
 
 function renderSchedule(data) {
   const container = document.getElementById('scheduleContent');
-  if (!data) {
-    container.innerHTML = "<p class='no-data'>No schedule available.</p>";
-    return;
-  }
+  if (!data) return container.innerHTML = "<p class='no-data'>No schedule available.</p>";
 
-  let html = `<h2>Schedule for ${data.date || "NA"}</h2>`;
-
-  function renderSection(title, poojaTime, poojaMembers, prasadam, games, sectionClass) {
-    let sectionHtml = `<div class="section ${sectionClass}"><h3>${title}</h3>`;
-    sectionHtml += `<p class="subheader">Pooja Time: ${poojaTime || "NA"}</p>`;
+  let html = `<h2>Schedule for ${data.date}</h2>`;
+  function renderSection(title, poojaTime, poojaMembers, prasadam, games) {
+    let sectionHtml = `<div class="section"><h3>${title}</h3>`;
+    sectionHtml += `<p>Pooja Time: ${poojaTime || "NA"}</p>`;
     sectionHtml += renderTable("Pooja Members", poojaMembers, ["Name","Phone","Block","Flat"]);
     sectionHtml += renderTable("Prasadam", prasadam, ["Name","Sponsor"]);
     sectionHtml += renderTable("Games/Events", games, ["Name","Time"]);
@@ -36,28 +34,15 @@ function renderSchedule(data) {
   }
 
   function renderTable(title, rows, headers) {
-    if (!rows || rows.length === 0) return `<p class="subheader">${title}: NA</p>`;
-    let table = `<p class="subheader">${title}:</p><table><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr>`;
-    rows.forEach(r => {
-      table += `<tr>${headers.map(h=>`<td>${r[h.toLowerCase()] || 'NA'}</td>`).join('')}</tr>`;
-    });
+    if(!rows || rows.length===0) return `<p>${title}: NA</p>`;
+    let table = `<p>${title}:</p><table><tr>${headers.map(h=>`<th>${h}</th>`).join("")}</tr>`;
+    rows.forEach(r => { table += `<tr>${headers.map(h=>`<td>${r[h.toLowerCase()]||"NA"}</td>`).join("")}</tr>` });
     table += "</table>";
     return table;
   }
 
-  html += renderSection("Morning", data.morningPoojaTime, data.morningPooja, data.morningPrasadam, data.morningGames, "morning");
-  html += renderSection("Evening", data.eveningPoojaTime, data.eveningPooja, data.eveningPrasadam, data.eveningGames, "evening");
+  html += renderSection("Morning", data.morningPoojaTime, data.morningPooja, data.morningPrasadam, data.morningGames);
+  html += renderSection("Evening", data.eveningPoojaTime, data.eveningPooja, data.eveningPrasadam, data.eveningGames);
 
   container.innerHTML = html;
-
-  // Sequential fade-in animation
-  const sections = container.querySelectorAll(".section");
-  sections.forEach((sec, idx) => setTimeout(() => sec.classList.add("visible"), idx * 500));
-
-  // Background music
-  const music = document.getElementById("bgMusic");
-  if (music) {
-    music.volume = 0.3;
-    music.play().catch(e => console.log("Autoplay blocked:", e));
-  }
 }
