@@ -49,3 +49,68 @@ document.getElementById('btnSchedule').addEventListener('click', async () => {
   // Manually initialize the JS after HTML is injected
   if (typeof initDailySchedule === 'function') initDailySchedule();
 });
+
+
+
+const bgm = document.getElementById('bgm');
+const soundGate = document.getElementById('soundGate');
+const enableSoundBtn = document.getElementById('enableSoundBtn');
+const muteToggle = document.getElementById('muteToggle');
+
+// Recommended starting volume (quiet)
+bgm.volume = 0.35;
+
+// Try autoplay as early as possible after DOM is ready
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    await bgm.play();               // Will work on desktop; may fail on mobile
+    muteToggle.hidden = false;
+  } catch (err) {
+    // Autoplay blocked → show gate
+    soundGate.hidden = false;
+    muteToggle.hidden = true;
+  }
+});
+
+// One-tap user gesture to start sound (mobile-safe)
+enableSoundBtn?.addEventListener('click', async () => {
+  try {
+    await bgm.play();
+    soundGate.hidden = true;
+    muteToggle.hidden = false;
+  } catch (err) {
+    // If it still fails, keep the gate visible
+    console.error('Play failed:', err);
+  }
+});
+
+// Mute/unmute toggle
+muteToggle?.addEventListener('click', () => {
+  const muted = !bgm.muted;
+  bgm.muted = muted;
+  muteToggle.textContent = muted ? '🔈' : '🔊';
+  muteToggle.setAttribute('aria-pressed', String(!muted));
+});
+
+// Nice-to-have: pause when tab is hidden, resume when visible
+document.addEventListener('visibilitychange', async () => {
+  if (document.hidden) {
+    bgm.pause();
+  } else {
+    try { await bgm.play(); } catch (_) {/* ignore */}
+  }
+});
+
+// iOS safety net: after first touch anywhere, try play once
+let triedFirstTouch = false;
+window.addEventListener('touchend', async () => {
+  if (!triedFirstTouch && bgm.paused) {
+    triedFirstTouch = true;
+    try {
+      await bgm.play();
+      soundGate.hidden = true;
+      muteToggle.hidden = false;
+    } catch (_) { /* still blocked; user can tap the button */ }
+  }
+}, { passive: true });
+
