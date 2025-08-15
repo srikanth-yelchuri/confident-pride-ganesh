@@ -156,6 +156,10 @@ function showPopup(msg, success=true){
 }
 
 document.getElementById('popupCloseBtn').addEventListener('click', ()=>{
+  const popup = document.getElementById('popup');
+  // ✅ Get resultType that was stored when showing the popup
+  const resultType = popup.dataset.resultType;
+  
   document.getElementById('popupOverlay').style.display='none';
   document.getElementById('bookingStatus').textContent=''; 
   document.getElementById('bookingStatus').className='';
