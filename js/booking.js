@@ -215,7 +215,8 @@ document.getElementById('refreshBtn').addEventListener('click', loadSlots);
 //setInterval(loadSlots, 60000);
 
 // Initialize
-await loadBlockFlatMapping();
 await loadSlots();
+await loadBlockFlatMapping();
+
 
 }
