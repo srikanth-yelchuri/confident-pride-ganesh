@@ -87,6 +87,7 @@ async function loadSlots() {
 
 function initializeDatePicker() {
   flatpickr("#eventDate", {
+    disableMobile: true,
     dateFormat: "Y-m-d",
     disable: fullyBookedDates,
     minDate: uniqueDates[0] || null,
