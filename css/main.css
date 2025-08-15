@@ -74,12 +74,12 @@ body {
 }
 
 .shloka-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers vertically */
+  align-items: center;     /* Centers horizontally */
+  height: calc(100vh - var(--top-banner-height) - var(--bottom-banner-height));
   text-align: center;
-  width: 90%; /* ✅ avoid overflow on small screens */
 }
 
 .shloka {
