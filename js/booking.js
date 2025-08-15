@@ -160,6 +160,7 @@ document.getElementById('popupCloseBtn').addEventListener('click', ()=>{
   document.getElementById('bookingStatus').className='';
   document.getElementById('submitBtn').disabled=true;
   userInteracted=false;
+  window.location.href = 'index.html'; // Navigate to home page
 });
 
 // Loading spinner
@@ -212,9 +213,6 @@ document.getElementById('submitBtn').addEventListener('click', async ()=>{
   }
 });
 
-document.getElementById('closeBtn').addEventListener('click', function () {
-  window.location.href = 'index.html'; // Navigate to home page
-});
 document.getElementById('refreshBtn').addEventListener('click', loadSlots);
 //setInterval(loadSlots, 60000);
 
