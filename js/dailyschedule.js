@@ -1,12 +1,39 @@
-async function initDailySchedule() {
-  const container = document.getElementById('scheduleContent');
-  container.innerHTML = "<p>Loading schedule...</p>";
-  
-  const API_URL = "https://script.google.com/macros/s/AKfycbxw_Cs6hXoWw2I7tSy_8yo2VhT-qTqxfY9jjMtEq4uvhcZu1-ZNi7Pa8kh0MduTvsy-/exec";
-  const selectedDate = "2025-09-03"; // Or get from URL params
+const container = document.getElementById('scheduleContent');
+  const dropdown = document.getElementById("dateDropdown");
+  const API_URL = "https://script.google.com/macros/s/AKfycbzNbGl3mg935n_B1blkweQ4LD7WmdwNAi2f4_5upoFNGy6neflxbjvEjRbg32kwe5_A/exec";
+
+  // Load dates into dropdown
+  try {
+    const res = await fetch(`${API_URL}?action=getDates`);
+    const dates = await res.json();
+
+    dropdown.innerHTML = '<option value="">-- Select Date --</option>';
+    dates.forEach(date => {
+      const option = document.createElement("option");
+      option.value = date;
+      option.textContent = date;
+      dropdown.appendChild(option);
+    });
+
+    container.innerHTML = `<p class="no-data">Please select a date to view schedule</p>`;
+  } catch (err) {
+    console.error("Error fetching dates:", err);
+    container.innerHTML = `<p class="no-data">Failed to load dates.</p>`;
+  }
+
+  // On change event for dropdown
+  dropdown.addEventListener("change", async function () {
+    const selectedDate = this.value;
+    if (!selectedDate) {
+      container.innerHTML = `<p class="no-data">Please select a date to view schedule</p>`;
+      return;
+    }
+
+    container.innerHTML = `<p>Loading schedule...</p>`;
+
 
   try {
-    const res = await fetch(`${API_URL}?action=getScheduleData&date=${selectedDate}`);
+    const res = await fetch(`${API_URL}?action=getScheduleData&date=${encodeURIComponent(selectedDate)}`);
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
     const data = await res.json();
@@ -16,6 +43,7 @@ async function initDailySchedule() {
     container.innerHTML = "<p class='no-data'>Failed to load schedule.</p>";
   }
 }
+
 
 function renderSchedule(data) {
   const container = document.getElementById('scheduleContent');
