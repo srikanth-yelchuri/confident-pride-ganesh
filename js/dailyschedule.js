@@ -47,6 +47,9 @@ const container = document.getElementById('scheduleContent');
 function renderSchedule(data) {
   const container = document.getElementById('scheduleContent');
   if (!data) return container.innerHTML = "<p class='no-data'>No schedule available.</p>";
+  
+  let html;
+
 
   function renderSection(title, poojaTime, poojaMembers, prasadam, games) {
     let sectionHtml = `<div class="section"><h3>${title}</h3>`;
