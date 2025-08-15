@@ -6,9 +6,6 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
   font-family: 'Segoe UI', sans-serif;
 }
 
@@ -76,6 +73,13 @@ body {
   z-index: 2100;
 }
 
+.shloka-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
 
 .shloka {
     font-size: 1.5rem;
