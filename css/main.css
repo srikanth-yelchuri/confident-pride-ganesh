@@ -73,3 +73,22 @@ body {
   z-index: 2100;
 }
 
+
+.shloka {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: linear-gradient(270deg, #ff6b6b, #fddb92, #4facfe, #43e97b);
+    background-size: 800% 800%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 8s ease infinite;
+    line-height: 2.2rem;
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+
