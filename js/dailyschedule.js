@@ -1,6 +1,6 @@
 async function initDailySchedule() {
   const scheduleContainer = document.getElementById('scheduleContent');
-  const API_URL = "https://script.google.com/macros/s/AKfycbxoBP0THGtnbbSGpEIp-0S4Y7UF1strZxNbo-T7loZXZ2LBVsgRge8Xw8AKOusHSEpr/exec";
+  const API_URL = "https://script.google.com/macros/s/AKfycbxw_Cs6hXoWw2I7tSy_8yo2VhT-qTqxfY9jjMtEq4uvhcZu1-ZNi7Pa8kh0MduTvsy-/exec";
 
   try {
     const urlParams = new URLSearchParams(window.location.search);
