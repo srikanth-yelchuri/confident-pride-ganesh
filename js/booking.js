@@ -212,6 +212,9 @@ document.getElementById('submitBtn').addEventListener('click', async ()=>{
   }
 });
 
+document.getElementById('closeBtn').addEventListener('click', function () {
+  window.location.href = 'index.html'; // Navigate to home page
+});
 document.getElementById('refreshBtn').addEventListener('click', loadSlots);
 //setInterval(loadSlots, 60000);
 
