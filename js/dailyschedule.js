@@ -29,7 +29,7 @@ const container = document.getElementById('scheduleContent');
       container.innerHTML = `<p class="no-data">Please select a date to view schedule</p>`;
       return;
     }
-    container.innerHTML = `<p>Loading schedule...</p>`;
+    container.innerHTML = `<div class="loadingSpinner"></div>`;
     try {
       const res = await fetch(`${API_URL}?action=getScheduleData&date=${encodeURIComponent(selectedDate)}`);
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
