@@ -1,0 +1,11 @@
+.prasadam-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.prasadam-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
