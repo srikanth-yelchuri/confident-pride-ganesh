@@ -1,0 +1,54 @@
+  <div class="form-container" aria-live="polite" aria-atomic="true" aria-relevant="additions">
+    <div class="info-text">Please provide all the details</div>
+
+    <form id="prasadamForm" autocomplete="off" aria-describedby="formInstructions">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" type="text" autocomplete="name" autocorrect="off" autocapitalize="words" aria-required="true"/>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Mobile</label>
+        <input id="phone" type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="10" aria-required="true" placeholder="10-digit mobile number"/>
+      </div>
+
+      <div class="form-group">
+        <label for="block">Block</label>
+        <select id="block" aria-required="true" aria-describedby="blockHelp">
+          <option value="">-- Select Block --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="flat">Flat</label>
+        <select id="flat" aria-required="true" aria-describedby="flatHelp" disabled>
+          <option value="">-- Select Flat --</option>
+        </select>
+      </div>
+
+      <!-- Prasadam Items -->
+      <div class="form-group">
+        <label>Select Prasadams (Choose up to 2)</label>
+        <div id="prasadamContainer" class="prasadam-grid" aria-required="true" role="group" aria-label="Select up to 2 prasadams">
+          <!-- checkboxes injected from JS -->
+        </div>
+      </div>
+
+      <div id="formStatus" role="status" aria-live="polite" aria-atomic="true"></div>
+
+      <div class="actions">
+        <button type="button" id="submitBtn" class="btn btn-primary" disabled>Submit</button>
+        <button type="button" id="refreshBtn" class="btn btn-secondary">Refresh</button>
+      </div>
+    </form>
+
+    <div id="loadingSpinner" role="alert" aria-live="assertive" aria-label="Loading"></div>
+  </div>
+
+  <!-- Popup -->
+  <div id="popupOverlay" role="dialog" aria-modal="true" aria-labelledby="popupMessage" tabindex="-1">
+    <div id="popup" tabindex="0">
+      <div id="popupMessage"></div>
+      <button id="popupCloseBtn" aria-label="Close popup">Close</button>
+    </div>
+  </div>
