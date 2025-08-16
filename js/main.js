@@ -50,6 +50,14 @@ document.getElementById('btnSchedule').addEventListener('click', async () => {
   if (typeof initDailySchedule === 'function') initDailySchedule();
 });
 
+document.getElementById('btn108Prasadam').addEventListener('click', async () => {
+  const res = await fetch('108prasadams.html');
+  const html = await res.text();
+  middle.innerHTML = html;
+
+  // Manually initialize the JS after HTML is injected
+  if (typeof initPrasadam === 'function') initPrasadam();
+});
 
 
 const bgm = document.getElementById('bgm');
