@@ -80,36 +80,40 @@ async function initPrasadam() {
   }
 
   function renderPrasadamDropdown() {
-    const container = document.getElementById('prasadamContainer');
-    container.innerHTML = '';
+  const container = document.getElementById('prasadamContainer');
+  container.innerHTML = '';
 
-    const select = document.createElement('select');
-    select.id = 'prasadamSelect';
-    select.multiple = true;
-    select.size = 8; // show 8 items without scrolling
-    select.className = 'prasadam-dropdown';
+  const select = document.createElement('select');
+  select.id = 'prasadamSelect';
+  select.multiple = true;
+  select.size = 10; // show 8 items at once
+  select.className = 'prasadam-dropdown';
 
-    prasadamList.forEach(p => {
-      const opt = document.createElement('option');
-      opt.value = p.item;
-      opt.textContent = p.item;
-      if (!p.available) opt.disabled = true;
-      select.appendChild(opt);
-    });
+  // Loop through API response items
+  prasadamList.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.item;
+    opt.textContent = p.item;
+    // Disable if not available
+    if (!p.available) opt.disabled = true;
+    select.appendChild(opt);
+  });
 
-    container.appendChild(select);
+  container.appendChild(select);
 
-    // Selection logic: max 2
-    select.addEventListener('change', function () {
-      const selected = [...this.selectedOptions];
-      if (selected.length > 2) {
-        selected[selected.length - 1].selected = false;
-        showPopup("You can select a maximum of 2 prasadam items.", false);
-      }
-      userInteracted = true;
-      validateFormAndUpdateStatus();
-    });
-  }
+  // ================== MAX 2 SELECTION LOGIC ==================
+  select.addEventListener('change', function () {
+    const selected = [...this.selectedOptions];
+    if (selected.length > 2) {
+      const lastSelected = selected[selected.length - 1];
+      lastSelected.selected = false;
+      showPopup("You can select a maximum of 2 prasadam items.", false);
+    }
+    userInteracted = true;
+    validateFormAndUpdateStatus();
+  });
+}
+
 
   // ================== VALIDATION ==================
   function validateFormAndUpdateStatus() {
