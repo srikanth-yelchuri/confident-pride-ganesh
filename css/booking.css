@@ -1,10 +1,12 @@
 :root {
   --card-bg: rgba(255, 255, 255, 0.95);
-  --brand: #1a73e8;
-  --ok: #2e7d32;
-  --warn: #ff9800;
-  --bad: #d32f2f;
-  --muted: #555; /* ✅ softened default font color */
+
+  /* 🎉 Festive colors */
+  --brand: #e65100;     /* Deep saffron/orange */
+  --ok: #2e7d32;        /* Green (success) */
+  --warn: #ffb300;      /* Golden amber */
+  --bad: #c62828;       /* Deep red */
+  --muted: #6d1b1b;     /* Warm maroon for default text */
   --radius: 10px;
 }
 
@@ -18,7 +20,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  color: var(--muted); /* ✅ default font color */
+  color: var(--muted); /* ✅ default warm maroon text */
 }
 
 /* iOS Safari fix */
@@ -40,67 +42,71 @@ body {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px); /* iOS Safari */
   box-sizing: border-box;
-  font-size: 14px; /* ✅ reduced font size */
+  font-size: 14px;
 }
 
+/* 🎉 Headings festive saffron */
 h2 {
   margin: 0 0 10px 0;
-  color: var(--brand);
+  color: #ff6600; /* saffron orange */
   text-align: center;
   font-weight: 700;
-  font-size: 1.6rem; /* ✅ slightly smaller */
+  font-size: 1.6rem;
+  text-shadow: 1px 1px 3px #ffd966;
 }
 
 .info-text {
-  color: var(--muted);
+  color: var(--warn); /* golden amber */
   margin-bottom: 12px;
   text-align: center;
-  font-size: 0.9rem; /* ✅ smaller */
+  font-size: 0.9rem;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 14px; /* ✅ tighter spacing */
+  margin-bottom: 14px;
 }
 
+/* 🎉 Labels in warm maroon */
 label {
   font-weight: 600;
-  margin-bottom: 4px; /* ✅ less gap */
-  font-size: 0.9rem;  /* ✅ reduced size */
-  color: #444;       /* ✅ softer dark grey */
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+  color: var(--muted);
 }
 
+/* 🎉 Inputs with orange text & golden placeholders */
 input[type="text"], input[type="tel"], select {
-  padding: 8px 10px; /* ✅ slightly smaller */
+  padding: 8px 10px;
   border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 0.9rem; /* ✅ reduced */
+  border: 1px solid #cc7a00; /* warm orange border */
+  font-size: 0.9rem;
   outline: none;
   font-family: Arial, sans-serif;
-  color: #333;       /* ✅ softer input text */
+  color: #a84300; /* brownish-orange text */
 }
-
+input::placeholder {
+  color: #e6b800; /* light golden */
+}
 input[type="text"]:focus, input[type="tel"]:focus, select:focus {
-  box-shadow: 0 0 0 3px rgba(26,115,232,0.08);
-  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(255,165,0,0.2);
+  border-color: #ff9900;
 }
-input[readonly] { background: #eee; }
+input[readonly] { background: #fff8e1; /* soft golden background */ }
 
 .time-options {
   display: flex;
-  gap: 12px;         /* ✅ reduced spacing */
+  gap: 12px;
   flex-wrap: wrap;
-  margin-bottom: 6px; /* ✅ less gap before buttons */
+  margin-bottom: 6px;
 }
-
 .time-options label {
   cursor: pointer;
-  font-weight: 500;  /* ✅ lighter weight */
-  font-size: 0.9rem; /* ✅ smaller */
-  color: #444;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #bf360c; /* deep festive orange */
 }
-
 .time-options input[type="radio"] {
   margin-right: 4px;
   cursor: pointer;
@@ -109,7 +115,7 @@ input[readonly] { background: #eee; }
 #bookingStatus {
   font-weight: 700;
   min-height: 1.3em;
-  margin-bottom: 8px; /* ✅ slightly reduced */
+  margin-bottom: 8px;
   text-align: center;
   font-size: 0.95rem;
 }
@@ -118,46 +124,40 @@ input[readonly] { background: #eee; }
 .msg.warn { color: var(--warn); }
 .msg.error { color: var(--bad); }
 
+/* 🎉 Buttons saffron + orange */
 .actions {
   display: flex;
-  gap: 8px;          /* ✅ less spacing between buttons */
-  margin-top: 6px;   /* ✅ reduced gap after time options */
+  gap: 8px;
+  margin-top: 6px;
   justify-content: center;
   flex-wrap: wrap;
 }
-
 .btn {
   flex: 1;
-  padding: 10px 12px; /* ✅ slightly smaller */
+  padding: 10px 12px;
   border-radius: 8px;
   border: none;
   cursor: pointer;
   font-weight: 600;
-  font-size: 0.95rem; /* ✅ reduced */
+  font-size: 0.95rem;
   transition: background 0.3s ease;
-  min-width: 120px;  /* ✅ narrower on mobile */
+  min-width: 120px;
 }
-
-.btn-primary { background: var(--brand); color: #fff; }
-.btn-primary:disabled { background: #9bbcfb; cursor: not-allowed; }
-.btn-secondary { background: #eee; color: #444; }
-.btn-secondary:hover { background: #ddd; }
-
-#loadingSpinner {
-  display: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 48px;
-  height: 48px;
-  margin: -24px 0 0 -24px;
-  border: 5px solid var(--brand);
-  border-top-color: transparent;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  z-index: 10;
+.btn-primary {
+  background: linear-gradient(90deg, #ff6f00, #ff9800);
+  color: #fff;
 }
-@keyframes spin { to { transform: rotate(360deg); } }
+.btn-primary:disabled {
+  background: #ffcc80;
+  cursor: not-allowed;
+}
+.btn-secondary {
+  background: #ffe082;
+  color: #6d1b1b;
+}
+.btn-secondary:hover {
+  background: #ffd54f;
+}
 
 #popupOverlay {
   display: none;
@@ -177,20 +177,20 @@ input[readonly] { background: #eee; }
   box-shadow: 0 8px 30px rgba(0,0,0,0.25);
   text-align: center;
   font-weight: 700;
-  font-size: 1rem; /* ✅ reduced */
-  color: var(--brand);
+  font-size: 1rem;
+  color: #ff6f00;
   position: relative;
 }
 #popup.success { color: var(--ok); }
 #popup.error { color: var(--bad); }
 #popup button {
-  margin-top: 16px; /* ✅ smaller */
+  margin-top: 16px;
   padding: 8px 16px;
   font-weight: 600;
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  background: var(--brand);
+  background: linear-gradient(90deg, #ff6f00, #ff9800);
   color: #fff;
   font-size: 0.95rem;
 }
