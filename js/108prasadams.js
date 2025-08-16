@@ -1,5 +1,4 @@
 async function initPrasadam() {
-  const middle = document.getElementById('middleContent');
   const API_URL = "https://script.google.com/macros/s/AKfycbwbMrmHeCiy4-nZpaYmEQy_JUSVajgSr5FX48HLlOxnyTNbsfVhWxv1LrRTw4IA-u6o/exec";
 
   let blockFlatMap = {};
@@ -69,7 +68,10 @@ async function initPrasadam() {
       const res = await fetch(`${API_URL}?action=get108Prasadams`);
       prasadamList = await res.json(); // expect [{item:"Laddu",available:true}, ...]
 
-      renderPrasadamGrid();
+      // sort alphabetically by item name
+      prasadamList.sort((a, b) => a.item.localeCompare(b.item));
+
+      renderPrasadamDropdown();
     } catch (err) {
       console.error(err);
       showPopup('Failed to load Prasadam list.', false);
@@ -77,43 +79,36 @@ async function initPrasadam() {
     setLoading(false);
   }
 
-  function renderPrasadamGrid() {
+  function renderPrasadamDropdown() {
     const container = document.getElementById('prasadamContainer');
     container.innerHTML = '';
 
-    let rowDiv;
-    prasadamList.forEach((p, idx) => {
-      if (idx % 4 === 0) {
-        rowDiv = document.createElement('div');
-        rowDiv.className = 'prasadam-row';
-        container.appendChild(rowDiv);
-      }
+    const select = document.createElement('select');
+    select.id = 'prasadamSelect';
+    select.multiple = true;
+    select.size = 8; // show 8 items without scrolling
+    select.className = 'prasadam-dropdown';
 
-      const label = document.createElement('label');
-      label.className = 'prasadam-item';
-
-      const checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
-      checkbox.value = p.item;
-      checkbox.disabled = !p.available;
-      checkbox.name = 'prasadam';
-
-      label.appendChild(checkbox);
-      label.appendChild(document.createTextNode(p.item));
-      rowDiv.appendChild(label);
-
-      checkbox.addEventListener('change', handlePrasadamSelection);
+    prasadamList.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.item;
+      opt.textContent = p.item;
+      if (!p.available) opt.disabled = true;
+      select.appendChild(opt);
     });
-  }
 
-  // Limit: min 1, max 2
-  function handlePrasadamSelection() {
-    const selected = Array.from(document.querySelectorAll('input[name="prasadam"]:checked'));
-    if (selected.length > 2) {
-      this.checked = false;
-      showPopup("You can select a maximum of 2 prasadam items.", false);
-    }
-    validateFormAndUpdateStatus();
+    container.appendChild(select);
+
+    // Selection logic: max 2
+    select.addEventListener('change', function () {
+      const selected = [...this.selectedOptions];
+      if (selected.length > 2) {
+        selected[selected.length - 1].selected = false;
+        showPopup("You can select a maximum of 2 prasadam items.", false);
+      }
+      userInteracted = true;
+      validateFormAndUpdateStatus();
+    });
   }
 
   // ================== VALIDATION ==================
@@ -122,7 +117,9 @@ async function initPrasadam() {
     const phone = document.getElementById('phone').value.trim();
     const block = document.getElementById('block').value.trim();
     const flat = document.getElementById('flat').value.trim();
-    const prasadamSelected = Array.from(document.querySelectorAll('input[name="prasadam"]:checked')).map(cb => cb.value);
+
+    const prasadamSelect = document.getElementById('prasadamSelect');
+    const prasadamSelected = prasadamSelect ? [...prasadamSelect.selectedOptions].map(o => o.value) : [];
 
     const submitBtn = document.getElementById('submitBtn');
     const statusEl = document.getElementById('bookingStatus');
@@ -158,7 +155,9 @@ async function initPrasadam() {
     const phone = document.getElementById('phone').value.trim();
     const block = document.getElementById('block').value.trim();
     const flat = document.getElementById('flat').value.trim();
-    const prasadamSelected = Array.from(document.querySelectorAll('input[name="prasadam"]:checked')).map(cb => cb.value);
+
+    const prasadamSelect = document.getElementById('prasadamSelect');
+    const prasadamSelected = prasadamSelect ? [...prasadamSelect.selectedOptions].map(o => o.value) : [];
 
     if (prasadamSelected.length < 1) { showPopup("Please select at least one prasadam.", false); return; }
 
@@ -175,8 +174,8 @@ async function initPrasadam() {
 
       if (result.success) {
         showPopup(result.message, true);
-        document.getElementById('bookingForm').reset();
-        renderPrasadamGrid();
+        document.getElementById('prasadamForm').reset();
+        renderPrasadamDropdown();
       } else {
         showPopup(result.message, false);
       }
