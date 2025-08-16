@@ -13,23 +13,51 @@ let userInteracted = false;
 async function loadBlockFlatMapping() {
   setLoading(true);
   try {
+    const cacheKey = "blockFlatMapCache";
+    const cacheExpiryKey = "blockFlatMapExpiry";
+    const now = Date.now();
+
+    // ✅ Check if we have cached data and it’s not expired
+    const cachedData = localStorage.getItem(cacheKey);
+    const expiry = localStorage.getItem(cacheExpiryKey);
+
+    if (cachedData && expiry && now < parseInt(expiry, 10)) {
+      console.log("Using cached Block/Flat mapping");
+      blockFlatMap = JSON.parse(cachedData);
+      populateBlockDropdown();
+      setLoading(false);
+      return;
+    }
+
+    // ❌ No valid cache → Fetch from API
+    console.log("Fetching Block/Flat mapping from API");
     const res = await fetch(`${API_URL}?action=getBlockFlatMapping`);
     blockFlatMap = await res.json();
-    const blockSel = document.getElementById('block');
-    blockSel.innerHTML = '<option value="">-- Select Block --</option>';
-    Object.keys(blockFlatMap).sort().forEach(block => {
-      const opt = document.createElement('option');
-      opt.value = block;
-      opt.textContent = block;
-      blockSel.appendChild(opt);
-    });
-    document.getElementById('flat').innerHTML = '<option value="">-- Select Flat --</option>';
-    document.getElementById('flat').disabled = true;
+
+    // Save to localStorage with 24-hour expiry
+    localStorage.setItem(cacheKey, JSON.stringify(blockFlatMap));
+    localStorage.setItem(cacheExpiryKey, now + 24 * 60 * 60 * 1000); // 24h
+
+    populateBlockDropdown();
   } catch(err){
     console.error(err);
     showPopup('Failed to load block mapping.', false);
   }
   setLoading(false);
+}
+
+ // Helper: Populate block dropdown from blockFlatMap
+function populateBlockDropdown() {
+  const blockSel = document.getElementById('block');
+  blockSel.innerHTML = '<option value="">-- Select Block --</option>';
+  Object.keys(blockFlatMap).sort().forEach(block => {
+    const opt = document.createElement('option');
+    opt.value = block;
+    opt.textContent = block;
+    blockSel.appendChild(opt);
+  });
+  document.getElementById('flat').innerHTML = '<option value="">-- Select Flat --</option>';
+  document.getElementById('flat').disabled = true;
 }
 
 // Block change event
@@ -72,10 +100,18 @@ async function loadSlots() {
       return (!morning || morning.status==="Full") && (!evening || evening.status==="Full");
     });
 
-    initializeDatePicker();
+    //initializeDatePicker();
     const dateInput = document.getElementById('eventDate');
     dateInput.value = '';
     dateInput.disabled = uniqueDates.length === 0;
+
+    // If you are using flatpickr or similar, update its options without destroying it
+    if (dateInput._flatpickr) {
+      dateInput._flatpickr.set('enable', uniqueDates);
+      dateInput._flatpickr.redraw(); // just refresh, no full re-render
+    } else {
+      initializeDatePicker(); // only if not initialized yet
+    }
 
     document.querySelectorAll('input[name="slotTime"]').forEach(r => { r.checked=false; r.disabled=true; });
   } catch(err){
