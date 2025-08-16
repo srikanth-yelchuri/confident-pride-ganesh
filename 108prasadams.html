@@ -27,12 +27,15 @@
       </div>
 
       <!-- Prasadam Items -->
+      <!-- Prasadam Multi Select -->
       <div class="form-group">
-        <label>Select Prasadams (Choose up to 2)</label>
-        <div id="prasadamContainer" class="prasadam-grid" aria-required="true" role="group" aria-label="Select up to 2 prasadams">
-          <!-- checkboxes injected from JS -->
-        </div>
+        <label for="prasadamSelect">Select Prasadam (max 2)</label>
+        <select id="prasadamSelect" class="prasadam-dropdown" multiple size="8">
+          <!-- options will be filled by JS -->
+        </select>
+        <small>You can select up to 2 prasadams only</small>
       </div>
+
 
       <div id="formStatus" role="status" aria-live="polite" aria-atomic="true"></div>
 
