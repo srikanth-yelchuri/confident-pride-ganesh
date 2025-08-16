@@ -14,25 +14,31 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: scroll; /* better on mobile */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
+/* iOS Safari fix */
 @supports (-webkit-touch-callout: none) {
-  body { background-attachment: scroll; }
+  body {
+    background-attachment: scroll !important;
+  }
 }
 
 .form-container {
   width: 100%;
   max-width: 720px;
+  margin: auto;
   background: rgba(255, 255, 255, 0.25);
   border-radius: var(--radius);
-  padding: 20px 30px;
+  padding: 20px 20px;
   box-shadow: 0 8px 30px rgba(0,0,0,0.25);
   position: relative;
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* iOS Safari */
+  box-sizing: border-box;
 }
 
 h2 { margin: 0 0 10px 0; color: var(--brand); text-align: center; font-weight: 700; font-size: 1.8rem; }
@@ -75,7 +81,7 @@ input[readonly] { background: #eee; }
 #popup button { margin-top: 20px; padding: 10px 20px; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; background: var(--brand); color: #fff; font-size: 1rem; }
 
 @media (max-width: 520px) {
-  h2 { font-size: 1.4rem; }
+  h2 { font-size: 1.3rem; }
   .actions { flex-direction: row; }
   .btn { max-width: 100%; min-width: auto; }
   .time-options { gap: 10px; }
