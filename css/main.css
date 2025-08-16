@@ -123,3 +123,10 @@ body {
   100% { background-position: 0% 50%; }
 }
 
+.site-title {
+  white-space: nowrap;        /* Prevents wrapping */
+  font-size: 1.2rem;          /* Adjust size for smaller screens */
+  overflow: hidden;           /* Ensures no overflow */
+  text-overflow: ellipsis;    /* If space is too small, add … */
+}
+
