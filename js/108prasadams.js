@@ -80,7 +80,7 @@ async function initPrasadam() {
   }
 
   function renderPrasadamDropdown() {
-  const container = document.getElementById('prasadamContainer');
+  const container = document.getElementById('prasadamSelect');
   container.innerHTML = '';
 
   const select = document.createElement('select');
