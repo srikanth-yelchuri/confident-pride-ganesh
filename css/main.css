@@ -24,16 +24,25 @@ body {
 
 .buttons {
   margin-top: 10px;
+  display: flex;
+  flex-wrap: nowrap;      /* ✅ No wrapping */
+  justify-content: center; /* ✅ Centered in row */
+  overflow-x: auto;        /* ✅ Scrollable if not fitting */
+  -webkit-overflow-scrolling: touch; /* ✅ Smooth scroll for iOS */
+  gap: 10px;               /* ✅ Consistent spacing */
 }
 
 .buttons button {
-  padding: 8px 16px;
-  margin: 0 8px;
+  flex: 0 0 auto;          /* ✅ Prevent shrinking */
+  padding: 10px 18px;
   border-radius: 6px;
   border: none;
   cursor: pointer;
   font-weight: bold;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
 }
+
 
 .content-body {
   flex: 1;
