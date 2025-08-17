@@ -133,28 +133,34 @@ async function initPrasadam() {
   }
 
   // ================== VALIDATION ==================
-  function validateFormAndUpdateStatus() {
-    const name = document.getElementById('name')?.value.trim();
-    const phone = document.getElementById('phone')?.value.trim();
-    const block = document.getElementById('block')?.value.trim();
-    const flat = document.getElementById('flat')?.value.trim();
-    const prasadamSelect = document.getElementById('prasadamSelectList');
-    const prasadamSelected = prasadamSelect ? [...prasadamSelect.selectedOptions].map(o => o.value) : [];
-    const submitBtn = document.getElementById('submitBtn');
-    const statusEl = document.getElementById('bookingStatus');
+ function validateFormAndUpdateStatus() {
+  const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const block = document.getElementById('block').value.trim();
+  const flat = document.getElementById('flat').value.trim();
 
-    if (!statusEl || !submitBtn) return;
+  // Use the correct select ID
+  const prasadamSelect = document.getElementById('prasadamSelectList');
+  const prasadamSelected = prasadamSelect ? [...prasadamSelect.selectedOptions].map(o => o.value) : [];
 
-    if (!userInteracted) { statusEl.textContent = ''; submitBtn.disabled = true; return; }
-    if (!name) { statusEl.textContent = 'Name is required.'; submitBtn.disabled = true; return; }
-    if (!/^\d{10}$/.test(phone)) { statusEl.textContent = 'Phone must be exactly 10 digits.'; submitBtn.disabled = true; return; }
-    if (!block) { statusEl.textContent = 'Please select a Block.'; submitBtn.disabled = true; return; }
-    if (!flat) { statusEl.textContent = 'Please select a Flat.'; submitBtn.disabled = true; return; }
-    if (prasadamSelected.length < 1) { statusEl.textContent = 'Select at least 1 prasadam.'; submitBtn.disabled = true; return; }
+  const submitBtn = document.getElementById('submitBtn');
+  const statusEl = document.getElementById('formStatus');
 
-    statusEl.textContent = `Selected ${prasadamSelected.length} prasadam(s).`;
-    submitBtn.disabled = false;
+  if (!userInteracted) { 
+    statusEl.textContent = ''; 
+    submitBtn.disabled = true; 
+    return; 
   }
+  if (!name) { statusEl.textContent = 'Name is required.'; submitBtn.disabled = true; return; }
+  if (!/^\d{10}$/.test(phone)) { statusEl.textContent = 'Phone must be exactly 10 digits.'; submitBtn.disabled = true; return; }
+  if (!block) { statusEl.textContent = 'Please select a Block.'; submitBtn.disabled = true; return; }
+  if (!flat) { statusEl.textContent = 'Please select a Flat.'; submitBtn.disabled = true; return; }
+  if (prasadamSelected.length < 1) { statusEl.textContent = 'Select at least 1 prasadam.'; submitBtn.disabled = true; return; }
+
+  statusEl.textContent = `Selected ${prasadamSelected.length} prasadam(s).`;
+  submitBtn.disabled = false; // enable submit
+}
+
 
   // ================== POPUP ==================
   function showPopup(msg, success = true) {

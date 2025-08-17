@@ -1,3 +1,11 @@
+#formStatus {
+  font-weight: 700;
+  min-height: 1.3em;
+  margin-bottom: 8px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
 /* Container styling for the checkbox list */
 #prasadamSelect {
   border: 1px solid #ccc;
