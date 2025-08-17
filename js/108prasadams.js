@@ -12,17 +12,41 @@ async function initPrasadam() {
 
   // ================== BLOCK/FLAT ==================
   async function loadBlockFlatMapping() {
-    setLoading(true);
-    try {
-      const res = await fetch(`${API_URL}?action=getBlockFlatMapping`);
-      blockFlatMap = await res.json();
+  setLoading(true);
+  try {
+    const cacheKey = "blockFlatMapCache";
+    const cacheExpiryKey = "blockFlatMapExpiry";
+    const now = Date.now();
+
+    // ✅ Check if we have cached data and it’s not expired
+    const cachedData = localStorage.getItem(cacheKey);
+    const expiry = localStorage.getItem(cacheExpiryKey);
+
+    if (cachedData && expiry && now < parseInt(expiry, 10)) {
+      console.log("Using cached Block/Flat mapping");
+      blockFlatMap = JSON.parse(cachedData);
       populateBlockDropdown();
-    } catch (err) {
+      setLoading(false);
+      return;
+    }
+
+    // ❌ No valid cache → Fetch from API
+    console.log("Fetching Block/Flat mapping from API");
+    const res = await fetch(`${API_URL}?action=getBlockFlatMapping`);
+    blockFlatMap = await res.json();
+
+    // Save to localStorage with 24-hour expiry
+    localStorage.setItem(cacheKey, JSON.stringify(blockFlatMap));
+    localStorage.setItem(cacheExpiryKey, now + 24 * 60 * 60 * 1000); // 24h
+
+    populateBlockDropdown();
+  	} catch(err){
       console.error(err);
       showPopup('Failed to load block mapping.', false);
     }
     setLoading(false);
   }
+
 
   function populateBlockDropdown() {
     const blockSel = document.getElementById('block');
@@ -138,8 +162,8 @@ function validateFormAndUpdateStatus() {
   const flat = document.getElementById('flat')?.value.trim();
 
   const prasadamContainer = document.getElementById('prasadamContainer');
- // const selectedItems = [prasadamContainer.querySelectorAll('.item.selected')].map(d => d.textContent);
-  const selectedItems = prasadamContainer.querySelectorAll('.item.selected');
+  const selectedItems = [prasadamContainer.querySelectorAll('.item.selected')].map(d => d.textContent);
+  // const selectedItems = prasadamContainer.querySelectorAll('.item.selected');
   console.log('selectedItems'+selectedItems);
   const submitBtn = document.getElementById('submitBtn');
   const statusEl = document.getElementById('formStatus');
@@ -188,13 +212,13 @@ function validateFormAndUpdateStatus() {
     if (prasadamSelected.length < 1) { showPopup("Please select at least one prasadam.", false); return; }
 
     setLoading(true);
-    try {
-      const res = await fetch(`${API_URL}?action=save108PrasadamSelection`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, block, flat, prasadam: prasadamSelected.join(", ") })
-      });
-
+      try {
+      const res = await fetch("/.netlify/functions/save108PrasadamSelection", {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      mode: 'no-cors',  // disables preflight
+      body: JSON.stringify({name, phone, block, flat, prasadam: prasadamSelected.join(", ")})
+    });
       const result = await res.json();
       setLoading(false);
 
