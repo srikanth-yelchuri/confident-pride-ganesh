@@ -35,3 +35,27 @@
   height: auto;
   font-size: 14px;
 }
+
+/* The multi-select dropdown itself */
+#prasadamSelectList {
+  width: 100%;
+  height: auto;
+  min-height: 200px; /* show at least a few items */
+  max-height: 300px; /* scroll if too many items */
+  overflow-y: auto;
+  font-size: 14px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+/* Optional: better look on hover */
+#prasadamSelectList option:hover {
+  background-color: #f0f0f0;
+}
+
+/* Disabled options */
+#prasadamSelectList option:disabled {
+  color: #999;
+}
