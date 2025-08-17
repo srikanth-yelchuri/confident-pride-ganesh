@@ -83,37 +83,39 @@ async function initPrasadam() {
   const container = document.getElementById('prasadamSelect');
   container.innerHTML = '';
 
-  const select = document.createElement('select');
-  select.id = 'prasadamSelect';
-  select.multiple = true;
-  select.size = 10; // show 8 items at once
-  select.className = 'prasadam-dropdown';
-
-  // Loop through API response items
   prasadamList.forEach(p => {
-    const opt = document.createElement('option');
-    opt.value = p.item;
-    opt.textContent = p.item;
-    // Disable if not available
-    if (!p.available) opt.disabled = true;
-    select.appendChild(opt);
-  });
+    const wrapper = document.createElement('div');
+    wrapper.className = 'checkbox-item';
 
-  container.appendChild(select);
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.id = 'prasadam_' + p.item;
+    input.value = p.item;
+    input.disabled = !p.available; // disable if not available
 
-  // ================== MAX 2 SELECTION LOGIC ==================
-  select.addEventListener('change', function () {
-    const selected = [...this.selectedOptions];
-    if (selected.length > 2) {
-      const lastSelected = selected[selected.length - 1];
-      lastSelected.selected = false;
-      showPopup("You can select a maximum of 2 prasadam items.", false);
-    }
-    userInteracted = true;
-    validateFormAndUpdateStatus();
+    const label = document.createElement('label');
+    label.htmlFor = input.id;
+    label.textContent = p.item;
+
+    wrapper.appendChild(input);
+    wrapper.appendChild(label);
+    container.appendChild(wrapper);
+
+    // Handle max 2 selection
+    input.addEventListener('change', () => {
+      const checked = container.querySelectorAll('input[type=checkbox]:checked');
+      if (checked.length > 2) {
+        input.checked = false;
+        showPopup("You can select a maximum of 2 prasadam items.", false);
+      }
+      validateFormAndUpdateStatus();
+    });
   });
 }
-
+function getSelectedPrasadam() {
+  const container = document.getElementById('prasadamSelect');
+  return [...container.querySelectorAll('input[type=checkbox]:checked')].map(c => c.value);
+}
 
   // ================== VALIDATION ==================
   function validateFormAndUpdateStatus() {
@@ -133,7 +135,12 @@ async function initPrasadam() {
     if (!/^\d{10}$/.test(phone)) { statusEl.textContent = 'Phone must be exactly 10 digits.'; submitBtn.disabled = true; return; }
     if (!block) { statusEl.textContent = 'Please select a Block.'; submitBtn.disabled = true; return; }
     if (!flat) { statusEl.textContent = 'Please select a Flat.'; submitBtn.disabled = true; return; }
-    if (prasadamSelected.length < 1) { statusEl.textContent = 'Select at least 1 prasadam.'; submitBtn.disabled = true; return; }
+    const selected = getSelectedPrasadam();
+    if (selected.length < 1) { 
+      statusEl.textContent = 'Select at least 1 prasadam.'; 
+      submitBtn.disabled = true; 
+      return; 
+    }
 
     statusEl.textContent = `Selected ${prasadamSelected.length} prasadam(s).`;
     submitBtn.disabled = false;
