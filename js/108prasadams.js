@@ -1,4 +1,5 @@
 async function initPrasadam() {
+  setLoading(true); // show spinner immediately
   const API_URL = "https://script.google.com/macros/s/AKfycbzFVLC4cv1kRqSB3WE7tMNDwSrJLaa2mybjnsoonJ_T8JhZEzolF3Ks7FWVw-0RMMYW/exec";
 
   let blockFlatMap = {};
@@ -12,7 +13,6 @@ async function initPrasadam() {
 
   // ================== BLOCK/FLAT ==================
   async function loadBlockFlatMapping() {
-  setLoading(true);
   try {
     const cacheKey = "blockFlatMapCache";
     const cacheExpiryKey = "blockFlatMapExpiry";
@@ -26,7 +26,6 @@ async function initPrasadam() {
       console.log("Using cached Block/Flat mapping");
       blockFlatMap = JSON.parse(cachedData);
       populateBlockDropdown();
-      setLoading(false);
       return;
     }
 
@@ -94,7 +93,6 @@ async function initPrasadam() {
 
   // ================== PRASADAMS ==================
   async function loadPrasadams() {
-    setLoading(true);
     try {
       const res = await fetch(`${API_URL}?action=get108Prasadams`);
       prasadamList = await res.json(); // [{item:"Laddu",available:true}, ...]
