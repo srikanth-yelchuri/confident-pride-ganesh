@@ -1,5 +1,5 @@
 async function initPrasadam() {
-  const API_URL = "https://script.google.com/macros/s/AKfycbzmc9df5EtCdSCg_vAFYFlc1DoEEaFBzR2LjxStYzRfBmf93E0kyS6bIrJ6yddz1FJ8/exec";
+  const API_URL = "https://script.google.com/macros/s/AKfycbzFVLC4cv1kRqSB3WE7tMNDwSrJLaa2mybjnsoonJ_T8JhZEzolF3Ks7FWVw-0RMMYW/exec";
 
   let blockFlatMap = {};
   let prasadamList = [];
