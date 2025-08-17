@@ -181,14 +181,15 @@ function validateFormAndUpdateStatus() {
     const phone = document.getElementById('phone')?.value.trim();
     const block = document.getElementById('block')?.value.trim();
     const flat = document.getElementById('flat')?.value.trim();
-    const prasadamSelect = document.getElementById('prasadamSelectList');
-    const prasadamSelected = prasadamSelect ? [...prasadamSelect.selectedOptions].map(o => o.value) : [];
+    const prasadamContainer = document.getElementById('prasadamContainer');
+    const prasadamSelected = [...prasadamContainer.querySelectorAll('.item.selected')].map(d => d.textContent);
+
 
     if (prasadamSelected.length < 1) { showPopup("Please select at least one prasadam.", false); return; }
 
     setLoading(true);
     try {
-      const res = await fetch(`${API_URL}?action=saveUserSelection`, {
+      const res = await fetch(`${API_URL}?action=save108PrasadamSelection`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, phone, block, flat, prasadam: prasadamSelected.join(", ") })
