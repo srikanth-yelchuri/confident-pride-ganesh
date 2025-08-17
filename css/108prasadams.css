@@ -105,17 +105,20 @@
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  display: none;               /* hidden by default */
+  display: none;                       /* hidden by default */
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.95); /* ✅ white overlay */
-  z-index: 9999;               /* on top of everything */
-  pointer-events: all;         /* block clicks */
+  background: rgba(0, 0, 0, 0.4);      /* ✅ dim effect */
+  backdrop-filter: blur(6px);          /* ✅ blur background */
+  -webkit-backdrop-filter: blur(6px);  /* Safari support */
+  z-index: 9999;
+  pointer-events: all;                 /* ✅ block clicks */
+  user-select: none;                   /* ✅ prevent text selection */
 }
 
 .spinner {
-  border: 6px solid #e0e0e0;   /* light grey border */
-  border-top: 6px solid #3498db; /* blue rotating top */
+  border: 6px solid #ddd;              /* light grey */
+  border-top: 6px solid #3498db;       /* blue */
   border-radius: 50%;
   width: 60px;
   height: 60px;
