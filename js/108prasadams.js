@@ -138,7 +138,8 @@ function validateFormAndUpdateStatus() {
   const flat = document.getElementById('flat')?.value.trim();
 
   const prasadamContainer = document.getElementById('prasadamContainer');
-  const selectedItems = [prasadamContainer.querySelectorAll('.item.selected')].map(d => d.textContent);
+ // const selectedItems = [prasadamContainer.querySelectorAll('.item.selected')].map(d => d.textContent);
+  const selectedItems = prasadamContainer.querySelectorAll('.item.selected');
   console.log('selectedItems'+selectedItems);
   const submitBtn = document.getElementById('submitBtn');
   const statusEl = document.getElementById('formStatus');
