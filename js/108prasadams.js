@@ -84,64 +84,58 @@ async function initPrasadam() {
     setLoading(false);
   }
 
-  function renderPrasadamDropdown() {
-    const container = document.getElementById('prasadamSelect');
-    if (!container) return;
-    container.innerHTML = '';
 
-    const select = document.createElement('select');
-    select.id = 'prasadamSelectList';
-    select.multiple = true;
-    select.size = 10;
-    select.className = 'prasadam-dropdown';
+function renderPrasadamDropdown() {
+  const container = document.getElementById('prasadamContainer');
+  if (!container) return;
+  container.innerHTML = '';
 
-    prasadamList.forEach((p, index) => {
-      const opt = document.createElement('option');
-      opt.value = p.item;
-      opt.textContent = p.item;
-      if (!p.available) opt.disabled = true;
-      select.appendChild(opt);
-    });
+  prasadamList.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'item';
+    div.textContent = p.item;
+    if (!p.available) div.classList.add('disabled');
 
-    container.appendChild(select);
+    div.addEventListener('click', () => {
+      if (div.classList.contains('disabled')) return;
 
-    // ================== MAX 2 SELECTION LOGIC ==================
-    select.addEventListener('change', function () {
-      const selected = [...this.selectedOptions];
-      const options = [...this.options];
-
-      // Disable unselected options if 2 are already selected
-      if (selected.length >= 2) {
-        options.forEach(opt => {
-          if (!opt.selected) opt.disabled = true;
-        });
-      } else {
-        options.forEach((opt, i) => {
-          opt.disabled = !prasadamList[i].available ? true : false;
-        });
-      }
-
-      if (selected.length > 2) {
-        const lastSelected = selected[selected.length - 1];
-        lastSelected.selected = false;
-        showPopup("You can select a maximum of 2 prasadam items.", false);
-      }
-
+      div.classList.toggle('selected');
       userInteracted = true;
+
+      enforceMaxSelection();
       validateFormAndUpdateStatus();
     });
+
+    container.appendChild(div);
+  });
+}
+
+// Enforce max 2 selection
+function enforceMaxSelection() {
+  const selectedItems = prasadamContainer.querySelectorAll('.item.selected');
+  if (selectedItems.length >= 2) {
+    prasadamContainer.querySelectorAll('.item').forEach(item => {
+      if (!item.classList.contains('selected') && !prasadamList.find(p => p.item === item.textContent && !p.available)) {
+        item.classList.add('disabled');
+      }
+    });
+  } else {
+    prasadamContainer.querySelectorAll('.item').forEach(item => {
+      if (!prasadamList.find(p => p.item === item.textContent && !p.available)) {
+        item.classList.remove('disabled');
+      }
+    });
   }
+}
 
-  // ================== VALIDATION ==================
- function validateFormAndUpdateStatus() {
-  const name = document.getElementById('name').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const block = document.getElementById('block').value.trim();
-  const flat = document.getElementById('flat').value.trim();
+// Update validateFormAndUpdateStatus to read from custom divs
+function validateFormAndUpdateStatus() {
+  const name = document.getElementById('name')?.value.trim();
+  const phone = document.getElementById('phone')?.value.trim();
+  const block = document.getElementById('block')?.value.trim();
+  const flat = document.getElementById('flat')?.value.trim();
 
-  // Use the correct select ID
-  const prasadamSelect = document.getElementById('prasadamSelectList');
-  const prasadamSelected = prasadamSelect ? [...prasadamSelect.selectedOptions].map(o => o.value) : [];
+  const selectedItems = [...prasadamContainer.querySelectorAll('.item.selected')].map(d => d.textContent);
 
   const submitBtn = document.getElementById('submitBtn');
   const statusEl = document.getElementById('formStatus');
@@ -155,12 +149,12 @@ async function initPrasadam() {
   if (!/^\d{10}$/.test(phone)) { statusEl.textContent = 'Phone must be exactly 10 digits.'; submitBtn.disabled = true; return; }
   if (!block) { statusEl.textContent = 'Please select a Block.'; submitBtn.disabled = true; return; }
   if (!flat) { statusEl.textContent = 'Please select a Flat.'; submitBtn.disabled = true; return; }
-  if (prasadamSelected.length < 1) { statusEl.textContent = 'Select at least 1 prasadam.'; submitBtn.disabled = true; return; }
+  if (selectedItems.length < 1) { statusEl.textContent = 'Select at least 1 prasadam.'; submitBtn.disabled = true; return; }
 
-  statusEl.textContent = `Selected ${prasadamSelected.length} prasadam(s).`;
-  submitBtn.disabled = false; // enable submit
+  statusEl.textContent = `Selected ${selectedItems.length} prasadam(s).`;
+  submitBtn.disabled = false;
 }
-
+  
 
   // ================== POPUP ==================
   function showPopup(msg, success = true) {
