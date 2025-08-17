@@ -5,9 +5,9 @@ async function initPrasadam() {
   let prasadamList = [];
   let userInteracted = false;
 
-  // Loading spinner
   function setLoading(isLoading) {
-    document.getElementById('loadingSpinner').style.display = isLoading ? 'block' : 'none';
+    const spinner = document.getElementById('loadingSpinner');
+    if (spinner) spinner.style.display = isLoading ? 'block' : 'none';
   }
 
   // ================== BLOCK/FLAT ==================
@@ -26,6 +26,7 @@ async function initPrasadam() {
 
   function populateBlockDropdown() {
     const blockSel = document.getElementById('block');
+    if (!blockSel) return;
     blockSel.innerHTML = '<option value="">-- Select Block --</option>';
     Object.keys(blockFlatMap).sort().forEach(block => {
       const opt = document.createElement('option');
@@ -33,13 +34,19 @@ async function initPrasadam() {
       opt.textContent = block;
       blockSel.appendChild(opt);
     });
-    document.getElementById('flat').innerHTML = '<option value="">-- Select Flat --</option>';
-    document.getElementById('flat').disabled = true;
+
+    const flatSel = document.getElementById('flat');
+    if (flatSel) {
+      flatSel.innerHTML = '<option value="">-- Select Flat --</option>';
+      flatSel.disabled = true;
+    }
   }
 
   document.getElementById('block').addEventListener('change', function () {
     const block = this.value;
     const flatSel = document.getElementById('flat');
+    if (!flatSel) return;
+
     flatSel.innerHTML = '<option value="">-- Select Flat --</option>';
     if (block && blockFlatMap[block]) {
       blockFlatMap[block].forEach(flat => {
@@ -66,11 +73,9 @@ async function initPrasadam() {
     setLoading(true);
     try {
       const res = await fetch(`${API_URL}?action=get108Prasadams`);
-      prasadamList = await res.json(); // expect [{item:"Laddu",available:true}, ...]
+      prasadamList = await res.json(); // [{item:"Laddu",available:true}, ...]
 
-      // sort alphabetically by item name
       prasadamList.sort((a, b) => a.item.localeCompare(b.item));
-
       renderPrasadamDropdown();
     } catch (err) {
       console.error(err);
@@ -80,67 +85,72 @@ async function initPrasadam() {
   }
 
   function renderPrasadamDropdown() {
-  const container = document.getElementById('prasadamSelect');
-  container.innerHTML = '';
+    const container = document.getElementById('prasadamSelect');
+    if (!container) return;
+    container.innerHTML = '';
 
-  prasadamList.forEach(p => {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'checkbox-item';
+    const select = document.createElement('select');
+    select.id = 'prasadamSelectList';
+    select.multiple = true;
+    select.size = 10;
+    select.className = 'prasadam-dropdown';
 
-    const input = document.createElement('input');
-    input.type = 'checkbox';
-    input.id = 'prasadam_' + p.item;
-    input.value = p.item;
-    input.disabled = !p.available; // disable if not available
+    prasadamList.forEach((p, index) => {
+      const opt = document.createElement('option');
+      opt.value = p.item;
+      opt.textContent = p.item;
+      if (!p.available) opt.disabled = true;
+      select.appendChild(opt);
+    });
 
-    const label = document.createElement('label');
-    label.htmlFor = input.id;
-    label.textContent = p.item;
+    container.appendChild(select);
 
-    wrapper.appendChild(input);
-    wrapper.appendChild(label);
-    container.appendChild(wrapper);
+    // ================== MAX 2 SELECTION LOGIC ==================
+    select.addEventListener('change', function () {
+      const selected = [...this.selectedOptions];
+      const options = [...this.options];
 
-    // Handle max 2 selection
-    input.addEventListener('change', () => {
-      const checked = container.querySelectorAll('input[type=checkbox]:checked');
-      if (checked.length > 2) {
-        input.checked = false;
+      // Disable unselected options if 2 are already selected
+      if (selected.length >= 2) {
+        options.forEach(opt => {
+          if (!opt.selected) opt.disabled = true;
+        });
+      } else {
+        options.forEach((opt, i) => {
+          opt.disabled = !prasadamList[i].available ? true : false;
+        });
+      }
+
+      if (selected.length > 2) {
+        const lastSelected = selected[selected.length - 1];
+        lastSelected.selected = false;
         showPopup("You can select a maximum of 2 prasadam items.", false);
       }
+
+      userInteracted = true;
       validateFormAndUpdateStatus();
     });
-  });
-}
-function getSelectedPrasadam() {
-  const container = document.getElementById('prasadamSelect');
-  return [...container.querySelectorAll('input[type=checkbox]:checked')].map(c => c.value);
-}
+  }
 
   // ================== VALIDATION ==================
   function validateFormAndUpdateStatus() {
-    const name = document.getElementById('name').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const block = document.getElementById('block').value.trim();
-    const flat = document.getElementById('flat').value.trim();
-
-    const prasadamSelect = document.getElementById('prasadamSelect');
+    const name = document.getElementById('name')?.value.trim();
+    const phone = document.getElementById('phone')?.value.trim();
+    const block = document.getElementById('block')?.value.trim();
+    const flat = document.getElementById('flat')?.value.trim();
+    const prasadamSelect = document.getElementById('prasadamSelectList');
     const prasadamSelected = prasadamSelect ? [...prasadamSelect.selectedOptions].map(o => o.value) : [];
-
     const submitBtn = document.getElementById('submitBtn');
     const statusEl = document.getElementById('bookingStatus');
+
+    if (!statusEl || !submitBtn) return;
 
     if (!userInteracted) { statusEl.textContent = ''; submitBtn.disabled = true; return; }
     if (!name) { statusEl.textContent = 'Name is required.'; submitBtn.disabled = true; return; }
     if (!/^\d{10}$/.test(phone)) { statusEl.textContent = 'Phone must be exactly 10 digits.'; submitBtn.disabled = true; return; }
     if (!block) { statusEl.textContent = 'Please select a Block.'; submitBtn.disabled = true; return; }
     if (!flat) { statusEl.textContent = 'Please select a Flat.'; submitBtn.disabled = true; return; }
-    const selected = getSelectedPrasadam();
-    if (selected.length < 1) { 
-      statusEl.textContent = 'Select at least 1 prasadam.'; 
-      submitBtn.disabled = true; 
-      return; 
-    }
+    if (prasadamSelected.length < 1) { statusEl.textContent = 'Select at least 1 prasadam.'; submitBtn.disabled = true; return; }
 
     statusEl.textContent = `Selected ${prasadamSelected.length} prasadam(s).`;
     submitBtn.disabled = false;
@@ -150,24 +160,24 @@ function getSelectedPrasadam() {
   function showPopup(msg, success = true) {
     const overlay = document.getElementById('popupOverlay');
     const popup = document.getElementById('popup');
+    if (!overlay || !popup) return;
     document.getElementById('popupMessage').textContent = msg;
     popup.className = success ? 'success' : 'error';
     overlay.style.display = 'flex';
     popup.focus();
   }
 
-  document.getElementById('popupCloseBtn').addEventListener('click', () => {
+  document.getElementById('popupCloseBtn')?.addEventListener('click', () => {
     document.getElementById('popupOverlay').style.display = 'none';
   });
 
   // ================== SUBMIT ==================
   document.getElementById('submitBtn').addEventListener('click', async () => {
-    const name = document.getElementById('name').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const block = document.getElementById('block').value.trim();
-    const flat = document.getElementById('flat').value.trim();
-
-    const prasadamSelect = document.getElementById('prasadamSelect');
+    const name = document.getElementById('name')?.value.trim();
+    const phone = document.getElementById('phone')?.value.trim();
+    const block = document.getElementById('block')?.value.trim();
+    const flat = document.getElementById('flat')?.value.trim();
+    const prasadamSelect = document.getElementById('prasadamSelectList');
     const prasadamSelected = prasadamSelect ? [...prasadamSelect.selectedOptions].map(o => o.value) : [];
 
     if (prasadamSelected.length < 1) { showPopup("Please select at least one prasadam.", false); return; }
@@ -185,7 +195,7 @@ function getSelectedPrasadam() {
 
       if (result.success) {
         showPopup(result.message, true);
-        document.getElementById('prasadamForm').reset();
+        document.getElementById('prasadamForm')?.reset();
         renderPrasadamDropdown();
       } else {
         showPopup(result.message, false);
