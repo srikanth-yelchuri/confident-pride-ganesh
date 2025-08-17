@@ -26,14 +26,16 @@
         </select>
       </div>
 
-      <!-- Prasadam Items -->
-      <!-- Prasadam Multi Select -->
-      <div class="form-group">
-        <label for="prasadamSelect">Select Prasadam (max 2)</label>
-        <select id="prasadamSelect" class="prasadam-dropdown" multiple size="8">
-          <!-- options will be filled by JS -->
+     <!-- Prasadam Items -->
+    <div class="form-group">
+      <label for="prasadamSelectList">Select Prasadam (max 2)</label>
+      <div id="prasadamSelect"> <!-- container for JS rendering -->
+        <select id="prasadamSelectList" class="prasadam-dropdown" multiple size="10">
+          <!-- options will be filled dynamically by JS -->
         </select>
       </div>
+    </div>
+
 
 
       <div id="formStatus" role="status" aria-live="polite" aria-atomic="true"></div>
