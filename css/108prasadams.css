@@ -73,23 +73,24 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #fff;
-  max-height: 300px;
+  max-height: 250px; /* slightly smaller */
   overflow-y: auto;
-  padding: 5px;
+  padding: 3px; /* less padding */
   display: flex;
   flex-direction: column;
+  font-size: 13px; /* smaller font */
 }
 
 .custom-multiselect .item {
-  padding: 10px;
-  margin: 2px 0;
+  padding: 6px 8px; /* reduce padding */
+  margin: 1px 0; /* smaller gap between items */
   border-radius: 5px;
   cursor: pointer;
   user-select: none;
 }
 
 .custom-multiselect .item.selected {
-  background-color: #d1e7fd;
+  background-color: #cce4ff; /* softer highlight */
   color: #000;
 }
 
