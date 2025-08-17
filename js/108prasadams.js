@@ -112,6 +112,8 @@ function renderPrasadamDropdown() {
 
 // Enforce max 2 selection
 function enforceMaxSelection() {
+  const prasadamContainer = document.getElementById('prasadamContainer');
+  if (!prasadamContainer) return;
   const selectedItems = prasadamContainer.querySelectorAll('.item.selected');
   if (selectedItems.length >= 2) {
     prasadamContainer.querySelectorAll('.item').forEach(item => {
@@ -135,8 +137,8 @@ function validateFormAndUpdateStatus() {
   const block = document.getElementById('block')?.value.trim();
   const flat = document.getElementById('flat')?.value.trim();
 
+  const prasadamContainer = document.getElementById('prasadamContainer');
   const selectedItems = [...prasadamContainer.querySelectorAll('.item.selected')].map(d => d.textContent);
-
   const submitBtn = document.getElementById('submitBtn');
   const statusEl = document.getElementById('formStatus');
 
