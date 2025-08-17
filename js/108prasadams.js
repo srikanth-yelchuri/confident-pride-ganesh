@@ -1,5 +1,5 @@
 async function initPrasadam() {
-  setLoading(true); // show spinner immediately
+  setLoading(true);
   const API_URL = "https://script.google.com/macros/s/AKfycbzFVLC4cv1kRqSB3WE7tMNDwSrJLaa2mybjnsoonJ_T8JhZEzolF3Ks7FWVw-0RMMYW/exec";
 
   let blockFlatMap = {};
@@ -8,7 +8,7 @@ async function initPrasadam() {
 
   function setLoading(isLoading) {
     const spinner = document.getElementById('loadingSpinner');
-    if (spinner) spinner.style.display = isLoading ? 'block' : 'none';
+    if (spinner) spinner.style.display = isLoading ? 'flex' : 'none';
   }
 
   // ================== BLOCK/FLAT ==================
@@ -43,7 +43,6 @@ async function initPrasadam() {
       console.error(err);
       showPopup('Failed to load block mapping.', false);
     }
-    setLoading(false);
   }
 
 
@@ -160,7 +159,7 @@ function validateFormAndUpdateStatus() {
   const flat = document.getElementById('flat')?.value.trim();
 
   const prasadamContainer = document.getElementById('prasadamContainer');
-  const selectedItems = [prasadamContainer.querySelectorAll('.item.selected')].map(d => d.textContent);
+  const selectedItems = [...prasadamContainer.querySelectorAll('.item.selected')].map(d => d.textContent);
   // const selectedItems = prasadamContainer.querySelectorAll('.item.selected');
   console.log('selectedItems'+selectedItems);
   const submitBtn = document.getElementById('submitBtn');
