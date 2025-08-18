@@ -28,12 +28,12 @@ const defaultContent = `
 middle.innerHTML = defaultContent;
 
 // Home button resets middle content
-document.getElementById('btnHome').addEventListener('click', () => {
+document.getElementById('imgHome').addEventListener('click', () => {
   middle.innerHTML = defaultContent;
 });
 
 
-document.getElementById('btnBooking').addEventListener('click', async () => {
+document.getElementById('imgBooking').addEventListener('click', async () => {
   const res = await fetch('booking.html');
   const html = await res.text();
   middle.innerHTML = html;
@@ -41,7 +41,7 @@ document.getElementById('btnBooking').addEventListener('click', async () => {
   if (typeof initBooking === 'function') initBooking();
 });
 
-document.getElementById('btnSchedule').addEventListener('click', async () => {
+document.getElementById('imgSchedule').addEventListener('click', async () => {
   const res = await fetch('dailyschedule.html');
   const html = await res.text();
   middle.innerHTML = html;
@@ -50,7 +50,7 @@ document.getElementById('btnSchedule').addEventListener('click', async () => {
   if (typeof initDailySchedule === 'function') initDailySchedule();
 });
 
-document.getElementById('btn108Prasadam').addEventListener('click', async () => {
+document.getElementById('img108Prasadam').addEventListener('click', async () => {
   const res = await fetch('108prasadams.html');
   const html = await res.text();
   middle.innerHTML = html;
