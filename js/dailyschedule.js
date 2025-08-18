@@ -1,8 +1,7 @@
 async function initDailySchedule() {
 const container = document.getElementById('scheduleContent');
   const dropdown = document.getElementById("dateDropdown");
-  const API_URL = "https://script.google.com/macros/s/AKfycbz8Axh6g7lytEVTLdmQMAgb2gGtZ6zdZqvzU7VWr_ALBtEa8PFo5v962tbJsJrLoKYZ/exec";
-
+  
   // --- Check localStorage for cached dates ---
   let cachedDates = localStorage.getItem("ganesh_dates");
   if (cachedDates) {
@@ -12,7 +11,7 @@ const container = document.getElementById('scheduleContent');
   } else {
     // Fetch from API and store
     try {
-      const res = await fetch(`${API_URL}?action=getDates`);
+      const res = await fetch(`${CONFIG.API_BASE_URL}?action=getDates`);
       const dates = await res.json();
       localStorage.setItem("ganesh_dates", JSON.stringify(dates));
       populateDropdown(dates);

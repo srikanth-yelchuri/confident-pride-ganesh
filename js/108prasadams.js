@@ -187,12 +187,21 @@ function validateFormAndUpdateStatus() {
     if (!overlay || !popup) return;
     document.getElementById('popupMessage').textContent = msg;
     popup.className = success ? 'success' : 'error';
+    popup.dataset.resultType = success ? 'success' : 'error'; // store type in dataset
     overlay.style.display = 'flex';
     popup.focus();
   }
 
   document.getElementById('popupCloseBtn')?.addEventListener('click', () => {
+    const resultType = popup.dataset.resultType;
     document.getElementById('popupOverlay').style.display = 'none';
+    document.getElementById('formStatus').textContent=''; 
+    document.getElementById('formStatus').className='';
+    document.getElementById('submitBtn').disabled=true;
+    userInteracted=false;
+    if (resultType === 'success') {
+      window.location.href = 'index.html'; // Navigate to home page only if success
+    } 
   });
 
   // ================== SUBMIT ==================
