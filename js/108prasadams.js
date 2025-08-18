@@ -1,6 +1,5 @@
 async function initPrasadam() {
   setLoading(true);
-  const API_URL = "https://script.google.com/macros/s/AKfycbzFVLC4cv1kRqSB3WE7tMNDwSrJLaa2mybjnsoonJ_T8JhZEzolF3Ks7FWVw-0RMMYW/exec";
 
   let blockFlatMap = {};
   let prasadamList = [];
@@ -31,7 +30,7 @@ async function initPrasadam() {
 
     // ❌ No valid cache → Fetch from API
     console.log("Fetching Block/Flat mapping from API");
-    const res = await fetch(`${API_URL}?action=getBlockFlatMapping`);
+    const res = await fetch(`${CONFIG.API_BASE_URL}?action=getBlockFlatMapping`);
     blockFlatMap = await res.json();
 
     // Save to localStorage with 24-hour expiry
@@ -93,7 +92,7 @@ async function initPrasadam() {
   // ================== PRASADAMS ==================
   async function loadPrasadams() {
     try {
-      const res = await fetch(`${API_URL}?action=get108Prasadams`);
+      const res = await fetch(`${CONFIG.API_BASE_URL}?action=get108Prasadams`);
       prasadamList = await res.json(); // [{item:"Laddu",available:true}, ...]
 
       prasadamList.sort((a, b) => a.item.localeCompare(b.item));
