@@ -35,7 +35,7 @@ const container = document.getElementById('scheduleContent');
    // Show blocking overlay
     document.getElementById("loadingOverlay").style.display = "flex";
     try {
-      const res = await fetch(`${API_URL}?action=getScheduleData&date=${encodeURIComponent(selectedDate)}`);
+      const res = await fetch(`${CONFIG.API_BASE_URL}?action=getScheduleData&date=${encodeURIComponent(selectedDate)}`);
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
   
       const data = await res.json();
