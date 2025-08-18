@@ -69,12 +69,13 @@ function renderSchedule(data) {
 
 
   function renderSection(title, poojaTime, poojaMembers, prasadam, games) {
-    let sectionHtml = `<div class="section"><h3>${title}</h3>`;
-    sectionHtml += `<p>Pooja Time: ${poojaTime || "NA"}</p>`;
-    sectionHtml += renderTable("Pooja Members", poojaMembers, ["Name","Phone","Block","Flat"]);
-    sectionHtml += renderTable("Prasadam", prasadam, ["Name","Sponsor"]);
-    sectionHtml += renderTable("Games/Events", games, ["Name","Time"]);
-    sectionHtml += `</div>`;
+    let sectionHtml = `<div class="section"><h3 class="section-header">${title} : ${poojaTime || "NA"}</h3>
+      <div class="section-body">
+      ${renderTable("Pooja Members", poojaMembers, ["Name","Phone","Block","Flat"])};
+      ${renderTable("Prasadam", prasadam, ["Name","Sponsor"])};
+      ${renderTable("Games/Events", games, ["Name","Time"])};
+      </div>
+    </div>`;
     return sectionHtml;
   }
 

@@ -21,12 +21,26 @@ h2 {
 }
 
 .section {
-  background: rgba(255,255,255,0.92);
+  background: rgba(15, 80, 171, 0.92);
   padding: 15px;
   margin-top: 10px; /* reduce gap */
   border-radius: 12px;
   transform: translateY(15px);
   transition: opacity 1s ease, transform 1s ease;
+}
+
+.section-header {
+  text-align: center;    /* ✅ centered */
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffeb3b;        /* golden */
+  margin: 0 0 6px 0;     /* ✅ reduce spacing */
+}
+
+.section-body p {
+  margin: 4px 0;         /* ✅ less vertical gap */
+  font-size: 0.9rem;
+  text-align: left;      /* ✅ pooja members left aligned */
 }
 
 .section.visible {
@@ -52,14 +66,14 @@ h2 {
 table {
   border-collapse: collapse;
   width: 100%;
-  margin-bottom: 8px;
+  margin: 4px 0;         /* ✅ smaller space before/after */
 }
 
 th, td {
   border: 1px solid #ddd;
   padding: 6px;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #6d1b1b; /* maroon text */
 }
 
@@ -138,4 +152,33 @@ button.secondary {
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+
+@media (max-width: 600px) {
+  .section-header {
+    font-size: 1.1rem;
+    text-align: center;   /* center headers */
+  }
+
+  p {
+    font-size: 1rem;      /* slightly bigger for readability */
+    line-height: 1.4;
+  }
+
+  table {
+    font-size: 0.85rem;
+    margin: 12px 0;
+  }
+
+  th, td {
+    padding: 8px 4px;     /* touch-friendly but compact */
+    font-size: 0.85rem;
+  }
+
+  /* Make tables scrollable on small screens */
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
