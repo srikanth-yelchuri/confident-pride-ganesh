@@ -3,7 +3,7 @@
     <form id="bookingForm" autocomplete="off" aria-describedby="formInstructions">
       <div class="form-group">
         <label for="name">Name</label>
-        <input id="name" type="text" autocomplete="name" autocorrect="off" autocapitalize="words" aria-required="true"/>
+        <input id="name" type="text" autocomplete="name" pattern="^[A-Za-z]+( [A-Za-z]+)*$" autocorrect="off" autocapitalize="words" aria-required="true"/>
       </div>
 
       <div class="form-group">
@@ -46,7 +46,9 @@
       </div>
     </form>
 
-    <div id="loadingSpinner" role="alert" aria-live="assertive" aria-label="Loading"></div>
+     <div id="loadingSpinner" style="display:none;">
+ 	    <div class="spinner"></div>
+     </div>
   </div>
 
   <div id="popupOverlay" role="dialog" aria-modal="true" aria-labelledby="popupMessage" tabindex="-1">

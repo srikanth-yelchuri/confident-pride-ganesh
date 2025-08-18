@@ -4,12 +4,10 @@ export async function handler(event, context) {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
-  const API_URL = "https://script.google.com/macros/s/AKfycbzFVLC4cv1kRqSB3WE7tMNDwSrJLaa2mybjnsoonJ_T8JhZEzolF3Ks7FWVw-0RMMYW/exec?action=save108PrasadamSelection";
-
   try {
     const body = JSON.parse(event.body);
 
-    const res = await fetch(API_URL, {
+    const res = await fetch(CONFIG.API_BASE_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body)

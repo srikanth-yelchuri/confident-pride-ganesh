@@ -1,7 +1,6 @@
 async function initBooking() {
   const middle = document.getElementById('middleContent');
 
-  const API_URL = "https://script.google.com/macros/s/AKfycbxoBP0THGtnbbSGpEIp-0S4Y7UF1strZxNbo-T7loZXZ2LBVsgRge8Xw8AKOusHSEpr/exec";
 
 let blockFlatMap = {};
 let availability = {};
@@ -31,7 +30,7 @@ async function loadBlockFlatMapping() {
 
     // ❌ No valid cache → Fetch from API
     console.log("Fetching Block/Flat mapping from API");
-    const res = await fetch(`${API_URL}?action=getBlockFlatMapping`);
+    const res = await fetch(`${CONFIG.API_BASE_URL}?action=getBlockFlatMapping`);
     blockFlatMap = await res.json();
 
     // Save to localStorage with 24-hour expiry
@@ -89,7 +88,7 @@ document.getElementById('flat').addEventListener('change', () => {
 async function loadSlots() {
   setLoading(true);
   try {
-    const res = await fetch(`${API_URL}?action=getAvailability`);
+    const res = await fetch(`${CONFIG.API_BASE_URL}?action=getAvailability`);
     availability = await res.json();
 
     uniqueDates = [...new Set(Object.keys(availability).map(s => s.split(',')[0].trim()))].sort();
@@ -255,6 +254,39 @@ document.getElementById('submitBtn').addEventListener('click', async ()=>{
     showPopup('Failed to submit booking.', false);
   }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const bookingForm = document.getElementById("bookingForm");
+    const fields = Array.from(bookingForm.querySelectorAll("input, select, textarea"));
+
+    fields.forEach((field, index) => {
+      field.addEventListener("input", () => {
+        // If field has maxlength and is fully filled, move to next
+        if (field.maxLength > 0 && field.value.length === field.maxLength) {
+          moveToNext(index);
+        }
+
+        // For select dropdowns (Block → Flat)
+        if (field.tagName === "SELECT" && field.value) {
+          moveToNext(index);
+        }
+      });
+
+      // For Enter key → go to next field instead of submitting
+      field.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          moveToNext(index);
+        }
+      });
+    });
+
+    function moveToNext(currentIndex) {
+      if (currentIndex < fields.length - 1) {
+        fields[currentIndex + 1].focus();
+      }
+    }
+  });
 
 document.getElementById('refreshBtn').addEventListener('click', loadSlots);
 //setInterval(loadSlots, 60000);
