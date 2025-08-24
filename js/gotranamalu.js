@@ -89,22 +89,63 @@ async function initGotranamalu() {
 
   // Form validation
   function validateForm() {
-    const block = document.getElementById("block").value.trim();
-    const flat = document.getElementById("flat").value.trim();
-    const gotram = document.getElementById("gotram").value.trim();
-    const familyMembers = document.getElementById("familyMembers").value.trim();
-    const submitBtn = document.getElementById("submitBtn");
+  const block = document.getElementById("block").value.trim();
+  const flat = document.getElementById("flat").value.trim();
+  const gotram = document.getElementById("gotram").value.trim();
+  const familyMembers = document.getElementById("familyMembers").value.trim();
+  const submitBtn = document.getElementById("submitBtn");
+  const statusEl = document.getElementById("gotranamaluStatus"); // add status message element in HTML
 
-    if (!userInteracted) {
-      submitBtn.disabled = true;
-      return;
-    }
-    if (!block || !flat || !gotram || !familyMembers) {
-      submitBtn.disabled = true;
-      return;
-    }
-    submitBtn.disabled = false;
+  if (!userInteracted) {
+    statusEl.textContent = "";
+    statusEl.className = "";
+    submitBtn.disabled = true;
+    return;
   }
+
+  if (!block) {
+    statusEl.textContent = "Please select a Block.";
+    statusEl.className = "msg error";
+    submitBtn.disabled = true;
+    return;
+  }
+
+  if (!flat) {
+    statusEl.textContent = "Please select a Flat.";
+    statusEl.className = "msg error";
+    submitBtn.disabled = true;
+    return;
+  }
+
+  if (!gotram) {
+    statusEl.textContent = "Gotram is required.";
+    statusEl.className = "msg error";
+    submitBtn.disabled = true;
+    return;
+  }
+
+  if (!familyMembers) {
+    statusEl.textContent = "Please enter family members.";
+    statusEl.className = "msg error";
+    submitBtn.disabled = true;
+    return;
+  }
+
+  // ✅ Allow only alphabets, spaces, and commas
+  const validFamilyMembers = /^[A-Za-z\s]+(,\s*[A-Za-z\s]+)*$/;
+  if (!validFamilyMembers.test(familyMembers)) {
+    statusEl.textContent = "Family members should be names separated by commas only (no numbers or special characters).";
+    statusEl.className = "msg error";
+    submitBtn.disabled = true;
+    return;
+  }
+
+  // ✅ All validations passed
+  statusEl.textContent = "All details look good!";
+  statusEl.className = "msg success";
+  submitBtn.disabled = false;
+}
+
 
   // Submit handler
   document.getElementById("submitBtn").addEventListener("click", async () => {
@@ -114,7 +155,7 @@ async function initGotranamalu() {
     const familyMembers = document.getElementById("familyMembers").value.trim();
 
     if (!block || !flat || !gotram || !familyMembers) {
-      showPopup("⚠️ Please fill all fields before submitting.", false);
+      showPopup("Please fill all fields before submitting.", false);
       return;
     }
 
@@ -128,11 +169,17 @@ async function initGotranamalu() {
       });
 
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-      const result = await res.json();
+    const text = await res.text(); // get raw response
+    let result = {};
+    try {
+      result = JSON.parse(text); // parse safely
+    } catch(e) {
+      throw new Error(`Invalid JSON response: ${text}`);
+    }
 
       setLoading(false);
-      if (result.status === "success") {
-        showPopup("✅ Gotranamalu details submitted successfully!", true);
+    if(result.success){
+        showPopup(result.message, true);
         document.getElementById("gotranamaluForm").reset();
         document.getElementById("flat").innerHTML =
           '<option value="">-- Select Flat --</option>';
@@ -140,30 +187,40 @@ async function initGotranamalu() {
         userInteracted = false;
         validateForm();
       } else {
-        showPopup("❌ " + result.message, false);
+        showPopup(result.message, false);
       }
     } catch (err) {
       console.error(err);
       setLoading(false);
-      showPopup("❌ Failed to submit gotranamalu details.", false);
+      showPopup("Failed to submit gotranamalu details.", false);
     }
   });
 
   // Popup
-  function showPopup(msg, success = true) {
-    const overlay = document.getElementById("popupOverlay");
-    const popup = document.getElementById("popup");
-    document.getElementById("popupMessage").textContent = msg;
-    popup.className = success ? "success" : "error";
-    overlay.style.display = "flex";
+  function showPopup(msg, success=true){
+    const overlay=document.getElementById('popupOverlay');
+    const popup=document.getElementById('popup');
+    document.getElementById('popupMessage').textContent=msg;
+    popup.className = success?'success':'error';
+    popup.dataset.resultType = success ? 'success' : 'error'; // store type in dataset
+    overlay.style.display='flex';
     popup.focus();
   }
 
-  document
-    .getElementById("popupCloseBtn")
-    .addEventListener("click", () => {
-      document.getElementById("popupOverlay").style.display = "none";
-    });
+  document.getElementById('popupCloseBtn').addEventListener('click', ()=>{
+  const popup = document.getElementById('popup');
+  // ✅ Get resultType that was stored when showing the popup
+  const resultType = popup.dataset.resultType;
+  
+  document.getElementById('popupOverlay').style.display='none';
+  document.getElementById('gotranamaluStatus').textContent=''; 
+  document.getElementById('gotranamaluStatus').className='';
+  document.getElementById('submitBtn').disabled=true;
+  userInteracted=false;
+  if (resultType === 'success') {
+    window.location.href = 'index.html'; // Navigate to home page only if success
+  } 
+});
 
   // Loading spinner
   function setLoading(isLoading) {
