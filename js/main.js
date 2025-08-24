@@ -59,6 +59,15 @@ document.getElementById('img108Prasadam').addEventListener('click', async () => 
   if (typeof initPrasadam === 'function') initPrasadam();
 });
 
+document.getElementById('imgGotranamalu').addEventListener('click', async () => {
+  const res = await fetch('gotranamalu.html');
+  const html = await res.text();
+  middle.innerHTML = html;
+
+  // Manually initialize the JS after HTML is injected
+  if (typeof initGotranamalu === 'function') initGotranamalu();
+});
+
 
 const bgm = document.getElementById('bgm');
 const soundGate = document.getElementById('soundGate');

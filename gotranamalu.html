@@ -1,0 +1,51 @@
+  <div class="form-container" aria-live="polite" aria-atomic="true" aria-relevant="additions">
+    
+    <form id="gotranamaluForm" autocomplete="off" aria-describedby="formInstructions">
+      
+      <div class="form-group">
+        <label for="block">Block</label>
+        <select id="block" aria-required="true" aria-describedby="blockHelp">
+          <option value="">-- Select Block --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="flat">Flat</label>
+        <select id="flat" aria-required="true" aria-describedby="flatHelp" disabled>
+          <option value="">-- Select Flat --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="gotram">Gotram</label>
+        <input id="gotram" type="text" autocomplete="gotram" pattern="^[A-Za-z]+( [A-Za-z]+)*$" autocorrect="off" autocapitalize="words" aria-required="true"/>
+      </div>
+
+      <!-- New Family Members comma separated -->
+        <div class="form-group">
+        <label for="familyMembers">Family Members</label>
+        <input id="familyMembers" type="text" placeholder="Enter names separated by commas (e.g., Rama,Sita,Lakshman)" aria-required="true" aria-describedby="familyHelp"/>
+        <small id="familyHelp">Use commas to separate family members.</small>
+        </div>
+
+     
+      <div class="actions">
+        <button type="button" id="submitBtn" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+
+     <div id="loadingSpinner" style="display:none;">
+ 	    <div class="spinner"></div>
+     </div>
+  </div>
+
+  <div id="popupOverlay" role="dialog" aria-modal="true" aria-labelledby="popupMessage" tabindex="-1">
+    <div id="popup" tabindex="0">
+      <div id="popupMessage"></div>
+      <button id="popupCloseBtn" aria-label="Close popup">Close</button>
+    </div>
+  </div>
+
+
+
+  
