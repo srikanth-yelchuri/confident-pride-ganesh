@@ -5,23 +5,23 @@ const defaultContent = `
   <div id="scheduleContent">
     <div class="shloka-container">
       <div class="shloka">
-        <p><b>Shuklaambara Dharam Vishnum</b><br>
-        Shashi Varnam Chatur Bhujam<br>
-        Prasanna Vadanam Dhyaayet<br>
-        Sarva Vighna Upashaantaye</p>
-    
-        <p><b>Vakratunda Mahakaaya</b><br>
-        Suryakoti Samaprabha<br>
-        Nirvighnam Kuru Mey Deva<br>
-        Sarva Kaaryeshu Sarvada</p>
-    
-        <p><b>Agajaanana Padmaarkam</b><br>
-        Gajaananam Aharnisham<br>
-        Anekadantam Bhaktaanaam<br>
-        Ekadantam Upaasmahey</p>
+        Shuklaambara Dharam Vishnum Shashi Varnam Chatur Bhujam Prasanna Vadanam Dhyaayet Sarva Vighna Upashaantaye
       </div>
     </div>
-</div>
+  
+
+   <!-- Donors Section -->
+    <div class="donors-container">
+      <h3 class="donors-heading">🎉 Congratulations to the Donors 🎉</h3>
+      <ul class="donors-list">
+        <li><span class="item">Ganesh Idol :</span> <span class="name">Dhani (B-604)</span></li>
+        <li><span class="item">Laddu :</span> <span class="name">Ramesh (C-407)</span></li>
+        <li><span class="item">Pattu Vastralu :</span> <span class="name">Ramesh (C-107)</span></li>
+        <li><span class="item">Gajamala - First Day :</span> <span class="name">Sudheer (A-802)</span></li>
+        <li><span class="item">Gajamala - Last Day :</span> <span class="name">Ravi (B-703)</span></li>
+      </ul>
+    </div>
+  </div>
 `;
 
 // Load default content on page load

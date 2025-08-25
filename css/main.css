@@ -240,3 +240,69 @@ body {
     transform: none;
   }
 }
+
+
+/* Container */
+.donors-container {
+  text-align: center;
+  margin: 20px auto;
+  max-width: 500px;
+  padding: 15px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #fff8e1, #fff3cd);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Heading */
+.donors-heading {
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #b34700; /* deep festive orange */
+  text-shadow: 1px 1px 2px #fff, 0 0 6px gold;
+  border-bottom: 2px solid gold;
+  display: inline-block;
+  padding: 6px 20px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #fff9e6, #ffeaa7);
+}
+
+/* Donor list */
+.donors-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 15px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Each donor entry */
+.donors-list li {
+  margin: 8px 0;
+  padding: 8px 14px;
+  border-radius: 8px;
+  display: block;
+  background: linear-gradient(90deg, #fff9db, #fff0b3);
+  color: #2c3e50;
+  font-weight: 500;
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect */
+.donors-list li:hover {
+  transform: scale(1.04);
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  background: linear-gradient(90deg, #ffeaa7, #f8c471);
+  color: #7d2d0f;
+}
+
+/* Highlight item name vs donor */
+.donors-list .item {
+  color: #b34700;
+  font-weight: bold;
+}
+.donors-list .name {
+  color: #1a5276;
+  font-weight: 600;
+}
