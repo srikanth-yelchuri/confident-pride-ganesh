@@ -12,6 +12,10 @@ async function initGotranamalu() {
       const cacheExpiryKey = "blockFlatMapExpiry";
       const now = Date.now();
 
+      // Force expire cache before accessing it
+      localStorage.removeItem(cacheKey);
+      localStorage.removeItem(cacheExpiryKey);
+
       const cachedData = localStorage.getItem(cacheKey);
       const expiry = localStorage.getItem(cacheExpiryKey);
 
