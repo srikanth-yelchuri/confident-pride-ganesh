@@ -158,6 +158,23 @@ document.getElementById("name").addEventListener("keypress", function (e) {
 document.getElementById("name").addEventListener("input", function () {
   this.value = this.value.replace(/\s{2,}/g, ' ').replace(/^\s+/, '');
 });
+
+// Phone field validation: allow only digits
+document.getElementById("phone").addEventListener("keypress", function (e) {
+  const char = String.fromCharCode(e.which);
+  if (!/^[0-9]$/.test(char)) {
+    e.preventDefault(); // block anything that is not a digit
+  }
+});
+
+// Cleanup: remove non-digits if pasted
+document.getElementById("phone").addEventListener("input", function () {
+  this.value = this.value.replace(/[^0-9]/g, ''); // only keep digits
+  if (this.value.length > 10) {
+    this.value = this.value.slice(0, 10); // max 10 digits
+  }
+});
+
 document.querySelectorAll('input[name="slotTime"]').forEach(el => el.addEventListener('change', ()=>{userInteracted=true;validateFormAndUpdateStatus();}));
 
 // Form validation

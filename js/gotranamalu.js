@@ -182,6 +182,19 @@ async function initGotranamalu() {
       })
     );
 
+    // ✅ Gotram restrictions: only letters + spaces
+    document.getElementById("gotram").addEventListener("keypress", function (e) {
+      const char = String.fromCharCode(e.which);
+      if (!/^[A-Za-z ]$/.test(char)) {
+        e.preventDefault(); // block invalid character
+      }
+    });
+
+    document.getElementById("gotram").addEventListener("input", function () {
+      // Collapse multiple spaces → single space, trim leading
+      this.value = this.value.replace(/\s{2,}/g, ' ').replace(/^\s+/, '');
+    });
+
   // Form validation
   function validateForm() {
   const block = document.getElementById("block").value.trim();

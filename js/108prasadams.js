@@ -150,6 +150,26 @@ function enforceMaxSelection() {
   }
 }
 
+// ✅ Add name restriction logic here
+document.getElementById("name").addEventListener("keypress", function (e) {
+  const char = String.fromCharCode(e.which);
+  if (!/^[A-Za-z ]$/.test(char)) {
+    e.preventDefault();
+  }
+});
+document.getElementById("name").addEventListener("input", function () {
+  this.value = this.value.replace(/\s{2,}/g, ' ').replace(/^\s+/, '');
+});
+
+// Phone field validation: allow only digits
+document.getElementById("phone").addEventListener("keypress", function (e) {
+  const char = String.fromCharCode(e.which);
+  if (!/^[0-9]$/.test(char)) {
+    e.preventDefault(); // block anything that is not a digit
+  }
+});
+
+
 // Update validateFormAndUpdateStatus to read from custom divs
 function validateFormAndUpdateStatus() {
   const name = document.getElementById('name')?.value.trim();
