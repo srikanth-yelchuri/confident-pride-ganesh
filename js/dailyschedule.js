@@ -1,65 +1,72 @@
+// Example daily cards data (overview)
+const dailyScheduleCardsData = [
+  {
+    date: "2025-08-27",
+    day: "Wednesday (బుధవారం)",
+    morning: "వినాయక చవితి పత్రీ పూజ, కథాశ్రవణం",
+    morningTime: "9:00 AM - 12:00 PM",
+    evening: "వినాయక పూజ, అబిషేకం",
+    eveningTime: "7:00 PM - 8:00 PM"
+  },
+  {
+    date: "2025-08-29",
+    day: "Friday (శుక్రవారం)",
+    morning: "వినాయక పూజ, అబిషేకం, కుంకుమార్చన",
+    morningTime: "10:00 AM - 12:00 PM",
+    evening: "వినాయక పూజ, అబిషేకం",
+    eveningTime: "6:30 PM - 7:30 PM"
+  },
+  {
+    date: "2025-09-02",
+    day: "Tuesday (మంగళవారం)",
+    morning: "వినాయక పూజ, అబిషేకం",
+    morningTime: "10:30 AM - 11:30 AM",
+    evening: "వినాయక పూజ, అబిషేకం, సహస్రనామ పూజ",
+    eveningTime: "6:30 PM - 8:30 PM"
+  }
+];
+
+
 async function initDailySchedule() {
-const container = document.getElementById('scheduleContent');
-  const dropdown = document.getElementById("dateDropdown");
-  
-  // --- Check localStorage for cached dates ---
-  let cachedDates = localStorage.getItem("ganesh_dates");
-  if (cachedDates) {
-    cachedDates = JSON.parse(cachedDates);
-    populateDropdown(cachedDates);
-    console.log("✅ Loaded dates from localStorage");
-  } else {
-    // Fetch from API and store
-    try {
-      const res = await fetch(`${CONFIG.API_BASE_URL}?action=getDates`);
-      const dates = await res.json();
-      localStorage.setItem("ganesh_dates", JSON.stringify(dates));
-      populateDropdown(dates);
-      console.log("📡 Loaded dates from API & cached");
-    } catch (err) {
-      console.error("Error fetching dates:", err);
-      container.innerHTML = `<p class="no-data">Failed to load dates.</p>`;
-    }
-  }
+  const container = document.getElementById("dailyScheduleCards");
+  container.innerHTML = ""; // clear
 
-  container.innerHTML = `<p class="no-data">Please select a date to view schedule</p>`;
-  
-  
-  // On change event for dropdown
-  dropdown.addEventListener("change", async function () {
-    const selectedDate = this.value;
-    if (!selectedDate) {
-      container.innerHTML = `<p class="no-data">Please select a date to view schedule</p>`;
-      return;
-    }
-   // Show blocking overlay
-    document.getElementById("loadingOverlay").style.display = "flex";
-    try {
-      const res = await fetch(`${CONFIG.API_BASE_URL}?action=getScheduleData&date=${encodeURIComponent(selectedDate)}`);
-      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-  
-      const data = await res.json();
-      renderSchedule(data);
-    } catch (err) {
-      console.error(err);
-      container.innerHTML = "<p class='no-data'>Failed to load schedule.</p>";
-    } finally {
-    // Hide blocking overlay
-    document.getElementById("loadingOverlay").style.display = "none";
-    }
-  });
+    dailyScheduleCardsData.forEach(cardData => {
+    const card = document.createElement("div");
+    card.className = "schedule-card";
+    card.innerHTML = `
+      <h3>${cardData.date} - ${cardData.day}</h3>
+      <p>🌞 ${cardData.morning} (${cardData.morningTime})</p>
+      <p>🌙 ${cardData.evening} (${cardData.eveningTime})</p>
+    `;
 
-  function populateDropdown(dates) {
-    dropdown.innerHTML = '<option value="">-- Select Date --</option>';
-    dates.forEach(date => {
-      const option = document.createElement("option");
-      option.value = date;
-      option.textContent = date;
-      dropdown.appendChild(option);
+   card.addEventListener("click", async () => {
+      try {
+        // Disable cards while fetching
+        container.style.pointerEvents = "none";
+        container.style.opacity = "0.5";
+
+        // Fetch full day schedule from API
+        const selectedDate = cardData.date;
+        const res = await fetch(`${CONFIG.API_BASE_URL}?action=getScheduleData&date=${encodeURIComponent(selectedDate)}`);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+        const data = await res.json();
+
+        // Render the schedule using your existing renderSchedule function
+        renderSchedule(data);
+
+      } catch (err) {
+        console.error("Failed to fetch schedule data:", err);
+        alert("Failed to fetch schedule data. Please try again.");
+        container.style.pointerEvents = "auto";
+        container.style.opacity = "1";
+      }
     });
-  }
-}
 
+    container.appendChild(card);
+  });
+}
 
 function renderSchedule(data) {
   const container = document.getElementById('scheduleContent');
