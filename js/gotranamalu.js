@@ -1,6 +1,8 @@
 async function initGotranamalu() {
   let blockFlatMap = {};
   let userInteracted = false;
+  let gotramCache = {}; // { "A-101": { gotram, familyMembers } }
+  let isEditing = false;
 
   // Load Block-Flat Mapping
   async function loadBlockFlatMapping() {
@@ -35,6 +37,56 @@ async function initGotranamalu() {
     }
     setLoading(false);
   }
+
+  // Load Gotranamalu Cache
+  async function loadGotramCache(forceRefresh = false) {
+
+    const cachedData = localStorage.getItem("gotramCache");
+    const cacheTimestamp = localStorage.getItem("gotramCacheTimestamp");
+    const now = Date.now();
+    const CACHE_TTL = 1000 * 60 * 10; // 10 minutes cache expiry
+
+    if (!forceRefresh && cachedData && cacheTimestamp && (now - cacheTimestamp < CACHE_TTL)) {
+      // Load from localStorage
+      gotramCache = JSON.parse(cachedData);
+      console.log("Cache Loaded from localStorage:", gotramCache);
+      return;
+    }
+    try {
+      const res = await fetch(`${CONFIG.API_BASE_URL}?action=getGotranamalu`);
+      gotramCache = await res.json();
+      console.log("Gotram Cache:", gotramCache);
+    } catch (err) {
+      console.error("Failed to load gotranamalu cache:", err);
+    }
+  }
+
+  function toggleFormMode(isEdit) {
+    const gotram = document.getElementById("gotram");
+    const familyMembers = document.getElementById("familyMembers");
+    const submitBtn = document.getElementById("submitBtn");
+    const editBtn = document.getElementById("editBtn");
+
+    if (isEdit) {
+      gotram.disabled = false;
+      familyMembers.disabled = false;
+      submitBtn.style.display = "inline-block";
+      editBtn.style.display = "none";
+      isEditing = true;
+    } else {
+      gotram.disabled = true;
+      familyMembers.disabled = true;
+      submitBtn.style.display = "none";
+      editBtn.style.display = "inline-block";
+      isEditing = false;
+    }
+  }
+
+  // When user clicks Edit button
+  document.getElementById("editBtn").addEventListener("click", () => {
+    toggleFormMode(true);
+  });
+
 
   // Populate Block dropdown
   function populateBlockDropdown() {
@@ -73,8 +125,27 @@ async function initGotranamalu() {
     validateForm();
   });
 
+    // Flat change → check cache
   document.getElementById("flat").addEventListener("change", () => {
     userInteracted = true;
+
+    const block = document.getElementById("block").value.trim();
+    const flat = document.getElementById("flat").value.trim();
+    const gotram = document.getElementById("gotram");
+    const familyMembers = document.getElementById("familyMembers");
+    const key = `${block}-${flat}`;
+
+    if (gotramCache[key]) {
+      // Prefill from cache and lock form
+      gotram.value = gotramCache[key].gotram;
+      familyMembers.value = gotramCache[key].familyMembers;
+      toggleFormMode(false); // readonly mode with Edit button
+    } else {
+      gotram.value = "";
+      familyMembers.value = "";
+      toggleFormMode(true); // fresh entry → editable
+    }
+
     validateForm();
   });
 
@@ -153,6 +224,7 @@ async function initGotranamalu() {
     const flat = document.getElementById("flat").value.trim();
     const gotram = document.getElementById("gotram").value.trim();
     const familyMembers = document.getElementById("familyMembers").value.trim();
+    const key = `${block}-${flat}`;
 
     if (!block || !flat || !gotram || !familyMembers) {
       showPopup("Please fill all fields before submitting.", false);
@@ -179,6 +251,9 @@ async function initGotranamalu() {
 
       setLoading(false);
     if(result.success){
+        gotramCache[key] = { gotram, familyMembers };
+        localStorage.setItem("gotramCache", JSON.stringify(gotramCache));
+        await refreshGotramCache();
         showPopup(result.message, true);
         document.getElementById("gotranamaluForm").reset();
         document.getElementById("flat").innerHTML =
@@ -229,6 +304,11 @@ async function initGotranamalu() {
       : "none";
   }
 
+  async function refreshGotramCache() {
+    await loadGotramCache(true); // force refresh
+  }
+
   // Initialize
   await loadBlockFlatMapping();
+  await loadGotramCache();
 }

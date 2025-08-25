@@ -4,7 +4,7 @@ export async function handler(event, context) {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
-  const API_URL = "https://script.google.com/macros/s/AKfycbyODuCXkhPqLRSO73rfgMNejKkNRDbwcm02m6x4iNfM1lytza8i5Zng74_dIc5c3-1C/exec?action=submitBooking";
+  const API_URL = "https://script.google.com/macros/s/AKfycbxwvq-GPqFQ7RHSGoQT0PmlOog6Pc9q7PH_N0Dqq_sw5Mwy2R-kQ97J6ZvekaSbLBUT/exec?action=submitBooking";
 
  try {
     const body = JSON.parse(event.body);
