@@ -51,7 +51,7 @@ async function initDailySchedule() {
         container.style.opacity = "0.5";
         document.getElementById("dailyScheduleCards").disabled = true;
         // Fetch full day schedule from API
-        const selectedDate = cardData.date;
+        const selectedDate = day.date;
         const res = await fetch(`${CONFIG.API_BASE_URL}?action=getScheduleData&date=${encodeURIComponent(selectedDate)}`);
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
