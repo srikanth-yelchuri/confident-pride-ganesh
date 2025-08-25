@@ -148,6 +148,16 @@ function initializeDatePicker() {
 
 // Input listeners
 document.querySelectorAll('#name, #phone').forEach(el => el.addEventListener('input', ()=>{userInteracted=true;validateFormAndUpdateStatus();}));
+// ✅ Add name restriction logic here
+document.getElementById("name").addEventListener("keypress", function (e) {
+  const char = String.fromCharCode(e.which);
+  if (!/^[A-Za-z ]$/.test(char)) {
+    e.preventDefault();
+  }
+});
+document.getElementById("name").addEventListener("input", function () {
+  this.value = this.value.replace(/\s{2,}/g, ' ').replace(/^\s+/, '');
+});
 document.querySelectorAll('input[name="slotTime"]').forEach(el => el.addEventListener('change', ()=>{userInteracted=true;validateFormAndUpdateStatus();}));
 
 // Form validation
