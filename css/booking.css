@@ -203,9 +203,6 @@ input[readonly] { background: #fff8e1; /* soft golden background */ }
 }
 
 #loadingSpinner {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
   display: none;                       /* hidden by default */
   align-items: center;
   justify-content: center;

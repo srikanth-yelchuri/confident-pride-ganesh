@@ -17,6 +17,14 @@ body {
   z-index: 10;
 }
 
+.top-banner {
+  width: 100%;
+  left: 0;
+  top: 0;
+  position: relative; /* or fixed if you want it sticky */
+}
+
+
 .top-banner h1 {
   margin: 0;
   color: #b22222;
