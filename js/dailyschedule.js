@@ -49,7 +49,7 @@ async function initDailySchedule() {
         // Disable cards while fetching
         container.style.pointerEvents = "none";
         container.style.opacity = "0.5";
-        document.getElementById("dailyScheduleCards").disabled = false;
+        document.getElementById("dailyScheduleCards").disabled = true;
         // Fetch full day schedule from API
         const selectedDate = cardData.date;
         const res = await fetch(`${CONFIG.API_BASE_URL}?action=getScheduleData&date=${encodeURIComponent(selectedDate)}`);
