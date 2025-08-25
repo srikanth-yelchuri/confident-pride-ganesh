@@ -33,7 +33,7 @@ async function initDailySchedule() {
 
   container.innerHTML = ""; // clear
 
-    dailyScheduleCardsData.forEach(cardData => {
+    dailyScheduleCardsData.forEach(day => {
     const card = document.createElement("div");
     card.className = "day-card";
         card.setAttribute("data-date", day.date);
