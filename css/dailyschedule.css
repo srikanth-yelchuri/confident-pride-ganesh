@@ -235,6 +235,14 @@ button.secondary {
   opacity: 0.5;
 }
 
+.special-pooja {
+  background-color: #fff0f5; /* light pink */
+  color: #d1006c;            /* dark pink text */
+  padding: 8px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
 /* Mobile optimization */
 @media (max-width: 480px) {
   #dailyScheduleCards {

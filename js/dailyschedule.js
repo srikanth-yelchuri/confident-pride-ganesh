@@ -11,8 +11,11 @@ const dailyScheduleCardsData = [
   {
     date: "2025-08-29",
     day: "Friday (శుక్రవారం)",
-    morning: "వినాయక పూజ, అబిషేకం, కుంకుమార్చన",
-    morningTime: "10:00 AM - 12:00 PM",
+    morning: "వినాయక పూజ, అబిషేకం",
+    morningTime: "10:00 AM - 11:00 AM",
+    specialPooja: "కుంకుమార్చన",
+    specialPoojaTime: "11:00 AM - 12:00 PM",
+    specialPoojaSession: "morning", // indicates morning session
     evening: "వినాయక పూజ, అబిషేకం",
     eveningTime: "6:30 PM - 7:30 PM"
   },
@@ -40,9 +43,23 @@ async function initDailySchedule() {
         card.innerHTML = `
           <div class="date">${day.date}</div>
           <div class="day">${day.day}</div>
-          ${day.morning ? `<div class="session"><div class="session-title">🌞 Morning</div>${day.morning}${day.morningTime ? `<span class="time">${day.morningTime}</span>` : ""}</div>` : ""}
-          ${day.evening ? `<div class="session"><div class="session-title">🌙 Evening</div>${day.evening}${day.eveningTime ? `<span class="time">${day.eveningTime}</span>` : ""}</div>` : ""}
-        `;
+              ${day.morning ? `
+              <div class="session">
+                <div class="session-title">🌞 Morning</div>
+                ${day.morning}${day.morningTime ? `<span class="time">${day.morningTime}</span>` : ""}
+                ${day.specialPooja && day.specialPoojaSession === "morning" ? `
+                  <div class="special-pooja">✨ ${day.specialPooja} (${day.specialPoojaTime})</div>` : ""}
+              </div>` : ""}
+
+            ${day.evening ? `
+              <div class="session">
+                <div class="session-title">🌙 Evening</div>
+                ${day.evening}${day.eveningTime ? `<span class="time">${day.eveningTime}</span>` : ""}
+                ${day.specialPooja && day.specialPoojaSession === "evening" ? `
+                  <div class="special-pooja">✨ ${day.specialPooja} (${day.specialPoojaTime})</div>` : ""}
+              </div>` : ""}
+          `;
+
 
    card.addEventListener("click", async () => {
       try {
