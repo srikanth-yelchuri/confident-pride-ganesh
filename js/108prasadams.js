@@ -130,12 +130,12 @@ function renderPrasadamDropdown() {
   });
 }
 
-// Enforce max 2 selection
+// Enforce max 3 selection
 function enforceMaxSelection() {
   const prasadamContainer = document.getElementById('prasadamContainer');
   if (!prasadamContainer) return;
   const selectedItems = prasadamContainer.querySelectorAll('.item.selected');
-  if (selectedItems.length >= 2) {
+  if (selectedItems.length >= 3) {
     prasadamContainer.querySelectorAll('.item').forEach(item => {
       if (!item.classList.contains('selected') && !prasadamList.find(p => p.item === item.textContent && !p.available)) {
         item.classList.add('disabled');
