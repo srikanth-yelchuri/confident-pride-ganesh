@@ -231,8 +231,7 @@ button.secondary {
 
 /* Disabled state when fetching API */
 #dailyScheduleCards.disabled {
-  pointer-events: none;
-  opacity: 0.5;
+  display: none; 
 }
 
 /* Mobile optimization */
@@ -255,3 +254,70 @@ button.secondary {
     font-size: 13px;
   }
 }
+
+.schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .day-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease-in-out;
+      cursor: pointer;
+    }
+
+    .day-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .date {
+      font-size: 14px;
+      font-weight: bold;
+      color: #7f8c8d;
+      margin-bottom: 5px;
+    }
+
+    .day {
+      font-size: 18px;
+      font-weight: bold;
+      color: #16a085;
+      margin-bottom: 15px;
+    }
+
+    .session {
+      margin-bottom: 15px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #f9f9f9;
+      border-left: 5px solid #2c3e50;
+    }
+
+    .session-title {
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 5px;
+    }
+
+    .highlight-red { color: #e74c3c; font-weight: bold; }
+    .highlight-blue { color: #2980b9; font-weight: bold; }
+    .highlight-green { color: #27ae60; font-weight: bold; }
+
+    .time {
+      display: block;
+      color: #8e44ad;
+      font-weight: bold;
+      margin-top: 4px;
+    }
+
+        /* Mobile optimization */
+    @media (max-width: 480px) {
+      body { padding: 10px; }
+      .day-card { padding: 15px; border-radius: 12px; }
+      .day { font-size: 16px; }
+      .session-title { font-size: 14px; }
+      .time { font-size: 13px; }
+    }

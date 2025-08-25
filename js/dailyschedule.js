@@ -33,12 +33,14 @@ async function initDailySchedule() {
 
     dailyScheduleCardsData.forEach(cardData => {
     const card = document.createElement("div");
-    card.className = "schedule-card";
-    card.innerHTML = `
-      <h3>${cardData.date} - ${cardData.day}</h3>
-      <p>🌞 ${cardData.morning} (${cardData.morningTime})</p>
-      <p>🌙 ${cardData.evening} (${cardData.eveningTime})</p>
-    `;
+    card.className = "day-card";
+        card.setAttribute("data-date", day.date);
+        card.innerHTML = `
+          <div class="date">${day.date}</div>
+          <div class="day">${day.day}</div>
+          ${day.morning ? `<div class="session"><div class="session-title">🌞 Morning</div>${day.morning}${day.morningTime ? `<span class="time">${day.morningTime}</span>` : ""}</div>` : ""}
+          ${day.evening ? `<div class="session"><div class="session-title">🌙 Evening</div>${day.evening}${day.eveningTime ? `<span class="time">${day.eveningTime}</span>` : ""}</div>` : ""}
+        `;
 
    card.addEventListener("click", async () => {
       try {
