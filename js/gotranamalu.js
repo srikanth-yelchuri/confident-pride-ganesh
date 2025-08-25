@@ -62,24 +62,29 @@ async function initGotranamalu() {
   }
 
   function toggleFormMode(isEdit) {
+    console.log('toggleFormMode0');
+
     const gotram = document.getElementById("gotram");
     const familyMembers = document.getElementById("familyMembers");
     const submitBtn = document.getElementById("submitBtn");
     const editBtn = document.getElementById("editBtn");
 
     if (isEdit) {
+      console.log('toggleFormMode'+isEdit);
       gotram.disabled = false;
       familyMembers.disabled = false;
       submitBtn.style.display = "inline-block";
       editBtn.style.display = "none";
       isEditing = true;
     } else {
+      console.log('toggleFormMode'+isEdit);
       gotram.disabled = true;
       familyMembers.disabled = true;
       submitBtn.style.display = "none";
       editBtn.style.display = "inline-block";
       isEditing = false;
     }
+    setLoading(false);
   }
 
   // When user clicks Edit button
@@ -128,12 +133,14 @@ async function initGotranamalu() {
     // Flat change → check cache
   document.getElementById("flat").addEventListener("change", () => {
     userInteracted = true;
-
+    setLoading(true);
     const block = document.getElementById("block").value.trim();
     const flat = document.getElementById("flat").value.trim();
     const gotram = document.getElementById("gotram");
     const familyMembers = document.getElementById("familyMembers");
     const key = `${block}-${flat}`;
+
+    console.log('key::'+key);
 
     if (gotramCache[key]) {
       // Prefill from cache and lock form
@@ -145,6 +152,7 @@ async function initGotranamalu() {
       familyMembers.value = "";
       toggleFormMode(true); // fresh entry → editable
     }
+    
 
     validateForm();
   });
