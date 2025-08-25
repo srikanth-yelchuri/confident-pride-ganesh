@@ -144,8 +144,16 @@ async function initGotranamalu() {
 
     if (gotramCache[key]) {
       // Prefill from cache and lock form
-      gotram.value = gotramCache[key].gotram;
-      familyMembers.value = gotramCache[key].familyMembers;
+      gotram.value = gotramCache[key].gotram || "";
+      familyMembers.value = gotramCache[key].familyMembers || "";
+
+      console.log(gotramCache[key].gotram);
+      console.log(gotramCache[key].familyMember);
+
+      console.log('------------------');
+
+      console.log(gotram.value);
+      console.log(familyMembers.value);
       toggleFormMode(false); // readonly mode with Edit button
     } else {
       gotram.value = "";
