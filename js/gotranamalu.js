@@ -55,6 +55,7 @@ async function initGotranamalu() {
     try {
       const res = await fetch(`${CONFIG.API_BASE_URL}?action=getGotranamalu`);
       gotramCache = await res.json();
+      gotramCache = JSON.parse(gotramCache);
       console.log("Gotram Cache:", gotramCache);
     } catch (err) {
       console.error("Failed to load gotranamalu cache:", err);
