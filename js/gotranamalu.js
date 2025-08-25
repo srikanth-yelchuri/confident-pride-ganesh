@@ -13,8 +13,8 @@ async function initGotranamalu() {
       const now = Date.now();
 
       // Force expire cache before accessing it
-      localStorage.removeItem(cacheKey);
-      localStorage.removeItem(cacheExpiryKey);
+      //localStorage.removeItem(cacheKey);
+      //localStorage.removeItem(cacheExpiryKey);
 
       const cachedData = localStorage.getItem(cacheKey);
       const expiry = localStorage.getItem(cacheExpiryKey);
@@ -273,12 +273,13 @@ async function initGotranamalu() {
       throw new Error(`Invalid JSON response: ${text}`);
     }
 
-      setLoading(false);
+      
     if(result.success){
         gotramCache[key] = { gotram, familyMembers };
         localStorage.setItem("gotramCache", JSON.stringify(gotramCache));
         await refreshGotramCache();
         showPopup(result.message, true);
+        setLoading(false);
         document.getElementById("gotranamaluForm").reset();
         document.getElementById("flat").innerHTML =
           '<option value="">-- Select Flat --</option>';
@@ -287,6 +288,7 @@ async function initGotranamalu() {
         validateForm();
       } else {
         showPopup(result.message, false);
+        setLoading(false);
       }
     } catch (err) {
       console.error(err);
