@@ -163,7 +163,7 @@ small {
   display: none;                       /* hidden by default */
   align-items: center;
   justify-content: center;
-  background: #25d11c66;      /* ✅ dim effect */
+  background: rgba(0, 0, 0, 0.4);      /* ✅ dim effect */
   backdrop-filter: blur(1px);          /* ✅ blur background */
   -webkit-backdrop-filter: blur(1px);  /* Safari support */
   z-index: 9999;
