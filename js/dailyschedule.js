@@ -29,6 +29,8 @@ const dailyScheduleCardsData = [
 
 async function initDailySchedule() {
   const container = document.getElementById("dailyScheduleCards");
+  document.getElementById("dailyScheduleCards").disabled = false;
+
   container.innerHTML = ""; // clear
 
     dailyScheduleCardsData.forEach(cardData => {
@@ -47,7 +49,7 @@ async function initDailySchedule() {
         // Disable cards while fetching
         container.style.pointerEvents = "none";
         container.style.opacity = "0.5";
-
+        document.getElementById("dailyScheduleCards").disabled = false;
         // Fetch full day schedule from API
         const selectedDate = cardData.date;
         const res = await fetch(`${CONFIG.API_BASE_URL}?action=getScheduleData&date=${encodeURIComponent(selectedDate)}`);

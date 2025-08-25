@@ -231,7 +231,8 @@ button.secondary {
 
 /* Disabled state when fetching API */
 #dailyScheduleCards.disabled {
-  display: none; 
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 /* Mobile optimization */
