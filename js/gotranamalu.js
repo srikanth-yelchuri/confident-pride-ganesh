@@ -142,13 +142,16 @@ async function initGotranamalu() {
 
     console.log('key::'+key);
 
+    console.log('gotramCache'+gotramCache);
+    console.log('gotramCache'+gotramCache[key]);
+
     if (gotramCache[key]) {
       // Prefill from cache and lock form
       gotram.value = gotramCache[key].gotram || "";
       familyMembers.value = gotramCache[key].familyMembers || "";
 
       console.log(gotramCache[key].gotram);
-      console.log(gotramCache[key].familyMember);
+      console.log(gotramCache[key].familyMembers);
 
       console.log('------------------');
 
