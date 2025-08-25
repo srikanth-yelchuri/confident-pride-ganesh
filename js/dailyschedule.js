@@ -3,37 +3,117 @@ const dailyScheduleCardsData = [
   {
     date: "2025-08-27",
     day: "Wednesday (బుధవారం)",
-    morning: "వినాయక చవితి పత్రీ పూజ, కథాశ్రవణం",
-    morningTime: "9:00 AM - 12:00 PM",
-    evening: "వినాయక పూజ, అబిషేకం",
-    eveningTime: "7:00 PM - 8:00 PM"
+    morning: "వినాయక చవితి పత్రీ పూజ, కథాశ్రవణం, అభిషేకం , ప్రసాద వితరణ",
+    morningTime: "10:00 AM - 1:00 PM",
+    evening: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
+    eveningTime: "7:00 PM - 8:00 PM",
+    specialPooja: []
+  },
+  {
+    date: "2025-08-28",
+    day: "Thursday (గురువారం)",
+    morning: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
+    morningTime: "10:30 AM - 11:30 AM",
+    evening: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
+    eveningTime: "6:30 PM - 7:30 PM",
+    specialPooja: []
   },
   {
     date: "2025-08-29",
     day: "Friday (శుక్రవారం)",
-    morning: "వినాయక పూజ, అబిషేకం",
+    morning: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
     morningTime: "10:00 AM - 11:00 AM",
-    specialPooja: "కుంకుమార్చన",
-    specialPoojaTime: "11:00 AM - 12:00 PM",
-    specialPoojaSession: "morning", // indicates morning session
-    evening: "వినాయక పూజ, అబిషేకం",
-    eveningTime: "6:30 PM - 7:30 PM"
+    evening: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
+    eveningTime: "6:30 PM - 7:30 PM",
+    specialPooja: [
+      { name: "కుంకుమపూజ", time: "6:30 PM - 7:00 PM", session: "evening" }
+    ]
+  },
+  {
+    date: "2025-08-30",
+    day: "Saturday (శనివారం)",
+    morning: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
+    morningTime: "10:30 AM - 11:30 AM",
+    evening: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
+    eveningTime: "6:30 PM - 7:30 PM",
+    specialPooja: []
+  },
+  {
+    date: "2025-08-31",
+    day: "Sunday (ఆదివారం)",
+    morning: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
+    morningTime: "10:30 AM - 11:30 AM",
+    evening: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
+    eveningTime: "6:30 PM - 7:30 PM",
+    specialPooja: []
+  },
+  {
+    date: "2025-09-01",
+    day: "Monday (సోమవారం)",
+    morning: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
+    morningTime: "10:30 AM - 11:30 AM",
+    evening: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
+    eveningTime: "6:30 PM - 7:30 PM",
+    specialPooja: []
   },
   {
     date: "2025-09-02",
     day: "Tuesday (మంగళవారం)",
-    morning: "వినాయక పూజ, అబిషేకం",
+    morning: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
     morningTime: "10:30 AM - 11:30 AM",
-    evening: "వినాయక పూజ, అబిషేకం, సహస్రనామ పూజ",
-    eveningTime: "6:30 PM - 8:30 PM"
+    evening: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
+    eveningTime: "6:30 PM - 7:30 PM",
+    specialPooja: [
+      { name: "కుంకుమపూజ", time: "10:30 AM - 11:00 AM", session: "morning" },
+      { name: "సరస్వతి పూజ", time: "7:30 PM - 8:30 PM", session: "evening" }
+    ]
+  },
+  {
+    date: "2025-09-03",
+    day: "Wednesday (బుధవారం)",
+    morning: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
+    morningTime: "10:30 AM - 11:30 AM",
+    evening: "వినాయక పూజ, అభిషేకం, భజన, ప్రసాద వితరణ",
+    eveningTime: "6:30 PM - 7:30 PM",
+    specialPooja: [
+      { name: "భజన", time: "7:30 PM - 9:30 PM", session: "evening" }
+    ]
+  },
+  {
+    date: "2025-09-04",
+    day: "Thursday (గురువారం)",
+    morning: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
+    morningTime: "10:30 AM - 11:30 AM",
+    evening: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
+    eveningTime: "6:30 PM - 7:30 PM",
+    specialPooja: []
+  },
+  {
+    date: "2025-09-05",
+    day: "Friday (శుక్రవారం)",
+    morning: "వినాయక పూజ, అభిషేకం",
+    morningTime: "10:30 AM - 11:30 AM",
+    evening: "వినాయక పూజ, 108 ప్రసాద మహా నైవేద్యం, ప్రసాద వితరణ",
+    eveningTime: "6:30 PM - 7:30 PM",
+    specialPooja: [
+      { name: "హోమం", time: "06:00 AM - 09:00 PM", session: "morning" },
+      { name: "కుంకుమపూజ", time: "11:30 AM - 12:30 PM", session: "morning" }
+    ]
+  },
+  {
+    date: "2025-09-06",
+    day: "Saturday (శనివారం)",
+    morning: "వినాయక పూజ, అభిషేకం, అన్నప్రసాద వితరణ అనంతరం లడ్డు వేలం పాట, వస్త్రాల వేలం పాట, ఉట్టి కొట్టటం, కోలాటం, నిమర్జనం",
+    morningTime: "10:00 AM - 12:30 PM",
+    evening: "",
+    eveningTime: "",
+    specialPooja: []
   }
 ];
 
 
 async function initDailySchedule() {
   const container = document.getElementById("dailyScheduleCards");
-  document.getElementById("dailyScheduleCards").disabled = false;
-
   container.innerHTML = ""; // clear
 
     dailyScheduleCardsData.forEach(day => {
@@ -44,21 +124,23 @@ async function initDailySchedule() {
           <div class="date">${day.date}</div>
           <div class="day">${day.day}</div>
               ${day.morning ? `
-              <div class="session">
-                <div class="session-title">🌞 Morning</div>
-                ${day.morning}${day.morningTime ? `<span class="time">${day.morningTime}</span>` : ""}
-                ${day.specialPooja && day.specialPoojaSession === "morning" ? `
-                  <div class="special-pooja">✨ ${day.specialPooja} (${day.specialPoojaTime})</div>` : ""}
-              </div>` : ""}
+                  <div class="session">
+                    <div class="session-title">🌞 Morning</div>
+                    ${day.morning}${day.morningTime ? `<span class="time">${day.morningTime}</span>` : ""}
+                    ${day.specialPooja ? day.specialPooja
+                      .filter(p => p.session === "morning")
+                      .map(p => `<div class="special-pooja">✨ ${p.name} (${p.time})</div>`).join("") : ""}
+                  </div>` : ""}
 
-            ${day.evening ? `
-              <div class="session">
-                <div class="session-title">🌙 Evening</div>
-                ${day.evening}${day.eveningTime ? `<span class="time">${day.eveningTime}</span>` : ""}
-                ${day.specialPooja && day.specialPoojaSession === "evening" ? `
-                  <div class="special-pooja">✨ ${day.specialPooja} (${day.specialPoojaTime})</div>` : ""}
-              </div>` : ""}
-          `;
+                ${day.evening ? `
+                  <div class="session">
+                    <div class="session-title">🌙 Evening</div>
+                    ${day.evening}${day.eveningTime ? `<span class="time">${day.eveningTime}</span>` : ""}
+                    ${day.specialPooja ? day.specialPooja
+                      .filter(p => p.session === "evening")
+                      .map(p => `<div class="special-pooja">✨ ${p.name} (${p.time})</div>`).join("") : ""}
+                  </div>` : ""}
+              `;
 
 
    card.addEventListener("click", async () => {
@@ -66,7 +148,10 @@ async function initDailySchedule() {
         // Disable cards while fetching
         container.style.pointerEvents = "none";
         container.style.opacity = "0.5";
-        document.getElementById("dailyScheduleCards").disabled = true;
+        
+        // Completely hide all schedule cards
+        document.getElementById("dailyScheduleCards").style.display = "none";
+        
         // Fetch full day schedule from API
         const selectedDate = day.date;
         const res = await fetch(`${CONFIG.API_BASE_URL}?action=getScheduleData&date=${encodeURIComponent(selectedDate)}`);
