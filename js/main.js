@@ -8,7 +8,8 @@ const defaultContent = `
         Shuklaambara Dharam Vishnum Shashi Varnam Chatur Bhujam Prasanna Vadanam Dhyaayet Sarva Vighna Upashaantaye
       </div>
     </div>
-  
+    </br>
+    </br>
 
    <!-- Donors Section -->
     <div class="donors-container">
@@ -16,7 +17,7 @@ const defaultContent = `
       <ul class="donors-list">
         <li><span class="item">Ganesh Idol :</span> <span class="name">Dhani (B-604)</span></li>
         <li><span class="item">Laddu :</span> <span class="name">Ramesh (C-407)</span></li>
-        <li><span class="item">Pattu Vastralu :</span> <span class="name">Ramesh (C-107)</span></li>
+        <li><span class="item">Pattu Vastralu :</span> <span class="name">Ramesh (B-107)</span></li>
         <li><span class="item">Gajamala - First Day :</span> <span class="name">Sudheer (A-802)</span></li>
         <li><span class="item">Gajamala - Last Day :</span> <span class="name">Ravi (B-703)</span></li>
       </ul>
