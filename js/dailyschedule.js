@@ -3,7 +3,7 @@ const dailyScheduleCardsData = [
   {
     date: "2025-08-27",
     day: "Wednesday (బుధవారం)",
-    morning: "వినాయక చవితి పత్రీ పూజ, కథాశ్రవణం, అభిషేకం , ప్రసాద వితరణ",
+    morning: "వినాయక చవితి గణనాధుని ప్రాణప్రతిష్ఠాపన అనంతరం వినాయక చవితి పూజ, పత్రి పూజ, అభిషేకం, కథాశ్రవణం, ప్రసాద వితరణ",
     morningTime: "10:00 AM - 1:00 PM",
     evening: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
     eveningTime: "7:00 PM - 8:00 PM",
@@ -26,7 +26,7 @@ const dailyScheduleCardsData = [
     evening: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
     eveningTime: "6:30 PM - 7:30 PM",
     specialPooja: [
-      { name: "కుంకుమపూజ", time: "6:30 PM - 7:00 PM", session: "evening" }
+      { name: "కుంకుమపూజ", time: "7:30 PM - 8:30 PM", session: "evening" }
     ]
   },
   {
@@ -64,7 +64,7 @@ const dailyScheduleCardsData = [
     evening: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
     eveningTime: "6:30 PM - 7:30 PM",
     specialPooja: [
-      { name: "కుంకుమపూజ", time: "10:30 AM - 11:00 AM", session: "morning" },
+      { name: "కుంకుమపూజ", time: "11:30 AM - 12:30 AM", session: "morning" },
       { name: "సరస్వతి పూజ", time: "7:30 PM - 8:30 PM", session: "evening" }
     ]
   },
@@ -73,7 +73,7 @@ const dailyScheduleCardsData = [
     day: "Wednesday (బుధవారం)",
     morning: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
     morningTime: "10:30 AM - 11:30 AM",
-    evening: "వినాయక పూజ, అభిషేకం, భజన, ప్రసాద వితరణ",
+    evening: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
     eveningTime: "6:30 PM - 7:30 PM",
     specialPooja: [
       { name: "భజన", time: "7:30 PM - 9:30 PM", session: "evening" }
@@ -91,12 +91,12 @@ const dailyScheduleCardsData = [
   {
     date: "2025-09-05",
     day: "Friday (శుక్రవారం)",
-    morning: "వినాయక పూజ, అభిషేకం",
+    morning: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
     morningTime: "10:30 AM - 11:30 AM",
     evening: "వినాయక పూజ, 108 ప్రసాద మహా నైవేద్యం, ప్రసాద వితరణ",
     eveningTime: "6:30 PM - 7:30 PM",
     specialPooja: [
-      { name: "హోమం", time: "06:00 AM - 09:00 PM", session: "morning" },
+      { name: "హోమం", time: "07:00 AM - 10:00 AM", session: "morning" },
       { name: "కుంకుమపూజ", time: "11:30 AM - 12:30 PM", session: "morning" }
     ]
   },
@@ -182,7 +182,7 @@ function renderSchedule(data) {
 
 
   function renderSection(title, poojaTime, poojaMembers, prasadam, games) {
-    let sectionHtml = `<div class="section"><h3 class="section-header">${title} Pooja : ${poojaTime || "NA"}</h3>
+    let sectionHtml = `<div class="section"><h3 class="section-header">${title}</h3>
       <div class="section-body">
       ${renderTable("Members", poojaMembers, ["Name","Phone","Block","Flat"])}
       ${renderTable("Prasadam", prasadam, ["Name","Sponsor"])}
