@@ -144,6 +144,9 @@ async function initDailySchedule() {
 
 
    card.addEventListener("click", async () => {
+        // Show blocking overlay
+      document.getElementById("loadingOverlay").style.display = "flex"
+      
       try {
         // Disable cards while fetching
         container.style.pointerEvents = "none";
@@ -167,7 +170,10 @@ async function initDailySchedule() {
         alert("Failed to fetch schedule data. Please try again.");
         container.style.pointerEvents = "auto";
         container.style.opacity = "1";
-      }
+      }  finally {
+        // Hide blocking overlay
+        document.getElementById("loadingOverlay").style.display = "none";
+        }
     });
 
     container.appendChild(card);
