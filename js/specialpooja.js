@@ -307,7 +307,7 @@ document.getElementById("homamCheckbox").addEventListener("change", () => {
   statusEl.textContent = "";
   statusEl.className = "";
   submitBtn.disabled = false;
-}
+
     }
 
   // Popup
