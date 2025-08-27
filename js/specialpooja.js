@@ -247,14 +247,15 @@ async function initSpecialPooja() {
     const flat = document.getElementById('flat').value.trim();
     const statusEl = document.getElementById('specialPoojaStatus');
 
-
+    /*
     if (!userInteracted) { statusEl.textContent = ''; statusEl.className = ''; submitBtn.disabled = true; return; }
     if (!name) { statusEl.textContent = 'Name is required.'; statusEl.className = 'msg error'; submitBtn.disabled = true; return; }
     if (!phone) { statusEl.textContent = 'Mobile number is required.'; statusEl.className = 'msg error'; submitBtn.disabled = true; return; }
     if (!/^\d{10}$/.test(phone)) { statusEl.textContent = 'Phone must be exactly 10 digits.'; statusEl.className = 'msg error'; submitBtn.disabled = true; return; }
     if (!block) { statusEl.textContent = 'Please select a Block.'; statusEl.className = 'msg error'; submitBtn.disabled = true; return; }
     if (!flat) { statusEl.textContent = 'Please select a Flat.'; statusEl.className = 'msg error'; submitBtn.disabled = true; return; }
-  }
+    */
+    }
 
   // Popup
   function showPopup(msg, success = true) {
