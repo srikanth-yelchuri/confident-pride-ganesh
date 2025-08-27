@@ -205,6 +205,8 @@ async function initSpecialPooja() {
   const saraswatipoojakidcount = document.getElementById("kidsCount").value.trim();
   const homam = document.querySelectorAll('input[name="homam"]:checked')?.value;
 
+  console.log("kumkumapoojaslot"+kumkumapoojaslot);
+
   setLoading(true);
   
   try {
