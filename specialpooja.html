@@ -1,0 +1,66 @@
+  <div class="form-container" aria-live="polite" aria-atomic="true" aria-relevant="additions">
+    
+    <form id="specialpoojaForm" autocomplete="off" aria-describedby="formInstructions">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" type="text" autocomplete="name" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$" autocorrect="off" autocapitalize="words" aria-required="true"/>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Mobile</label>
+        <input id="phone" type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="10" aria-required="true" placeholder="10-digit mobile number"/>
+      </div>
+
+      <div class="form-group">
+        <label for="block">Block</label>
+        <select id="block" aria-required="true" aria-describedby="blockHelp">
+          <option value="">-- Select Block --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="flat">Flat</label>
+        <select id="flat" aria-required="true" aria-describedby="flatHelp" disabled>
+          <option value="">-- Select Flat --</option>
+        </select>
+      </div>
+
+            <div>
+            <label><input type="checkbox" id="kumkumaPooja"> Kumkuma Pooja</label>
+            <div id="kumkumaSlots" class="hidden"></div>
+            </div>
+
+            <div>
+            <label><input type="checkbox" id="saraswatiPooja"> Saraswati Pooja</label>
+            <div id="saraswatiKids" class="hidden">
+                <label>Number of Kids:</label>
+                <input type="number" id="kidsCount" min="1">
+            </div>
+            </div>
+
+            <div>
+            <label><input type="checkbox" id="homam"> Homam</label>
+            </div>
+
+      <div id="specialpoojaStatus" role="status" aria-live="polite" aria-atomic="true"></div>
+
+      <div class="actions">
+        <button type="button" id="submitBtn" class="btn btn-primary" disabled>Submit</button>
+      </div>
+    </form>
+
+     <div id="loadingSpinner" style="display:none;">
+ 	    <div class="spinner"></div>
+     </div>
+  </div>
+
+  <div id="popupOverlay" role="dialog" aria-modal="true" aria-labelledby="popupMessage" tabindex="-1">
+    <div id="popup" tabindex="0">
+      <div id="popupMessage"></div>
+      <button id="popupCloseBtn" aria-label="Close popup">Close</button>
+    </div>
+  </div>
+
+
+
+  

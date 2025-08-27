@@ -69,6 +69,15 @@ document.getElementById('imgGotranamalu').addEventListener('click', async () => 
   if (typeof initGotranamalu === 'function') initGotranamalu();
 });
 
+document.getElementById('imgSpecialPooja').addEventListener('click', async () => {
+  const res = await fetch('specialpooja.html');
+  const html = await res.text();
+  middle.innerHTML = html;
+
+  // Manually initialize the JS after HTML is injected
+  if (typeof initSpecialPooja === 'function') initSpecialPooja();
+});
+
 
 const bgm = document.getElementById('bgm');
 const soundGate = document.getElementById('soundGate');
