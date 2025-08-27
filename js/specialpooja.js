@@ -115,7 +115,8 @@ async function initSpecialPooja() {
     try {
       setLoading(true);
       const phone = document.getElementById('phone').value.trim();
-      const res = await fetch(`${CONFIG.API_BASE_URL}?action=getUserSpecialPoojaData&block=${block}&flat=${flat}&phone=${phone}`);
+      const name = document.getElementById('name').value.trim();
+      const res = await fetch(`${CONFIG.API_BASE_URL}?action=getUserSpecialPoojaData&name=${name}&block=${block}&flat=${flat}&phone=${phone}`);
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
         const data = await res.json();
@@ -136,21 +137,24 @@ async function initSpecialPooja() {
       // Kumkuma Pooja
       if (data.kumkumapooja && data.kumkumapooja.slot) {
         document.getElementById("kumkumaCheckbox").checked = true;
-        renderKumkumaSlots(data.kumkumapooja.slot);
+        document.getElementById("kumkumaCheckbox").disabled = true;
+        renderKumkumaSlots(data.kumkumapooja.slot, true);
       } else {
         renderKumkumaSlots();
       }
 
       // Saraswati
-      if (data.saraswatipooja) {
+      if (data.saraswatipooja && data.saraswatipooja.kids) {
         document.getElementById("saraswatiCheckbox").checked = true;
         document.getElementById("kidsCount").value = data.saraswatipooja.kids || "";
         document.getElementById("kidsCount").readOnly = true;
+        document.getElementById("saraswatiCheckbox").disabled = true;
       }
 
       // Homam
       if (data.homam === "yes") {
         document.getElementById("homamCheckbox").checked = true;
+         document.getElementById("homamCheckbox").disabled = true;
       }
 
     } catch (err) {
@@ -170,7 +174,7 @@ async function initSpecialPooja() {
   }
 
   // Render Kumkuma Slots
-  async function renderKumkumaSlots(selectedSlot = null) {
+  async function renderKumkumaSlots(selectedSlot = null, readonly = false) {
     try {
       const res = await fetch(`${CONFIG.API_BASE_URL}?action=getKumkumaPoojaSlots`);
       const slots = await res.json();
@@ -185,8 +189,12 @@ async function initSpecialPooja() {
         radio.name = "slotTime";
         radio.value = slot.name;
         if (selectedSlot === slot.name) {
-          radio.checked = true;
-          radio.disabled = true; // lock if already booked
+            radio.checked = true;
+            if (readonly) {
+            radio.disabled = true; // lock selected slot
+            }
+        } else if (readonly) {
+            radio.disabled = true; // disable all other slots
         }
         label.appendChild(radio);
         label.append(` ${slot.name} (${slot.count}/25)`);
@@ -208,7 +216,7 @@ async function initSpecialPooja() {
   console.log("Selected slot:", kumkumapoojaslot);
 
   const saraswatipoojakidcount = document.getElementById("kidsCount").value.trim();
-  const homam = document.querySelectorAll('input[name="homam"]:checked')?.value;
+  const homam = document.querySelector('input[name="homamCheckbox"]:checked')?.value;
 
   setLoading(true);
   

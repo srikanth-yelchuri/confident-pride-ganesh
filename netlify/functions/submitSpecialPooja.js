@@ -4,7 +4,7 @@ export async function handler(event, context) {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
-  const API_URL="https://script.google.com/macros/s/AKfycbxbxAIezvtKqdkhjqoo4pDya0Qi6KyTr2o6cICsldqX_rTZuFnfikidS-dXpdZ0Zcod/exec?action=submitSpecialPooja";
+  const API_URL="https://script.google.com/macros/s/AKfycby-cZJTor7Egw7PRLk6yuBvCsaZljCHlJrMOkDNqfeQXnSXvNkMSsFTY19Hcuubq5E/exec?action=submitSpecialPooja";
   try {
     const body = JSON.parse(event.body);
 
