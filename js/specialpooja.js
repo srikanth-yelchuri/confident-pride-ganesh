@@ -116,7 +116,9 @@ async function initSpecialPooja() {
       setLoading(true);
       const phone = document.getElementById('phone').value.trim();
       const res = await fetch(`${CONFIG.API_BASE_URL}?action=getUserSpecialPoojaData&block=${block}&flat=${flat}&phone=${phone}`);
-      const data = await res.json();
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+        const data = await res.json();
 
       if (!data || Object.keys(data).length === 0) {
         console.log("No existing booking → fresh form");
