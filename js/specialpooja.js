@@ -201,11 +201,12 @@ async function initSpecialPooja() {
   const phone = document.getElementById('phone').value.trim();
   const block = document.getElementById('block').value.trim();
   const flat = document.getElementById('flat').value.trim();
-  const kumkumapoojaslot = document.querySelectorAll('input[name="slotTime"]:checked')?.value;
+  const kumkumapoojaslot = document.querySelector('input[name="slotTime"]:checked')?.value || null;
+
+  console.log("Selected slot:", kumkumapoojaslot);
+
   const saraswatipoojakidcount = document.getElementById("kidsCount").value.trim();
   const homam = document.querySelectorAll('input[name="homam"]:checked')?.value;
-
-  console.log("kumkumapoojaslot"+kumkumapoojaslot);
 
   setLoading(true);
   
