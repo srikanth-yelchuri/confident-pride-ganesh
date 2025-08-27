@@ -239,6 +239,28 @@ async function initSpecialPooja() {
   }
 });
 
+// === Checkbox listeners ===
+document.getElementById("kumkumaCheckbox").addEventListener("change", () => {
+  if (document.getElementById("kumkumaCheckbox").checked) {
+    renderKumkumaSlots(); // load slots dynamically
+    document.getElementById("kumkumaSlotsSection").style.display = "block";
+  } else {
+    document.getElementById("kumkumaSlotsContainer").innerHTML = "";
+    document.getElementById("kumkumaSlotsSection").style.display = "none";
+  }
+  validateFormAndUpdateStatus();
+});
+
+document.getElementById("saraswatiCheckbox").addEventListener("change", () => {
+  const kidsSection = document.getElementById("kidsSection");
+  kidsSection.style.display = document.getElementById("saraswatiCheckbox").checked ? "block" : "none";
+  validateFormAndUpdateStatus();
+});
+
+document.getElementById("homamCheckbox").addEventListener("change", () => {
+  validateFormAndUpdateStatus();
+});
+
   // Form validation
   function validateFormAndUpdateStatus() {
     const name = document.getElementById('name').value.trim();
@@ -246,6 +268,7 @@ async function initSpecialPooja() {
     const block = document.getElementById('block').value.trim();
     const flat = document.getElementById('flat').value.trim();
     const statusEl = document.getElementById('specialPoojaStatus');
+    const submitBtn = document.getElementById('submitBtn');
 
     /*
     if (!userInteracted) { statusEl.textContent = ''; statusEl.className = ''; submitBtn.disabled = true; return; }
@@ -255,6 +278,36 @@ async function initSpecialPooja() {
     if (!block) { statusEl.textContent = 'Please select a Block.'; statusEl.className = 'msg error'; submitBtn.disabled = true; return; }
     if (!flat) { statusEl.textContent = 'Please select a Flat.'; statusEl.className = 'msg error'; submitBtn.disabled = true; return; }
     */
+     const anyChecked = document.getElementById("kumkumaCheckbox").checked ||
+                     document.getElementById("saraswatiCheckbox").checked ||
+                     document.getElementById("homamCheckbox").checked;
+
+  if (!anyChecked) {
+    statusEl.textContent = "Please select at least one pooja.";
+    statusEl.className = "msg error";
+    submitBtn.disabled = true;
+    return;
+  }
+
+  // other validations
+  if (!name || !phone || !block || !flat) {
+    statusEl.textContent = "Fill all required fields.";
+    statusEl.className = "msg error";
+    submitBtn.disabled = true;
+    return;
+  }
+
+  if (!/^\d{10}$/.test(phone)) {
+    statusEl.textContent = "Phone must be exactly 10 digits.";
+    statusEl.className = "msg error";
+    submitBtn.disabled = true;
+    return;
+  }
+
+  statusEl.textContent = "";
+  statusEl.className = "";
+  submitBtn.disabled = false;
+}
     }
 
   // Popup
