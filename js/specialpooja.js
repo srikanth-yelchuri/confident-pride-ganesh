@@ -202,7 +202,7 @@ async function initSpecialPooja() {
   const block = document.getElementById('block').value.trim();
   const flat = document.getElementById('flat').value.trim();
   const kumkumapoojaslot = document.querySelectorAll('input[name="slotTime"]:checked')?.value;
-  const saraswatipoojakidcount = document.getElementById("kids").value.trim();
+  const saraswatipoojakidcount = document.getElementById("kidsCount").value.trim();
   const homam = document.querySelectorAll('input[name="homam"]:checked')?.value;
 
   setLoading(true);
@@ -325,8 +325,8 @@ document.getElementById("homamCheckbox").addEventListener("change", () => {
     const popup = document.getElementById('popup');
     const resultType = popup.dataset.resultType;
     document.getElementById('popupOverlay').style.display = 'none';
-    document.getElementById('bookingStatus').textContent = '';
-    document.getElementById('bookingStatus').className = '';
+    document.getElementById('specialPoojaStatus').textContent = '';
+    document.getElementById('specialPoojaStatus').className = '';
     document.getElementById('submitBtn').disabled = true;
     userInteracted = false;
     if (resultType === 'success') {
