@@ -106,7 +106,7 @@ async function initSpecialPooja() {
     if (this.value.length > 10) this.value = this.value.slice(0, 10);
   });
 
-  document.querySelectorAll('input[name="slotTime"]').forEach(el =>
+  document.querySelector('input[name="slotTime"]').forEach(el =>
     el.addEventListener('change', () => { userInteracted = true; validateFormAndUpdateStatus(); })
   );
 
@@ -336,6 +336,7 @@ document.getElementById("homamCheckbox").addEventListener("change", () => {
         // validation logic
     let isValid = false;
 
+    console.log('kumkumapoojaslot' +kumkumapoojaslot);
     if (kumkumaChecked && kumkumapoojaslot !== "") {
         isValid = true; // Kumkuma needs slot
     }
