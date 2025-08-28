@@ -149,10 +149,10 @@ async function initSpecialPooja() {
         document.getElementById("kumkumaCheckbox").checked = true;
         document.getElementById("kumkumaCheckbox").disabled = true;
         document.getElementById("kumkumaSlotsSection").style.display = "block";
-        renderKumkumaSlots(data.kumkumapooja.slot, true);
+        await renderKumkumaSlots(data.kumkumapooja.slot, true);
         
       } else {
-        renderKumkumaSlots();
+        await renderKumkumaSlots();
       }
 
       // Saraswati
@@ -196,7 +196,7 @@ async function renderKumkumaSlots(selectedSlot = null, readonly = false) {
     const container = document.getElementById("kumkumaSlotsContainer");
     container.innerHTML = "";
 
-    const MAX_CAPACITY = 5;
+    const MAX_CAPACITY = 20;
 
     slots.forEach(slot => {
       const label = document.createElement("label");

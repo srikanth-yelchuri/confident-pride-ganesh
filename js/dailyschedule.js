@@ -1,15 +1,6 @@
 // Example daily cards data (overview)
 const dailyScheduleCardsData = [
-  {
-    date: "2025-08-27",
-    day: "Wednesday (బుధవారం)",
-    morning: "గణనాధుని ప్రాణప్రతిష్ఠాపన అనంతరం వినాయక చవితి పూజ, పత్రి పూజ, అభిషేకం, కథాశ్రవణం, ప్రసాద వితరణ",
-    morningTime: "10:00 AM - 1:00 PM",
-    evening: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
-    eveningTime: "7:00 PM - 8:00 PM",
-    specialPooja: []
-  },
-  {
+   {
     date: "2025-08-28",
     day: "Thursday (గురువారం)",
     morning: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
