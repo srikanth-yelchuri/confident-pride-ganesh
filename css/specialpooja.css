@@ -1,0 +1,21 @@
+.slot-label {
+  display: inline-block;
+  margin: 4px 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.slot-disabled {
+  color: #aaa;              /* gray text */
+  cursor: not-allowed;      /* show not-allowed cursor */
+  text-decoration: line-through; /* optional strike-through */
+}
+
+.slot-disabled input[type="radio"] {
+  cursor: not-allowed; 
+}
+
+#homamCheckbox {
+  display: none;
+}
+

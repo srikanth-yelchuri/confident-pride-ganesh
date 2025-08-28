@@ -155,7 +155,7 @@ async function initSpecialPooja() {
       }
 
       // Homam
-      if (data.homam === "yes") {
+      if (data.homam === "Yes") {
         document.getElementById("homamCheckbox").checked = true;
          document.getElementById("homamCheckbox").disabled = true;
       }
@@ -177,37 +177,60 @@ async function initSpecialPooja() {
   }
 
   // Render Kumkuma Slots
-  async function renderKumkumaSlots(selectedSlot = null, readonly = false) {
-    try {
-      const res = await fetch(`${CONFIG.API_BASE_URL}?action=getKumkumaPoojaSlots`);
-      const slots = await res.json();
+  // Render Kumkuma Slots
+async function renderKumkumaSlots(selectedSlot = null, readonly = false) {
+  try {
+    const res = await fetch(`${CONFIG.API_BASE_URL}?action=getKumkumaPoojaSlots`);
+    const slots = await res.json();
 
-      const container = document.getElementById("kumkumaSlotsContainer");
-      container.innerHTML = "";
+    const container = document.getElementById("kumkumaSlotsContainer");
+    container.innerHTML = "";
 
-      slots.forEach(slot => {
-        const label = document.createElement("label");
-        const radio = document.createElement("input");
-        radio.type = "radio";
-        radio.name = "slotTime";
-        radio.value = slot.name;
-        if (selectedSlot === slot.name) {
-            radio.checked = true;
-            if (readonly) {
-            radio.disabled = true; // lock selected slot
-            }
-        } else if (readonly) {
-            radio.disabled = true; // disable all other slots
-        }
-        label.appendChild(radio);
-        label.append(` ${slot.name} (${slot.count}/25)`);
-        container.appendChild(label);
-        container.appendChild(document.createElement("br"));
-      });
-    } catch (err) {
-      console.error("Error loading slots:", err);
+    const MAX_CAPACITY = 20;
+
+    slots.forEach(slot => {
+      const label = document.createElement("label");
+      label.classList.add("slot-label");
+
+      const radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = "slotTime";
+      radio.value = slot.name;
+
+      // Preselect if matches previously chosen
+      if (selectedSlot === slot.name) {
+        radio.checked = true;
+      }
+
+      // Disable logic → either readonly mode or slot is full
+      if (readonly || slot.count >= MAX_CAPACITY) {
+        radio.disabled = true;
+        label.classList.add("slot-disabled"); // optional CSS class
+      }
+
+      // Re-run validation on change
+      radio.addEventListener("change", validateForm);
+
+      label.appendChild(radio);
+      label.append(
+        ` ${slot.name} (${slot.count}/${MAX_CAPACITY}) ${
+          slot.count >= MAX_CAPACITY ? "- Full" : ""
+        }`
+      );
+
+      container.appendChild(label);
+      container.appendChild(document.createElement("br"));
+    });
+
+    // Show message if all slots are full
+    if (slots.every(slot => slot.count >= MAX_CAPACITY)) {
+      container.innerHTML += `<p style="color:red;font-weight:bold;">All slots are full</p>`;
     }
+  } catch (err) {
+    console.error("Error loading slots:", err);
   }
+}
+
 
   document.getElementById('submitBtn').addEventListener('click', async ()=>{
   const name = document.getElementById('name').value.trim();
@@ -259,6 +282,8 @@ async function initSpecialPooja() {
 
 // === Checkbox listeners ===
 document.getElementById("kumkumaCheckbox").addEventListener("change", () => {
+    setLoading(true);
+    document.getElementById('submitBtn').disabled = true;
   if (document.getElementById("kumkumaCheckbox").checked) {
     renderKumkumaSlots(); // load slots dynamically
     document.getElementById("kumkumaSlotsSection").style.display = "block";
@@ -266,12 +291,14 @@ document.getElementById("kumkumaCheckbox").addEventListener("change", () => {
     document.getElementById("kumkumaSlotsContainer").innerHTML = "";
     document.getElementById("kumkumaSlotsSection").style.display = "none";
   }
+  setLoading(false);
   validateFormAndUpdateStatus();
 });
 
 document.getElementById("saraswatiCheckbox").addEventListener("change", () => {
   const kidsSection = document.getElementById("kidsSection");
   kidsSection.style.display = document.getElementById("saraswatiCheckbox").checked ? "block" : "none";
+  document.getElementById('submitBtn').disabled = true;
   validateFormAndUpdateStatus();
 });
 
