@@ -347,7 +347,7 @@ document.getElementById("homamCheckbox").addEventListener("change", () => {
         // validation logic
     let isValid = false;
 
-    console.log('kumkumapoojaslot' ++kumkumapoojaslot);
+    console.log('kumkumapoojaslot' +kumkumapoojaslot);
     if (kumkumaChecked && kumkumapoojaslot !== "") {
         isValid = true; // Kumkuma needs slot
     }
