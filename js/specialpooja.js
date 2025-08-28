@@ -245,7 +245,7 @@ async function initSpecialPooja() {
     setLoading(false);
     if(result.success){
       showPopup(result.message, true);
-      document.getElementById('bookingForm').reset();
+      document.getElementById('specialpoojaForm').reset();
       document.getElementById('flat').innerHTML='<option value="">-- Select Flat --</option>';
       document.getElementById('flat').disabled=true;
       validateFormAndUpdateStatus();
@@ -287,6 +287,12 @@ document.getElementById("homamCheckbox").addEventListener("change", () => {
     const flat = document.getElementById('flat').value.trim();
     const statusEl = document.getElementById('specialPoojaStatus');
     const submitBtn = document.getElementById('submitBtn');
+    const kumkumaChecked = document.getElementById("kumkumaCheckbox").checked;
+    const saraswatiChecked = document.getElementById("saraswatiCheckbox").checked;
+    const homamChecked = document.getElementById("homamCheckbox").checked;
+    const kumkumapoojaslot = document.querySelector('input[name="slotTime"]:checked')?.value || "";
+    const saraswatipoojakidcount = document.getElementById("kidsCount").value.trim();
+  
 
     
     if (!userInteracted) { statusEl.textContent = ''; statusEl.className = ''; submitBtn.disabled = true; return; }
@@ -296,11 +302,25 @@ document.getElementById("homamCheckbox").addEventListener("change", () => {
     if (!block) { statusEl.textContent = 'Please select a Block.'; statusEl.className = 'msg error'; submitBtn.disabled = true; return; }
     if (!flat) { statusEl.textContent = 'Please select a Flat.'; statusEl.className = 'msg error'; submitBtn.disabled = true; return; }
     
-     const anyChecked = document.getElementById("kumkumaCheckbox").checked ||
+    /* const anyChecked = document.getElementById("kumkumaCheckbox").checked ||
                      document.getElementById("saraswatiCheckbox").checked ||
-                     document.getElementById("homamCheckbox").checked;
+                     document.getElementById("homamCheckbox").checked; */
+    
+        // validation logic
+    let isValid = false;
 
-  if (!anyChecked) {
+    if (kumkumaChecked && kumkumapoojaslot !== "") {
+        isValid = true; // Kumkuma needs slot
+    }
+    if (saraswatiChecked && saraswatipoojakidcount !== "") {
+        isValid = true; // Saraswati needs kids count
+    }
+    if (homamChecked) {
+        isValid = true; // Homam needs no extra info
+    }
+
+
+  if (!isValid) {
     statusEl.textContent = "Please select at least one pooja.";
     statusEl.className = "msg error";
     submitBtn.disabled = true;
