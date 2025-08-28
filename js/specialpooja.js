@@ -209,7 +209,7 @@ async function renderKumkumaSlots(selectedSlot = null, readonly = false) {
       }
 
       // Re-run validation on change
-      radio.addEventListener("change", validateForm);
+      radio.addEventListener("change", validateFormAndUpdateStatus());
 
       label.appendChild(radio);
       label.append(
