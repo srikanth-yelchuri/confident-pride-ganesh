@@ -196,7 +196,7 @@ async function renderKumkumaSlots(selectedSlot = null, readonly = false) {
     const container = document.getElementById("kumkumaSlotsContainer");
     container.innerHTML = "";
 
-    const MAX_CAPACITY = 20;
+    const MAX_CAPACITY = 5;
 
     slots.forEach(slot => {
       const label = document.createElement("label");
