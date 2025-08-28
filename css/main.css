@@ -228,6 +228,13 @@ body {
     justify-content: space-evenly;
   }
 
+  .nav-img {
+  width: 27px;
+  height: 27px;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
   .tooltip {
     position: static;
     visibility: visible !important;
