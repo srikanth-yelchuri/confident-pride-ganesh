@@ -106,7 +106,7 @@ async function initSpecialPooja() {
     if (this.value.length > 10) this.value = this.value.slice(0, 10);
   });
 
-  document.querySelector('input[name="slotTime"]').forEach(el =>
+  document.querySelectorAll('input[name="slotTime"]').forEach(el =>
     el.addEventListener('change', () => { userInteracted = true; validateFormAndUpdateStatus(); })
   );
 
