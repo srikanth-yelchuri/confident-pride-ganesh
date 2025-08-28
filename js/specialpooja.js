@@ -106,9 +106,17 @@ async function initSpecialPooja() {
     if (this.value.length > 10) this.value = this.value.slice(0, 10);
   });
 
-  document.querySelectorAll('input[name="slotTime"]').forEach(el =>
+    const slotContainer = document.getElementById('kumkumaSlotsContainer');
+    slotContainer.addEventListener('change', (e) => {
+    if (e.target && e.target.name === 'slotTime') {
+        userInteracted = true;
+        validateFormAndUpdateStatus();
+    }
+    });
+
+  /*document.querySelectorAll('input[name="slotTime"]').forEach(el =>
     el.addEventListener('change', () => { userInteracted = true; validateFormAndUpdateStatus(); })
-  );
+  );*/
 
   // ✅ Load Existing Booking from Backend
   async function loadExistingBooking(block, flat) {
@@ -220,6 +228,9 @@ async function renderKumkumaSlots(selectedSlot = null, readonly = false) {
 
       container.appendChild(label);
       container.appendChild(document.createElement("br"));
+
+      // 🔄 ensure submit state reflects any preselected slot
+        validateFormAndUpdateStatus();
     });
 
     // Show message if all slots are full
@@ -336,7 +347,7 @@ document.getElementById("homamCheckbox").addEventListener("change", () => {
         // validation logic
     let isValid = false;
 
-    console.log('kumkumapoojaslot' +kumkumapoojaslot);
+    console.log('kumkumapoojaslot' ++kumkumapoojaslot);
     if (kumkumaChecked && kumkumapoojaslot !== "") {
         isValid = true; // Kumkuma needs slot
     }
