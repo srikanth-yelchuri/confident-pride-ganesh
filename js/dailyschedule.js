@@ -6,17 +6,18 @@ const dailyScheduleCardsData = [
     morning: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
     morningTime: "10:30 AM - 11:30 AM",
     evening: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
-    eveningTime: "6:30 PM - 7:30 PM",
+    eveningTime: "8:00 PM - 9:00 PM",
     specialPooja: []
   },
   {
     date: "2025-08-29",
     day: "Friday (శుక్రవారం)",
     morning: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
-    morningTime: "10:00 AM - 11:00 AM",
+    morningTime: "11:00 AM - 12:00 AM",
     evening: "వినాయక పూజ, అభిషేకం, ప్రసాద వితరణ",
     eveningTime: "6:30 PM - 7:30 PM",
     specialPooja: [
+      { name: "కుంకుమపూజ", time: "9:30 AM - 10:30 AM", session: "morning" },
       { name: "కుంకుమపూజ", time: "7:30 PM - 8:30 PM", session: "evening" }
     ]
   },
@@ -154,7 +155,7 @@ async function initDailySchedule() {
         const data = await res.json();
 
         // Render the schedule using your existing renderSchedule function
-        renderSchedule(data);
+        renderSchedule(data,selectedDate);
 
       } catch (err) {
         console.error("Failed to fetch schedule data:", err);
@@ -171,7 +172,7 @@ async function initDailySchedule() {
   });
 }
 
-function renderSchedule(data) {
+function renderSchedule(data,selectedDate) {
   const container = document.getElementById('scheduleContent');
   if (!data) return container.innerHTML = "<p class='no-data'>No schedule available.</p>";
   
@@ -179,7 +180,9 @@ function renderSchedule(data) {
 
 
   function renderSection(title, poojaTime, poojaMembers, prasadam, games) {
-    let sectionHtml = `<div class="section"><h3 class="section-header">${title}</h3>
+    let sectionHtml = `<div class="section">
+    <h2 class="main-header">${selectedDate} - Schedule</h2>
+    <h3 class="section-header">${title}</h3>
       <div class="section-body">
       ${renderTable("Members", poojaMembers, ["Name","Phone","Block","Flat"])}
       ${renderTable("Prasadam", prasadam, ["Name","Sponsor"])}
