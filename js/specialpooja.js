@@ -114,6 +114,8 @@ async function initSpecialPooja() {
     }
     });
 
+    document.getElementById("kidsCount").addEventListener("input", validateFormAndUpdateStatus);
+
   /*document.querySelectorAll('input[name="slotTime"]').forEach(el =>
     el.addEventListener('change', () => { userInteracted = true; validateFormAndUpdateStatus(); })
   );*/
