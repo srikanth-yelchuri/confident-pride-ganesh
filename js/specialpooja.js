@@ -294,11 +294,11 @@ async function renderKumkumaSlots(selectedSlot = null, readonly = false) {
 });
 
 // === Checkbox listeners ===
-document.getElementById("kumkumaCheckbox").addEventListener("change", () => {
+document.getElementById("kumkumaCheckbox").addEventListener("change", async () => {
     setLoading(true);
     document.getElementById('submitBtn').disabled = true;
   if (document.getElementById("kumkumaCheckbox").checked) {
-    renderKumkumaSlots(); // load slots dynamically
+    await renderKumkumaSlots(); // load slots dynamically
     document.getElementById("kumkumaSlotsSection").style.display = "block";
   } else {
     document.getElementById("kumkumaSlotsContainer").innerHTML = "";
