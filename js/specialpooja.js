@@ -138,8 +138,9 @@ async function initSpecialPooja() {
       if (data.kumkumapooja && data.kumkumapooja.slot) {
         document.getElementById("kumkumaCheckbox").checked = true;
         document.getElementById("kumkumaCheckbox").disabled = true;
-        renderKumkumaSlots(data.kumkumapooja.slot, true);
         document.getElementById("kumkumaSlotsSection").style.display = "block";
+        renderKumkumaSlots(data.kumkumapooja.slot, true);
+        
       } else {
         renderKumkumaSlots();
       }
