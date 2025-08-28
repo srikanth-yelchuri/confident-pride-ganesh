@@ -139,6 +139,7 @@ async function initSpecialPooja() {
         document.getElementById("kumkumaCheckbox").checked = true;
         document.getElementById("kumkumaCheckbox").disabled = true;
         renderKumkumaSlots(data.kumkumapooja.slot, true);
+        document.getElementById("kumkumaSlotsSection").style.display = "block";
       } else {
         renderKumkumaSlots();
       }
@@ -149,6 +150,7 @@ async function initSpecialPooja() {
         document.getElementById("kidsCount").value = data.saraswatipooja.kids || "";
         document.getElementById("kidsCount").readOnly = true;
         document.getElementById("saraswatiCheckbox").disabled = true;
+        document.getElementById("kidsSection").style.display = "block";
       }
 
       // Homam
@@ -216,8 +218,10 @@ async function initSpecialPooja() {
   console.log("Selected slot:", kumkumapoojaslot);
 
   const saraswatipoojakidcount = document.getElementById("kidsCount").value.trim();
-  const homam = document.querySelector('input[name="homamCheckbox"]:checked')?.value;
-
+  //const homam = document.querySelector('input[name="homamCheckbox"]:checked')?.value || null;
+  const homam = document.getElementById("homamCheckbox").checked;
+  console.log(homam); 
+  
   setLoading(true);
   
   try {
