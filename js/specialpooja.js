@@ -210,12 +210,14 @@ async function renderKumkumaSlots(selectedSlot = null, readonly = false) {
       // split into date + session
       const [datePart, sessionPart] = slot.name.split(",").map(s => s.trim());
 
-      const today = new Date();
-      today.setHours(0, 0, 0, 0); // reset time to midnight
+      // convert dd-MM-yyyy → yyyy-MM-dd for Date()
+        const [day, month, year] = datePart.split("-");
+        const slotDate = new Date(`${year}-${month}-${day}`);
+        slotDate.setHours(0, 0, 0, 0);
 
-      const slotDate = new Date(datePart); // slot.date should be in YYYY-MM-DD format
-      slotDate.setHours(0, 0, 0, 0);
-
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
       const isPast = slotDate < today;
       console.log('slotDate'+ slotDate);
        console.log('isPast'+ isPast);
