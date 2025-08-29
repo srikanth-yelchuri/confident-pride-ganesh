@@ -217,6 +217,8 @@ async function renderKumkumaSlots(selectedSlot = null, readonly = false) {
       slotDate.setHours(0, 0, 0, 0);
 
       const isPast = slotDate < today;
+      console.log('slotDate'+ slotDate);
+       console.log('isPast'+ isPast);
 
       // Preselect if matches previously chosen
       if (selectedSlot === slot.name) {
