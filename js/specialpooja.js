@@ -207,13 +207,24 @@ async function renderKumkumaSlots(selectedSlot = null, readonly = false) {
       radio.name = "slotTime";
       radio.value = slot.name;
 
+      // split into date + session
+      const [datePart, sessionPart] = slot.name.split(",").map(s => s.trim());
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // reset time to midnight
+
+      const slotDate = new Date(datePart); // slot.date should be in YYYY-MM-DD format
+      slotDate.setHours(0, 0, 0, 0);
+
+      const isPast = slotDate < today;
+
       // Preselect if matches previously chosen
       if (selectedSlot === slot.name) {
         radio.checked = true;
       }
 
       // Disable logic → either readonly mode or slot is full
-      if (readonly || slot.count >= MAX_CAPACITY) {
+      if (readonly || isPast || slot.count >= MAX_CAPACITY) {
         radio.disabled = true;
         label.classList.add("slot-disabled"); // optional CSS class
       }
