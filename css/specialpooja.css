@@ -16,8 +16,11 @@
 }
 
 #homamCheckbox {
-  display: none;
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
+
 
 #homamLabel {
   font-weight: 500;
