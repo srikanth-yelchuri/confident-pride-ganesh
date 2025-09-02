@@ -165,9 +165,18 @@ async function initSpecialPooja() {
       }
 
       // Homam
+
+      const MAX_HOMAM = 20; // set your max capacity
+      document.getElementById("homamCount").textContent = `(${data.homamTotal}/${MAX_HOMAM})`;
+      
       if (data.homam === "Yes") {
         document.getElementById("homamCheckbox").checked = true;
          document.getElementById("homamCheckbox").disabled = true;
+      } else {
+        if (data.homamTotal >= MAX_HOMAM) {
+          document.getElementById("homamCheckbox").disabled = true;
+          document.getElementById("homamLabel").classList.add("slot-disabled"); // optional CSS
+        }
       }
 
     } catch (err) {
