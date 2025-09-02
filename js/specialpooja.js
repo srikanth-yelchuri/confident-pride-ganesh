@@ -168,8 +168,8 @@ async function initSpecialPooja() {
 
       const MAX_HOMAM = 20; // set your max capacity
       document.getElementById("homamCount").textContent = `(${data.homamTotal}/${MAX_HOMAM})`;
-      
-      if (data.homam === "Yes") {
+
+      if (data.homam === "YES") {
         document.getElementById("homamCheckbox").checked = true;
          document.getElementById("homamCheckbox").disabled = true;
       } else {
